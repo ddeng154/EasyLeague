@@ -12,7 +12,6 @@
 		408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40A827D0AFC6004D40B1 /* AppDelegate.swift */; };
 		408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */; };
 		408A40AD27D0AFC6004D40B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AC27D0AFC6004D40B1 /* ViewController.swift */; };
-		408A40B027D0AFC6004D40B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408A40AE27D0AFC6004D40B1 /* Main.storyboard */; };
 		408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 408A40B127D0AFC6004D40B1 /* EasyLeague.xcdatamodeld */; };
 		408A40B527D0AFC7004D40B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B427D0AFC7004D40B1 /* Assets.xcassets */; };
 		408A40B827D0AFC7004D40B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */; };
@@ -25,7 +24,6 @@
 		408A40A827D0AFC6004D40B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		408A40AC27D0AFC6004D40B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		408A40AF27D0AFC6004D40B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		408A40B227D0AFC6004D40B1 /* EasyLeague.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyLeague.xcdatamodel; sourceTree = "<group>"; };
 		408A40B427D0AFC7004D40B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		408A40B727D0AFC7004D40B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 				408A40A827D0AFC6004D40B1 /* AppDelegate.swift */,
 				408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */,
 				408A40AC27D0AFC6004D40B1 /* ViewController.swift */,
-				408A40AE27D0AFC6004D40B1 /* Main.storyboard */,
 				408A40B427D0AFC7004D40B1 /* Assets.xcassets */,
 				408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */,
 				40540C3727D130640022B600 /* GoogleService-Info.plist */,
@@ -160,7 +157,6 @@
 				408A40B827D0AFC7004D40B1 /* LaunchScreen.storyboard in Resources */,
 				40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */,
 				408A40B527D0AFC7004D40B1 /* Assets.xcassets in Resources */,
-				408A40B027D0AFC6004D40B1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,14 +219,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		408A40AE27D0AFC6004D40B1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				408A40AF27D0AFC6004D40B1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -371,7 +359,6 @@
 				INFOPLIST_FILE = EasyLeague/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -400,7 +387,6 @@
 				INFOPLIST_FILE = EasyLeague/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
