@@ -4,5 +4,6 @@ target 'EasyLeague' do
   use_frameworks!
 
   # Pods for EasyLeague
+  pod 'Firebase/Auth'
 
 end
