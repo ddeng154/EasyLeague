@@ -18,10 +18,9 @@ class ViewController: UIViewController {
     }()
     
     var logOutButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log Out", for: .normal)
-        button.setTitleColor(.link, for: .normal)
         button.addTarget(self, action: #selector(logOutButtonPressed), for: .touchUpInside)
         return button
     }()

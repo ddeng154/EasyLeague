@@ -38,10 +38,9 @@ class SignUpViewController: UIViewController {
     }()
     
     var signUpButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.link, for: .normal)
         button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
         return button
     }()

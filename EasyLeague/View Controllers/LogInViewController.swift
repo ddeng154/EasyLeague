@@ -38,19 +38,17 @@ class LogInViewController: UIViewController {
     }()
     
     var logInButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log In", for: .normal)
-        button.setTitleColor(.link, for: .normal)
         button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
         return button
     }()
     
     var signUpButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.link, for: .normal)
         button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
         return button
     }()
