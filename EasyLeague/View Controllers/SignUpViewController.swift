@@ -17,6 +17,26 @@ class SignUpViewController: UIViewController {
         return label
     }()
     
+    var firstNameField: UITextField = {
+        let field = UITextField()
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.borderStyle = .roundedRect
+        field.autocapitalizationType = .sentences
+        field.autocorrectionType = .no
+        field.placeholder = "First Name"
+        return field
+    }()
+    
+    var lastNameField: UITextField = {
+        let field = UITextField()
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.borderStyle = .roundedRect
+        field.autocapitalizationType = .sentences
+        field.autocorrectionType = .no
+        field.placeholder = "Last Name"
+        return field
+    }()
+    
     var emailField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +57,16 @@ class SignUpViewController: UIViewController {
         return field
     }()
     
+    var repeatPasswordField: UITextField = {
+        let field = UITextField()
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.borderStyle = .roundedRect
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        field.placeholder = "Repeat Password"
+        return field
+    }()
+    
     var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -52,15 +82,26 @@ class SignUpViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         view.addSubview(titleLabel)
+        view.addSubview(firstNameField)
+        view.addSubview(lastNameField)
         view.addSubview(emailField)
         view.addSubview(passwordField)
+        view.addSubview(repeatPasswordField)
         view.addSubview(signUpButton)
         
         view.addConstraints([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
-            emailField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            firstNameField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            firstNameField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            firstNameField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            lastNameField.topAnchor.constraint(equalTo: firstNameField.bottomAnchor, constant: 20),
+            lastNameField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            lastNameField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            emailField.topAnchor.constraint(equalTo: lastNameField.bottomAnchor, constant: 20),
             emailField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             emailField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
@@ -68,7 +109,11 @@ class SignUpViewController: UIViewController {
             passwordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             passwordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
-            signUpButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
+            repeatPasswordField.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
+            repeatPasswordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            repeatPasswordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            signUpButton.topAnchor.constraint(equalTo: repeatPasswordField.bottomAnchor, constant: 20),
             signUpButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
         ])
     }
@@ -78,11 +123,20 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
+        guard firstNameField.hasText else {
+            return self.presentSignUpError("First Name field is empty")
+        }
+        guard lastNameField.hasText else {
+            return self.presentSignUpError("Last Name field is empty")
+        }
         guard emailField.hasText, let email = emailField.text else {
             return self.presentSignUpError("Email field is empty")
         }
         guard passwordField.hasText, let password = passwordField.text else {
             return self.presentSignUpError("Password field is empty")
+        }
+        guard repeatPasswordField.text == password else {
+            return self.presentSignUpError("Passwords do not match")
         }
         Auth.auth().createUser(withEmail: email, password: password) { _, error in
             if let error = error {
