@@ -96,7 +96,9 @@ class LogInViewController: UIViewController {
         guard passwordField.hasText, let password = passwordField.text else {
             return presentLogInError("Password field is empty")
         }
+        let spinner = addSpinner()
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
+            spinner.remove()
             if let error = error {
                 self.presentLogInError(error.localizedDescription)
             }

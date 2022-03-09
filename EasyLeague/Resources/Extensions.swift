@@ -28,4 +28,10 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func addSpinner() -> SpinnerViewController {
+        let spinner = SpinnerViewController()
+        add(spinner)
+        return spinner
+    }
+    
 }

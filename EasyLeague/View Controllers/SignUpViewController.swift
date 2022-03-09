@@ -138,7 +138,9 @@ class SignUpViewController: UIViewController {
         guard repeatPasswordField.text == password else {
             return presentSignUpError("Passwords do not match")
         }
+        let spinner = addSpinner()
         Auth.auth().createUser(withEmail: email, password: password) { _, error in
+            spinner.remove()
             if let error = error {
                 self.presentSignUpError(error.localizedDescription)
             } else {
