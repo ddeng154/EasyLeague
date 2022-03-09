@@ -91,10 +91,10 @@ class LogInViewController: UIViewController {
     
     @objc func logInButtonPressed() {
         guard emailField.hasText, let email = emailField.text else {
-            return self.presentLogInError("Email field is empty")
+            return presentLogInError("Email field is empty")
         }
         guard passwordField.hasText, let password = passwordField.text else {
-            return self.presentLogInError("Password field is empty")
+            return presentLogInError("Password field is empty")
         }
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
             if let error = error {
@@ -104,7 +104,7 @@ class LogInViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
-        self.present(SignUpViewController(), animated: true, completion: nil)
+        show(SignUpViewController(), sender: self)
     }
     
 }

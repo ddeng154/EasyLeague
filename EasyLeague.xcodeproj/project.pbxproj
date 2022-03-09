@@ -18,6 +18,7 @@
 		408A40B827D0AFC7004D40B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */; };
 		40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653127D14E3D003FA077 /* LogInViewController.swift */; };
 		40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653727D17566003FA077 /* SignUpViewController.swift */; };
+		40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3927D8D5C500A895E8 /* RootViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		408A40B927D0AFC7004D40B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40C7653127D14E3D003FA077 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		40C7653727D17566003FA077 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		40D7FC3927D8D5C500A895E8 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyLeague.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FF5CEFFE961825C76753EF /* Pods-EasyLeague.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.release.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +76,7 @@
 				40C7653B27D1837B003FA077 /* View Controllers */,
 				408A40A827D0AFC6004D40B1 /* AppDelegate.swift */,
 				408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */,
+				40D7FC3927D8D5C500A895E8 /* RootViewController.swift */,
 				40418A1D27D5E0C1008C8D43 /* Extensions.swift */,
 				408A40B427D0AFC7004D40B1 /* Assets.xcassets */,
 				408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */,
@@ -232,6 +235,7 @@
 				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,
+				40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */,
 				408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

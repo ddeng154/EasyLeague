@@ -124,23 +124,25 @@ class SignUpViewController: UIViewController {
     
     @objc func signUpButtonPressed() {
         guard firstNameField.hasText else {
-            return self.presentSignUpError("First Name field is empty")
+            return presentSignUpError("First Name field is empty")
         }
         guard lastNameField.hasText else {
-            return self.presentSignUpError("Last Name field is empty")
+            return presentSignUpError("Last Name field is empty")
         }
         guard emailField.hasText, let email = emailField.text else {
-            return self.presentSignUpError("Email field is empty")
+            return presentSignUpError("Email field is empty")
         }
         guard passwordField.hasText, let password = passwordField.text else {
-            return self.presentSignUpError("Password field is empty")
+            return presentSignUpError("Password field is empty")
         }
         guard repeatPasswordField.text == password else {
-            return self.presentSignUpError("Passwords do not match")
+            return presentSignUpError("Passwords do not match")
         }
         Auth.auth().createUser(withEmail: email, password: password) { _, error in
             if let error = error {
                 self.presentSignUpError(error.localizedDescription)
+            } else {
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
