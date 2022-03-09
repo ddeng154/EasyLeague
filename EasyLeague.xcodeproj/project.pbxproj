@@ -12,7 +12,7 @@
 		40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40540C3727D130640022B600 /* GoogleService-Info.plist */; };
 		408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40A827D0AFC6004D40B1 /* AppDelegate.swift */; };
 		408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */; };
-		408A40AD27D0AFC6004D40B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AC27D0AFC6004D40B1 /* ViewController.swift */; };
+		408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */; };
 		408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 408A40B127D0AFC6004D40B1 /* EasyLeague.xcdatamodeld */; };
 		408A40B527D0AFC7004D40B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B427D0AFC7004D40B1 /* Assets.xcassets */; };
 		408A40B827D0AFC7004D40B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */; };
@@ -27,7 +27,7 @@
 		408A40A527D0AFC6004D40B1 /* EasyLeague.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyLeague.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		408A40A827D0AFC6004D40B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		408A40AC27D0AFC6004D40B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		408A40B227D0AFC6004D40B1 /* EasyLeague.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyLeague.xcdatamodel; sourceTree = "<group>"; };
 		408A40B427D0AFC7004D40B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		408A40B727D0AFC7004D40B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,7 +74,6 @@
 				40C7653B27D1837B003FA077 /* View Controllers */,
 				408A40A827D0AFC6004D40B1 /* AppDelegate.swift */,
 				408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */,
-				408A40AC27D0AFC6004D40B1 /* ViewController.swift */,
 				40418A1D27D5E0C1008C8D43 /* Extensions.swift */,
 				408A40B427D0AFC7004D40B1 /* Assets.xcassets */,
 				408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */,
@@ -90,6 +89,7 @@
 			children = (
 				40C7653127D14E3D003FA077 /* LogInViewController.swift */,
 				40C7653727D17566003FA077 /* SignUpViewController.swift */,
+				408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 			files = (
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
-				408A40AD27D0AFC6004D40B1 /* ViewController.swift in Sources */,
+				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
 				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,

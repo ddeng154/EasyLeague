@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         Auth.auth().addStateDidChangeListener { _, user in
             if user != nil {
-                self.window?.rootViewController = ViewController()
+                self.window?.rootViewController = HomeViewController()
             } else {
                 self.window?.rootViewController = LogInViewController()
             }
