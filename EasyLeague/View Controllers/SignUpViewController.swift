@@ -119,7 +119,7 @@ class SignUpViewController: UIViewController {
     }
     
     func presentSignUpError(_ message: String) {
-        present(SimpleAlertController(title: "Sign Up Error", message: message), animated: true, completion: nil)
+        presentSimpleAlert(title: "Sign Up Error", message: message)
     }
     
     @objc func signUpButtonPressed() {

@@ -86,7 +86,7 @@ class LogInViewController: UIViewController {
     }
     
     func presentLogInError(_ message: String) {
-        present(SimpleAlertController(title: "Log In Error", message: message), animated: true, completion: nil)
+        presentSimpleAlert(title: "Log In Error", message: message)
     }
     
     @objc func logInButtonPressed() {
