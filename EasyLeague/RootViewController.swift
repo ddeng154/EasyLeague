@@ -8,7 +8,16 @@
 import UIKit
 import FirebaseAuth
 
-class RootViewController: UIViewController {
+protocol SignUpStateChanger {
+    func signUpStarted()
+    func signUpCompleted()
+    func signUpError()
+}
+
+class RootViewController: UIViewController, SignUpStateChanger {
+    
+    var isLoggedIn = false
+    var isWaitingForSignUp = false
     
     var currentViewController: UIViewController?
     
@@ -17,18 +26,37 @@ class RootViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         Auth.auth().addStateDidChangeListener { _, user in
-            if user != nil {
-                self.currentViewController?.remove()
-                let viewController = HomeViewController()
-                self.add(viewController)
-                self.currentViewController = viewController
-            } else {
-                self.currentViewController?.remove()
-                let viewController = LogInViewController()
-                self.add(viewController)
-                self.currentViewController = viewController
-            }
+            self.isLoggedIn = user != nil
+            self.updateCurrentViewController()
         }
+    }
+    
+    func updateCurrentViewController() {
+        guard !isWaitingForSignUp else { return }
+        let nextViewController: UIViewController
+        if isLoggedIn {
+            nextViewController = HomeViewController()
+        } else {
+            let logInController = LogInViewController()
+            logInController.delegate = self
+            nextViewController = logInController
+        }
+        currentViewController?.remove()
+        add(nextViewController)
+        currentViewController = nextViewController
+    }
+    
+    func signUpStarted() {
+        self.isWaitingForSignUp = true
+    }
+    
+    func signUpCompleted() {
+        self.isWaitingForSignUp = false
+        updateCurrentViewController()
+    }
+    
+    func signUpError() {
+        self.isWaitingForSignUp = false
     }
     
 }

@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     var userLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = Auth.auth().currentUser?.email
+        label.text = Auth.auth().currentUser?.displayName
         return label
     }()
     

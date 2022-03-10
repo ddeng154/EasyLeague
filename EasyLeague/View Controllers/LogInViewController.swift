@@ -10,6 +10,8 @@ import FirebaseAuth
 
 class LogInViewController: UIViewController {
     
+    var delegate: SignUpStateChanger!
+    
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +108,9 @@ class LogInViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
-        show(SignUpViewController(), sender: self)
+        let signUpController = SignUpViewController()
+        signUpController.delegate = delegate
+        show(signUpController, sender: self)
     }
     
 }
