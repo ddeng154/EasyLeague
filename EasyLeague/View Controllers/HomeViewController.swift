@@ -12,6 +12,7 @@ class HomeViewController: UIViewController {
 
     lazy var userLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.text = Auth.auth().currentUser?.displayName
         return withAutoLayout(label)
     }()
@@ -23,21 +24,37 @@ class HomeViewController: UIViewController {
         return withAutoLayout(button)
     }()
     
+    lazy var spacer: UIView = {
+        let spacer = UIView()
+        return spacer
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 20
+        return withAutoLayout(stack)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        view.addSubview(userLabel)
-        view.addSubview(logOutButton)
+        stackView.addArrangedSubview(userLabel)
+        stackView.addArrangedSubview(logOutButton)
+        stackView.addArrangedSubview(spacer)
+        
+        view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            userLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            userLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            
-            logOutButton.topAnchor.constraint(equalTo: userLabel.safeAreaLayoutGuide.bottomAnchor, constant: 20),
-            logOutButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
     }
 

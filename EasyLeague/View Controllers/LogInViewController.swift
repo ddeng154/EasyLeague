@@ -14,6 +14,7 @@ class LogInViewController: UIViewController {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.text = "EasyLeague"
         return withAutoLayout(label)
     }()
@@ -50,35 +51,40 @@ class LogInViewController: UIViewController {
         return withAutoLayout(button)
     }()
     
+    lazy var spacer: UIView = {
+        let spacer = UIView()
+        return spacer
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 20
+        return withAutoLayout(stack)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        view.addSubview(titleLabel)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
-        view.addSubview(logInButton)
-        view.addSubview(signUpButton)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(emailField)
+        stackView.addArrangedSubview(passwordField)
+        stackView.addArrangedSubview(logInButton)
+        stackView.addArrangedSubview(signUpButton)
+        stackView.addArrangedSubview(spacer)
+        
+        view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            
-            emailField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            emailField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            emailField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
-            passwordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            passwordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            logInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
-            logInButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            
-            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 20),
-            signUpButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
     }
     
