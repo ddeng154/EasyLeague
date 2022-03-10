@@ -12,69 +12,77 @@ class SignUpViewController: UIViewController {
     
     var delegate: SignUpStateChanger!
     
-    var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.text = "EasyLeague"
-        return label
+        return withAutoLayout(label)
     }()
     
-    var firstNameField: UITextField = {
+    lazy var firstNameField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .sentences
         field.autocorrectionType = .no
         field.placeholder = "First Name"
-        return field
+        return withAutoLayout(field)
     }()
     
-    var lastNameField: UITextField = {
+    lazy var lastNameField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .sentences
         field.autocorrectionType = .no
         field.placeholder = "Last Name"
-        return field
+        return withAutoLayout(field)
     }()
     
-    var emailField: UITextField = {
+    lazy var emailField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Email"
-        return field
+        return withAutoLayout(field)
     }()
     
-    var passwordField: UITextField = {
+    lazy var passwordField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Password"
-        return field
+        return withAutoLayout(field)
     }()
     
-    var repeatPasswordField: UITextField = {
+    lazy var repeatPasswordField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Repeat Password"
-        return field
+        return withAutoLayout(field)
     }()
     
-    var signUpButton: UIButton = {
+    lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign Up", for: .normal)
         button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
-        return button
+        return withAutoLayout(button)
+    }()
+    
+    lazy var spacer: UIView = {
+        let spacer = UIView()
+        return spacer
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 20
+        return withAutoLayout(stack)
     }()
     
     override func viewDidLoad() {
@@ -83,40 +91,22 @@ class SignUpViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        view.addSubview(titleLabel)
-        view.addSubview(firstNameField)
-        view.addSubview(lastNameField)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
-        view.addSubview(repeatPasswordField)
-        view.addSubview(signUpButton)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(firstNameField)
+        stackView.addArrangedSubview(lastNameField)
+        stackView.addArrangedSubview(emailField)
+        stackView.addArrangedSubview(passwordField)
+        stackView.addArrangedSubview(repeatPasswordField)
+        stackView.addArrangedSubview(signUpButton)
+        stackView.addArrangedSubview(spacer)
         
-        view.addConstraints([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            
-            firstNameField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            firstNameField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            firstNameField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            lastNameField.topAnchor.constraint(equalTo: firstNameField.bottomAnchor, constant: 20),
-            lastNameField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            lastNameField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            emailField.topAnchor.constraint(equalTo: lastNameField.bottomAnchor, constant: 20),
-            emailField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            emailField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
-            passwordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            passwordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            repeatPasswordField.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
-            repeatPasswordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            repeatPasswordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            signUpButton.topAnchor.constraint(equalTo: repeatPasswordField.bottomAnchor, constant: 20),
-            signUpButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
     }
     

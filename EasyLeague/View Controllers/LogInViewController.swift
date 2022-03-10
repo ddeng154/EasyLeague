@@ -12,47 +12,57 @@ class LogInViewController: UIViewController {
     
     var delegate: SignUpStateChanger!
     
-    var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.text = "EasyLeague"
-        return label
+        return withAutoLayout(label)
     }()
     
-    var emailField: UITextField = {
+    lazy var emailField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Email"
-        return field
+        return withAutoLayout(field)
     }()
     
-    var passwordField: UITextField = {
+    lazy var passwordField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Password"
-        return field
+        return withAutoLayout(field)
     }()
     
-    var logInButton: UIButton = {
+    lazy var logInButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log In", for: .normal)
         button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
-        return button
+        return withAutoLayout(button)
     }()
     
-    var signUpButton: UIButton = {
+    lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign Up", for: .normal)
         button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
-        return button
+        return withAutoLayout(button)
+    }()
+    
+    lazy var spacer: UIView = {
+        let spacer = UIView()
+        return spacer
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 20
+        return withAutoLayout(stack)
     }()
     
     override func viewDidLoad() {
@@ -61,29 +71,20 @@ class LogInViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        view.addSubview(titleLabel)
-        view.addSubview(emailField)
-        view.addSubview(passwordField)
-        view.addSubview(logInButton)
-        view.addSubview(signUpButton)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(emailField)
+        stackView.addArrangedSubview(passwordField)
+        stackView.addArrangedSubview(logInButton)
+        stackView.addArrangedSubview(signUpButton)
+        stackView.addArrangedSubview(spacer)
         
-        view.addConstraints([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            
-            emailField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            emailField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            emailField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
-            passwordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            passwordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            
-            logInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
-            logInButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            
-            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 20),
-            signUpButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
     }
     

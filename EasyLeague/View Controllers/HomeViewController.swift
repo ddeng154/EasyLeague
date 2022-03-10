@@ -10,19 +10,32 @@ import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
-    var userLabel: UILabel = {
+    lazy var userLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.text = Auth.auth().currentUser?.displayName
-        return label
+        return withAutoLayout(label)
     }()
     
-    var logOutButton: UIButton = {
+    lazy var logOutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log Out", for: .normal)
         button.addTarget(self, action: #selector(logOutButtonPressed), for: .touchUpInside)
-        return button
+        return withAutoLayout(button)
+    }()
+    
+    lazy var spacer: UIView = {
+        let spacer = UIView()
+        return spacer
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 20
+        return withAutoLayout(stack)
     }()
     
     override func viewDidLoad() {
@@ -31,15 +44,17 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        view.addSubview(userLabel)
-        view.addSubview(logOutButton)
+        stackView.addArrangedSubview(userLabel)
+        stackView.addArrangedSubview(logOutButton)
+        stackView.addArrangedSubview(spacer)
         
-        view.addConstraints([
-            userLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            userLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            
-            logOutButton.topAnchor.constraint(equalTo: userLabel.safeAreaLayoutGuide.bottomAnchor, constant: 20),
-            logOutButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
     }
 

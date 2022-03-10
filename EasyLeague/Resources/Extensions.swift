@@ -34,4 +34,9 @@ extension UIViewController {
         return spinner
     }
     
+    func withAutoLayout<V: UIView>(_ subview: V) -> V {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        return subview
+    }
+    
 }
