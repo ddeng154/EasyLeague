@@ -10,14 +10,14 @@ import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
-    var userLabel: UILabel = {
+    lazy var userLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Auth.auth().currentUser?.displayName
         return label
     }()
     
-    var logOutButton: UIButton = {
+    lazy var logOutButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log Out", for: .normal)
@@ -34,7 +34,7 @@ class HomeViewController: UIViewController {
         view.addSubview(userLabel)
         view.addSubview(logOutButton)
         
-        view.addConstraints([
+        NSLayoutConstraint.activate([
             userLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             userLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             

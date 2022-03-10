@@ -9,7 +9,7 @@ import UIKit
 
 class SpinnerViewController: UIViewController {
     
-    var spinner: UIActivityIndicatorView = {
+    lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .medium)
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
@@ -24,7 +24,7 @@ class SpinnerViewController: UIViewController {
         
         view.addSubview(spinner)
         
-        view.addConstraints([
+        NSLayoutConstraint.activate([
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])

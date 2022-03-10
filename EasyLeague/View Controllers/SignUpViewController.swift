@@ -12,14 +12,14 @@ class SignUpViewController: UIViewController {
     
     var delegate: SignUpStateChanger!
     
-    var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "EasyLeague"
         return label
     }()
     
-    var firstNameField: UITextField = {
+    lazy var firstNameField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
@@ -29,7 +29,7 @@ class SignUpViewController: UIViewController {
         return field
     }()
     
-    var lastNameField: UITextField = {
+    lazy var lastNameField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
@@ -39,7 +39,7 @@ class SignUpViewController: UIViewController {
         return field
     }()
     
-    var emailField: UITextField = {
+    lazy var emailField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
@@ -49,7 +49,7 @@ class SignUpViewController: UIViewController {
         return field
     }()
     
-    var passwordField: UITextField = {
+    lazy var passwordField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
@@ -59,7 +59,7 @@ class SignUpViewController: UIViewController {
         return field
     }()
     
-    var repeatPasswordField: UITextField = {
+    lazy var repeatPasswordField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
@@ -69,7 +69,7 @@ class SignUpViewController: UIViewController {
         return field
     }()
     
-    var signUpButton: UIButton = {
+    lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign Up", for: .normal)
@@ -91,7 +91,7 @@ class SignUpViewController: UIViewController {
         view.addSubview(repeatPasswordField)
         view.addSubview(signUpButton)
         
-        view.addConstraints([
+        NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             

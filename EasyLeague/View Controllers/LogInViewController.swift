@@ -12,14 +12,14 @@ class LogInViewController: UIViewController {
     
     var delegate: SignUpStateChanger!
     
-    var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "EasyLeague"
         return label
     }()
     
-    var emailField: UITextField = {
+    lazy var emailField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
@@ -29,7 +29,7 @@ class LogInViewController: UIViewController {
         return field
     }()
     
-    var passwordField: UITextField = {
+    lazy var passwordField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
@@ -39,7 +39,7 @@ class LogInViewController: UIViewController {
         return field
     }()
     
-    var logInButton: UIButton = {
+    lazy var logInButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log In", for: .normal)
@@ -47,7 +47,7 @@ class LogInViewController: UIViewController {
         return button
     }()
     
-    var signUpButton: UIButton = {
+    lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign Up", for: .normal)
@@ -67,7 +67,7 @@ class LogInViewController: UIViewController {
         view.addSubview(logInButton)
         view.addSubview(signUpButton)
         
-        view.addConstraints([
+        NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
