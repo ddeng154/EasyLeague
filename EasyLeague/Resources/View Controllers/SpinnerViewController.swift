@@ -11,9 +11,8 @@ class SpinnerViewController: UIViewController {
     
     lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
-        return spinner
+        return withAutoLayout(spinner)
     }()
     
     override func viewDidLoad() {

@@ -14,67 +14,60 @@ class SignUpViewController: UIViewController {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "EasyLeague"
-        return label
+        return withAutoLayout(label)
     }()
     
     lazy var firstNameField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .sentences
         field.autocorrectionType = .no
         field.placeholder = "First Name"
-        return field
+        return withAutoLayout(field)
     }()
     
     lazy var lastNameField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .sentences
         field.autocorrectionType = .no
         field.placeholder = "Last Name"
-        return field
+        return withAutoLayout(field)
     }()
     
     lazy var emailField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Email"
-        return field
+        return withAutoLayout(field)
     }()
     
     lazy var passwordField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Password"
-        return field
+        return withAutoLayout(field)
     }()
     
     lazy var repeatPasswordField: UITextField = {
         let field = UITextField()
-        field.translatesAutoresizingMaskIntoConstraints = false
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.placeholder = "Repeat Password"
-        return field
+        return withAutoLayout(field)
     }()
     
     lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Sign Up", for: .normal)
         button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
-        return button
+        return withAutoLayout(button)
     }()
     
     override func viewDidLoad() {

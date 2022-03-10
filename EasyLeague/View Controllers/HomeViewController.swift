@@ -12,17 +12,15 @@ class HomeViewController: UIViewController {
 
     lazy var userLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Auth.auth().currentUser?.displayName
-        return label
+        return withAutoLayout(label)
     }()
     
     lazy var logOutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log Out", for: .normal)
         button.addTarget(self, action: #selector(logOutButtonPressed), for: .touchUpInside)
-        return button
+        return withAutoLayout(button)
     }()
     
     override func viewDidLoad() {
