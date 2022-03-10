@@ -10,6 +10,8 @@ import FirebaseAuth
 
 class LogInViewController: UIViewController {
     
+    var delegate: SignUpStateChanger!
+    
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -91,12 +93,14 @@ class LogInViewController: UIViewController {
     
     @objc func logInButtonPressed() {
         guard emailField.hasText, let email = emailField.text else {
-            return self.presentLogInError("Email field is empty")
+            return presentLogInError("Email field is empty")
         }
         guard passwordField.hasText, let password = passwordField.text else {
-            return self.presentLogInError("Password field is empty")
+            return presentLogInError("Password field is empty")
         }
+        let spinner = addSpinner()
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
+            spinner.remove()
             if let error = error {
                 self.presentLogInError(error.localizedDescription)
             }
@@ -104,7 +108,9 @@ class LogInViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
-        self.present(SignUpViewController(), animated: true, completion: nil)
+        let signUpController = SignUpViewController()
+        signUpController.delegate = delegate
+        show(signUpController, sender: self)
     }
     
 }

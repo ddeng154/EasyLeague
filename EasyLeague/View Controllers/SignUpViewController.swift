@@ -10,6 +10,8 @@ import FirebaseAuth
 
 class SignUpViewController: UIViewController {
     
+    var delegate: SignUpStateChanger!
+    
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -123,24 +125,36 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed() {
-        guard firstNameField.hasText else {
-            return self.presentSignUpError("First Name field is empty")
+        guard firstNameField.hasText, let firstName = firstNameField.text else {
+            return presentSignUpError("First Name field is empty")
         }
-        guard lastNameField.hasText else {
-            return self.presentSignUpError("Last Name field is empty")
+        guard lastNameField.hasText, let lastName = lastNameField.text else {
+            return presentSignUpError("Last Name field is empty")
         }
         guard emailField.hasText, let email = emailField.text else {
-            return self.presentSignUpError("Email field is empty")
+            return presentSignUpError("Email field is empty")
         }
         guard passwordField.hasText, let password = passwordField.text else {
-            return self.presentSignUpError("Password field is empty")
+            return presentSignUpError("Password field is empty")
         }
         guard repeatPasswordField.text == password else {
-            return self.presentSignUpError("Passwords do not match")
+            return presentSignUpError("Passwords do not match")
         }
-        Auth.auth().createUser(withEmail: email, password: password) { _, error in
+        let spinner = addSpinner()
+        delegate.signUpStarted()
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
+                spinner.remove()
+                self.delegate.signUpError()
                 self.presentSignUpError(error.localizedDescription)
+            } else if let user = result?.user {
+                let changeRequest = user.createProfileChangeRequest()
+                changeRequest.displayName = "\(firstName) \(lastName)"
+                changeRequest.commitChanges { _ in
+                    spinner.remove()
+                    self.delegate.signUpCompleted()
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }

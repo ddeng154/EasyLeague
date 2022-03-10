@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  EasyLeague
 //
 //  Created by Aly Hirani on 3/3/22.
@@ -8,12 +8,12 @@
 import UIKit
 import FirebaseAuth
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
 
     var userLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = Auth.auth().currentUser?.email
+        label.text = Auth.auth().currentUser?.displayName
         return label
     }()
     
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         do {
             try Auth.auth().signOut()
         } catch {
-            present(SimpleAlertController(title: "Log Out Error", message: error.localizedDescription), animated: true, completion: nil)
+            presentSimpleAlert(title: "Log Out Error", message: error.localizedDescription)
         }
     }
 
