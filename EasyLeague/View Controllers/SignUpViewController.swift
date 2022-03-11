@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import PhotosUI
 import FirebaseAuth
+import FirebaseStorage
 
 class SignUpViewController: UIViewController {
     
     var delegate: SignUpStateChanger!
+    
+    var profilePicture: UIImage?
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -64,6 +68,14 @@ class SignUpViewController: UIViewController {
         return withAutoLayout(field)
     }()
     
+    lazy var photoPickerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.contentHorizontalAlignment = .leading
+        button.setTitle("Choose Profile Picture", for: .normal)
+        button.addTarget(self, action: #selector(photoPickerButtonPressed), for: .touchUpInside)
+        return withAutoLayout(button)
+    }()
+    
     lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
@@ -97,6 +109,7 @@ class SignUpViewController: UIViewController {
         stackView.addArrangedSubview(emailField)
         stackView.addArrangedSubview(passwordField)
         stackView.addArrangedSubview(repeatPasswordField)
+        stackView.addArrangedSubview(photoPickerButton)
         stackView.addArrangedSubview(signUpButton)
         stackView.addArrangedSubview(spacer)
         
@@ -112,6 +125,14 @@ class SignUpViewController: UIViewController {
     
     func presentSignUpError(_ message: String) {
         presentSimpleAlert(title: "Sign Up Error", message: message)
+    }
+    
+    @objc func photoPickerButtonPressed() {
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = .images
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
     }
     
     @objc func signUpButtonPressed() {
@@ -130,6 +151,12 @@ class SignUpViewController: UIViewController {
         guard repeatPasswordField.text == password else {
             return presentSignUpError("Passwords do not match")
         }
+        guard let profilePicture = profilePicture else {
+            return presentSignUpError("Profile picture is not selected")
+        }
+        guard let photoData = profilePicture.jpegData(compressionQuality: 1.0) else {
+            return presentSignUpError("Profile picture cannot be converted to JPEG")
+        }
         let spinner = addSpinner()
         delegate.signUpStarted()
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
@@ -138,12 +165,34 @@ class SignUpViewController: UIViewController {
                 self.delegate.signUpError()
                 self.presentSignUpError(error.localizedDescription)
             } else if let user = result?.user {
-                let changeRequest = user.createProfileChangeRequest()
-                changeRequest.displayName = "\(firstName) \(lastName)"
-                changeRequest.commitChanges { _ in
-                    spinner.remove()
-                    self.delegate.signUpCompleted()
-                    self.dismiss(animated: true, completion: nil)
+                user.storageReferenceForPhoto.putData(photoData, metadata: nil) { metadata, error in
+                    let changeRequest = user.createProfileChangeRequest()
+                    changeRequest.displayName = "\(firstName) \(lastName)"
+                    changeRequest.commitChanges { _ in
+                        spinner.remove()
+                        self.delegate.signUpCompleted()
+                        self.dismiss(animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+extension SignUpViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        guard !results.isEmpty else { return }
+        let spinner = picker.addSpinner()
+        results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+            DispatchQueue.main.async {
+                spinner.remove()
+                self.dismiss(animated: true)
+                if let image = image as? UIImage {
+                    self.profilePicture = image
+                } else if let error = error {
+                    self.presentSignUpError(error.localizedDescription)
                 }
             }
         }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseStorage
 
 extension UIViewController {
     
@@ -25,7 +27,7 @@ extension UIViewController {
     func presentSimpleAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
     
     func addSpinner() -> SpinnerViewController {
@@ -37,6 +39,14 @@ extension UIViewController {
     func withAutoLayout<V: UIView>(_ subview: V) -> V {
         subview.translatesAutoresizingMaskIntoConstraints = false
         return subview
+    }
+    
+}
+
+extension User {
+    
+    var storageReferenceForPhoto: StorageReference {
+        return Storage.storage().reference().child("images").child("\(uid).jpg")
     }
     
 }

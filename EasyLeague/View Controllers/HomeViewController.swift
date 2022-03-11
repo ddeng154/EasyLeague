@@ -7,14 +7,19 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 class HomeViewController: UIViewController {
 
     lazy var userLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = Auth.auth().currentUser?.displayName
         return withAutoLayout(label)
+    }()
+    
+    lazy var userPhoto: UIImageView = {
+        let image = UIImageView()
+        return withAutoLayout(image)
     }()
     
     lazy var logOutButton: UIButton = {
@@ -44,7 +49,10 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
+        loadUserData()
+        
         stackView.addArrangedSubview(userLabel)
+        stackView.addArrangedSubview(userPhoto)
         stackView.addArrangedSubview(logOutButton)
         stackView.addArrangedSubview(spacer)
         
@@ -56,6 +64,17 @@ class HomeViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
+    }
+    
+    func loadUserData() {
+        if let user = Auth.auth().currentUser {
+            userLabel.text = user.displayName
+            user.storageReferenceForPhoto.getData(maxSize: 10 * 1024 * 1024) { data, error in
+                if let data = data {
+                    self.userPhoto.image = UIImage(data: data)
+                }
+            }
+        }
     }
 
     @objc func logOutButtonPressed() {

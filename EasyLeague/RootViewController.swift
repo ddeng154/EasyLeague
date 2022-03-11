@@ -32,7 +32,7 @@ class RootViewController: UIViewController, SignUpStateChanger {
     }
     
     func updateCurrentViewController() {
-        guard !isWaitingForSignUp else { return }
+        guard !(isLoggedIn && isWaitingForSignUp) else { return }
         let nextViewController: UIViewController
         if isLoggedIn {
             nextViewController = HomeViewController()
