@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import FirebaseAuth
 import PhotosUI
+import FirebaseAuth
+import FirebaseStorage
 
 class SignUpViewController: UIViewController {
     
@@ -153,6 +154,9 @@ class SignUpViewController: UIViewController {
         guard let profilePicture = profilePicture else {
             return presentSignUpError("Profile picture is not selected")
         }
+        guard let photoData = profilePicture.jpegData(compressionQuality: 1.0) else {
+            return presentSignUpError("Profile picture cannot be converted to JPEG")
+        }
         let spinner = addSpinner()
         delegate.signUpStarted()
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
@@ -161,13 +165,14 @@ class SignUpViewController: UIViewController {
                 self.delegate.signUpError()
                 self.presentSignUpError(error.localizedDescription)
             } else if let user = result?.user {
-                let changeRequest = user.createProfileChangeRequest()
-                changeRequest.displayName = "\(firstName) \(lastName)"
-                changeRequest.commitChanges { _ in
-                    print(profilePicture)
-                    spinner.remove()
-                    self.delegate.signUpCompleted()
-                    self.dismiss(animated: true)
+                user.storageReferenceForPhoto.putData(photoData, metadata: nil) { metadata, error in
+                    let changeRequest = user.createProfileChangeRequest()
+                    changeRequest.displayName = "\(firstName) \(lastName)"
+                    changeRequest.commitChanges { _ in
+                        spinner.remove()
+                        self.delegate.signUpCompleted()
+                        self.dismiss(animated: true)
+                    }
                 }
             }
         }

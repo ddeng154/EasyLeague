@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseStorage
 
 extension UIViewController {
     
@@ -37,6 +39,14 @@ extension UIViewController {
     func withAutoLayout<V: UIView>(_ subview: V) -> V {
         subview.translatesAutoresizingMaskIntoConstraints = false
         return subview
+    }
+    
+}
+
+extension User {
+    
+    var storageReferenceForPhoto: StorageReference {
+        return Storage.storage().reference().child("images").child("\(uid).jpg")
     }
     
 }
