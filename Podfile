@@ -5,6 +5,7 @@ target 'EasyLeague' do
 
   # Pods for EasyLeague
   pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
 
 end
 
