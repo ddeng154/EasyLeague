@@ -20,6 +20,8 @@
 		40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653727D17566003FA077 /* SignUpViewController.swift */; };
 		40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3927D8D5C500A895E8 /* RootViewController.swift */; };
 		40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */; };
+		9876DF4927E0169F00B337CE /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9876DF4827E0169F00B337CE /* League.swift */; };
+		9876DF4D27E0FACC00B337CE /* CreateLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9876DF4C27E0FACC00B337CE /* CreateLeagueViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		40D7FC3927D8D5C500A895E8 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyLeague.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9876DF4827E0169F00B337CE /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		9876DF4C27E0FACC00B337CE /* CreateLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeagueViewController.swift; sourceTree = "<group>"; };
 		B4FF5CEFFE961825C76753EF /* Pods-EasyLeague.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.release.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +81,7 @@
 			children = (
 				40C7653B27D1837B003FA077 /* View Controllers */,
 				408A40A827D0AFC6004D40B1 /* AppDelegate.swift */,
+				9876DF4827E0169F00B337CE /* League.swift */,
 				408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */,
 				40D7FC3927D8D5C500A895E8 /* RootViewController.swift */,
 				408A40B427D0AFC7004D40B1 /* Assets.xcassets */,
@@ -95,6 +100,7 @@
 				40C7653127D14E3D003FA077 /* LogInViewController.swift */,
 				40C7653727D17566003FA077 /* SignUpViewController.swift */,
 				408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */,
+				9876DF4C27E0FACC00B337CE /* CreateLeagueViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -250,12 +256,14 @@
 			files = (
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
+				9876DF4D27E0FACC00B337CE /* CreateLeagueViewController.swift in Sources */,
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
 				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,
 				40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */,
 				40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */,
+				9876DF4927E0169F00B337CE /* League.swift in Sources */,
 				408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
