@@ -8,7 +8,8 @@
 struct League: Codable {
     
     let id: String
-    let creatorUserID: String
+    let ownerUserID: String
+    let memberUserIDs: [String]
     let name: String
     let numTeams: Int
     let numMatches: Int
