@@ -11,7 +11,6 @@ import FirebaseStorage
 
 class HomeViewController: UIViewController {
 
-    
     lazy var userLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -21,13 +20,6 @@ class HomeViewController: UIViewController {
     lazy var userPhoto: UIImageView = {
         let image = UIImageView()
         return withAutoLayout(image)
-    }()
-    
-    lazy var createLeagueButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Create League", for: .normal)
-        button.addTarget(self, action: #selector(createLeagueButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
     }()
     
     lazy var logOutButton: UIButton = {
@@ -55,14 +47,12 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-       
         view.backgroundColor = .systemBackground
         
         loadUserData()
         
         stackView.addArrangedSubview(userLabel)
         stackView.addArrangedSubview(userPhoto)
-        stackView.addArrangedSubview(createLeagueButton)
         stackView.addArrangedSubview(logOutButton)
         stackView.addArrangedSubview(spacer)
         
@@ -85,12 +75,6 @@ class HomeViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    @objc func createLeagueButtonPressed() {
-        let createLeagueViewController = CreateLeagueViewController()
-        createLeagueViewController.modalPresentationStyle = .fullScreen
-        self.present(createLeagueViewController, animated: true)
     }
 
     @objc func logOutButtonPressed() {
