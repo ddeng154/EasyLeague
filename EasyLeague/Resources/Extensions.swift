@@ -51,7 +51,11 @@ extension UIViewController {
 extension Firestore {
     
     var leagueCollection: CollectionReference {
-        Self.firestore().collection("leagues")
+        collection("leagues")
+    }
+    
+    func documentsQueryForUser(_ id: String) -> Query {
+        leagueCollection.whereField("memberUserIDs", arrayContains: id)
     }
     
 }

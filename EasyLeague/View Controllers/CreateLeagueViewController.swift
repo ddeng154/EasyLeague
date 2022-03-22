@@ -81,7 +81,7 @@ class CreateLeagueViewController: UIViewController {
     }
 
     @objc func createLeagueButtonPressed() {
-        guard let userId = Auth.auth().currentUser?.uid else {
+        guard let userID = Auth.auth().currentUser?.uid else {
             return presentCreateLeagueError("Could not find current user")
         }
         guard leagueNameField.hasText, let leagueName = leagueNameField.text else {
@@ -94,7 +94,7 @@ class CreateLeagueViewController: UIViewController {
             return presentCreateLeagueError("Number of Matches must be a valid integer greater than or equal to 1")
         }
         let document = Firestore.firestore().leagueCollection.document()
-        let league = League(id: document.documentID, creatorUserID: userId, name: leagueName, numTeams: numTeams, numMatches: numMatches)
+        let league = League(id: document.documentID, ownerUserID: userID, memberUserIDs: [userID], name: leagueName, numTeams: numTeams, numMatches: numMatches)
         do {
             try document.setData(from: league)
             popFromNavigation()

@@ -99,7 +99,7 @@ class HomeViewController: UIViewController {
     func loadUserData() {
         if let user = Auth.auth().currentUser {
             userLabel.text = user.displayName
-            snapshotListener = Firestore.firestore().leagueCollection.addSnapshotListener(snapshotListener)
+            snapshotListener = Firestore.firestore().documentsQueryForUser(user.uid).addSnapshotListener(snapshotListener)
         }
     }
     
@@ -141,7 +141,11 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            Firestore.firestore().leagueCollection.document(leagues[indexPath.row].id).delete()
+            Firestore.firestore().leagueCollection.document(leagues[indexPath.row].id).delete { error in
+                if let error = error {
+                    self.presentDatabaseError(error.localizedDescription)
+                }
+            }
         }
     }
     
