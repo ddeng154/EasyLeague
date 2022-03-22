@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseFirestore
 
 extension UIViewController {
     
@@ -41,12 +42,33 @@ extension UIViewController {
         return subview
     }
     
+    func popFromNavigation() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+}
+
+extension Firestore {
+    
+    var leagueCollection: CollectionReference {
+        Self.firestore().collection("leagues")
+    }
+    
 }
 
 extension User {
     
     var storageReferenceForPhoto: StorageReference {
-        return Storage.storage().reference().child("images").child("\(uid).jpg")
+        Storage.storage().reference().child("users").child(uid).child("photo.jpg")
+    }
+    
+}
+
+extension Int {
+    
+    init?(_ description: String?) {
+        guard let description = description else { return nil }
+        self.init(description)
     }
     
 }
