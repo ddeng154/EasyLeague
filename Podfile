@@ -1,13 +1,15 @@
 platform :ios, '12.0'
 
+inhibit_all_warnings!
+
 target 'EasyLeague' do
   use_frameworks!
 
   # Pods for EasyLeague
   pod 'Firebase/Auth'
-  pod 'Firebase/Core'
-  pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift', '8.13.0-beta'
 
 end
 

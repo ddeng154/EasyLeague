@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		29100F0F02F9B9BEFBCD57E1 /* Pods_EasyLeague.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */; };
+		401A3BF927E97F95005A3CDD /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BF827E97F95005A3CDD /* League.swift */; };
+		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
 		40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40418A1D27D5E0C1008C8D43 /* Extensions.swift */; };
 		40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40540C3727D130640022B600 /* GoogleService-Info.plist */; };
 		408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40A827D0AFC6004D40B1 /* AppDelegate.swift */; };
@@ -16,16 +18,17 @@
 		408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 408A40B127D0AFC6004D40B1 /* EasyLeague.xcdatamodeld */; };
 		408A40B527D0AFC7004D40B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B427D0AFC7004D40B1 /* Assets.xcassets */; };
 		408A40B827D0AFC7004D40B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */; };
+		40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */; };
 		40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653127D14E3D003FA077 /* LogInViewController.swift */; };
 		40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653727D17566003FA077 /* SignUpViewController.swift */; };
 		40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3927D8D5C500A895E8 /* RootViewController.swift */; };
 		40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */; };
-		9876DF4927E0169F00B337CE /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9876DF4827E0169F00B337CE /* League.swift */; };
-		9876DF4D27E0FACC00B337CE /* CreateLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9876DF4C27E0FACC00B337CE /* CreateLeagueViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		11542617403A3FD258414693 /* Pods-EasyLeague.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.debug.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.debug.xcconfig"; sourceTree = "<group>"; };
+		401A3BF827E97F95005A3CDD /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
 		40418A1D27D5E0C1008C8D43 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		40540C3727D130640022B600 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		408A40A527D0AFC6004D40B1 /* EasyLeague.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyLeague.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,13 +39,12 @@
 		408A40B427D0AFC7004D40B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		408A40B727D0AFC7004D40B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		408A40B927D0AFC7004D40B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeagueViewController.swift; sourceTree = "<group>"; };
 		40C7653127D14E3D003FA077 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		40C7653727D17566003FA077 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		40D7FC3927D8D5C500A895E8 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyLeague.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9876DF4827E0169F00B337CE /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
-		9876DF4C27E0FACC00B337CE /* CreateLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeagueViewController.swift; sourceTree = "<group>"; };
 		B4FF5CEFFE961825C76753EF /* Pods-EasyLeague.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.release.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +60,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		401A3BF627E97F83005A3CDD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				401A3BF727E97F88005A3CDD /* Firestore */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		401A3BF727E97F88005A3CDD /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				401A3BF827E97F95005A3CDD /* League.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
 		408A409C27D0AFC6004D40B1 = {
 			isa = PBXGroup;
 			children = (
@@ -79,9 +97,9 @@
 		408A40A727D0AFC6004D40B1 /* EasyLeague */ = {
 			isa = PBXGroup;
 			children = (
+				401A3BF627E97F83005A3CDD /* Models */,
 				40C7653B27D1837B003FA077 /* View Controllers */,
 				408A40A827D0AFC6004D40B1 /* AppDelegate.swift */,
-				9876DF4827E0169F00B337CE /* League.swift */,
 				408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */,
 				40D7FC3927D8D5C500A895E8 /* RootViewController.swift */,
 				408A40B427D0AFC7004D40B1 /* Assets.xcassets */,
@@ -100,7 +118,8 @@
 				40C7653127D14E3D003FA077 /* LogInViewController.swift */,
 				40C7653727D17566003FA077 /* SignUpViewController.swift */,
 				408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */,
-				9876DF4C27E0FACC00B337CE /* CreateLeagueViewController.swift */,
+				40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */,
+				401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -256,14 +275,15 @@
 			files = (
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
-				9876DF4D27E0FACC00B337CE /* CreateLeagueViewController.swift in Sources */,
+				40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */,
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
+				401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */,
 				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,
 				40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */,
 				40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */,
-				9876DF4927E0169F00B337CE /* League.swift in Sources */,
+				401A3BF927E97F95005A3CDD /* League.swift in Sources */,
 				408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
