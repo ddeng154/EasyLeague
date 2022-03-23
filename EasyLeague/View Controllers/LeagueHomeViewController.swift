@@ -11,13 +11,6 @@ class LeagueHomeViewController: UIViewController {
     
     var league: League!
     
-    lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = league.name
-        return label
-    }()
-    
     lazy var numTeamsLabel: UILabel = {
         let label = UILabel()
         label.text = "Number of Teams: \(league.numTeams)"
@@ -50,7 +43,8 @@ class LeagueHomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        stackView.addArrangedSubview(nameLabel)
+        navigationItem.title = league.name
+        
         stackView.addArrangedSubview(numTeamsLabel)
         stackView.addArrangedSubview(numMatchesLabel)
         stackView.addArrangedSubview(spacer)

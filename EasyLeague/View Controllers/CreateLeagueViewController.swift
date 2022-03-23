@@ -12,6 +12,8 @@ import FirebaseFirestoreSwift
 
 class CreateLeagueViewController: UIViewController {
 
+    var user: User!
+
     lazy var leagueNameField: UITextField = {
         let field = UITextField()
         field.borderStyle = .roundedRect
@@ -81,9 +83,6 @@ class CreateLeagueViewController: UIViewController {
     }
 
     @objc func createLeagueButtonPressed() {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            return presentCreateLeagueError("Could not find current user")
-        }
         guard leagueNameField.hasText, let leagueName = leagueNameField.text else {
             return presentCreateLeagueError("League Name field is empty")
         }
@@ -94,7 +93,7 @@ class CreateLeagueViewController: UIViewController {
             return presentCreateLeagueError("Number of Matches must be a valid integer greater than or equal to 1")
         }
         let document = Firestore.firestore().leagueCollection.document()
-        let league = League(id: document.documentID, ownerUserID: userID, memberUserIDs: [userID], name: leagueName, numTeams: numTeams, numMatches: numMatches)
+        let league = League(id: document.documentID, ownerUserID: user.uid, memberUserIDs: [user.uid], name: leagueName, numTeams: numTeams, numMatches: numMatches)
         do {
             try document.setData(from: league)
             popFromNavigation()

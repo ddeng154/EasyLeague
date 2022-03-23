@@ -10,6 +10,7 @@ target 'EasyLeague' do
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift', '8.13.0-beta'
+  pod 'CropViewController'
 
 end
 

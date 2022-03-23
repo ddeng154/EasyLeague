@@ -9,6 +9,7 @@ import UIKit
 import PhotosUI
 import FirebaseAuth
 import FirebaseStorage
+import CropViewController
 
 class SignUpViewController: UIViewController {
     
@@ -154,8 +155,8 @@ class SignUpViewController: UIViewController {
         guard let profilePicture = profilePicture else {
             return presentSignUpError("Profile picture is not selected")
         }
-        guard let photoData = profilePicture.jpegData(compressionQuality: 1.0) else {
-            return presentSignUpError("Profile picture cannot be converted to JPEG")
+        guard let photoData = profilePicture.pngData() else {
+            return presentSignUpError("Profile picture cannot be converted to PNG")
         }
         let spinner = addSpinner()
         delegate.signUpStarted()
@@ -188,14 +189,31 @@ extension SignUpViewController: PHPickerViewControllerDelegate {
         results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
             DispatchQueue.main.async {
                 spinner.remove()
-                self.dismiss(animated: true)
                 if let image = image as? UIImage {
-                    self.profilePicture = image
+                    self.dismiss(animated: false) {
+                        let cropController = CropViewController(croppingStyle: .circular, image: image)
+                        cropController.delegate = self
+                        cropController.cancelButtonHidden = true
+                        cropController.rotateButtonsHidden = true
+                        cropController.resetButtonHidden = true
+                        cropController.modalPresentationStyle = .currentContext
+                        self.present(cropController, animated: true)
+                    }
                 } else if let error = error {
+                    self.dismiss(animated: true)
                     self.presentSignUpError(error.localizedDescription)
                 }
             }
         }
+    }
+    
+}
+
+extension SignUpViewController: CropViewControllerDelegate {
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        dismiss(animated: true)
+        profilePicture = image
     }
     
 }

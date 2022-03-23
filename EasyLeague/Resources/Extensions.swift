@@ -12,6 +12,10 @@ import FirebaseFirestore
 
 extension UIViewController {
     
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     func add(_ child: UIViewController) {
         addChild(child)
         view.addSubview(child.view)
@@ -63,7 +67,7 @@ extension Firestore {
 extension User {
     
     var storageReferenceForPhoto: StorageReference {
-        Storage.storage().reference().child("users").child(uid).child("photo.jpg")
+        Storage.storage().reference().child("users").child(uid).child("photo.png")
     }
     
 }
