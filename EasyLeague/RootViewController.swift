@@ -34,8 +34,10 @@ class RootViewController: UIViewController, SignUpStateChanger {
     func updateCurrentViewController() {
         guard !(isLoggedIn && isWaitingForSignUp) else { return }
         let nextViewController: UIViewController
-        if isLoggedIn {
-            nextViewController = UINavigationController(rootViewController: HomeViewController())
+        if isLoggedIn, let user = Auth.auth().currentUser {
+            let homeController = HomeViewController()
+            homeController.user = user
+            nextViewController = UINavigationController(rootViewController: homeController)
         } else {
             let logInController = LogInViewController()
             logInController.delegate = self

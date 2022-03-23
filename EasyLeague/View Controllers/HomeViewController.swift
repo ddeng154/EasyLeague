@@ -12,12 +12,25 @@ import FirebaseFirestore
 
 class HomeViewController: UIViewController {
 
+    var user: User!
+    
     var leagues: [League] = []
     
     lazy var userLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.text = user.displayName
         return withAutoLayout(label)
+    }()
+    
+    lazy var userPhoto: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "photo.circle"))
+        return withAutoLayout(imageView)
+    }()
+    
+    lazy var userStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [userLabel, userPhoto])
+        stack.axis = .horizontal
+        return withAutoLayout(stack)
     }()
     
     lazy var leaguesTable: UITableView = {
@@ -58,7 +71,9 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        stackView.addArrangedSubview(userLabel)
+        navigationItem.title = "Home"
+        
+        stackView.addArrangedSubview(userStackView)
         stackView.addArrangedSubview(leaguesTable)
         stackView.addArrangedSubview(createLeagueButton)
         stackView.addArrangedSubview(logOutButton)
@@ -74,7 +89,7 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadUserData()
+        addListener()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,26 +100,23 @@ class HomeViewController: UIViewController {
         presentSimpleAlert(title: "Database Error", message: message)
     }
     
-    func snapshotListener(querySnapshot: QuerySnapshot?, error: Error?) {
-        if let error = error {
-            presentDatabaseError(error.localizedDescription)
-        } else if let querySnapshot = querySnapshot {
-            leagues = querySnapshot.documents.compactMap { queryDocumentSnapshot in
-                try? queryDocumentSnapshot.data(as: League.self)
-            }.sorted { lhs, rhs in lhs.name < rhs.name }
-            leaguesTable.reloadData()
-        }
-    }
-    
-    func loadUserData() {
-        if let user = Auth.auth().currentUser {
-            userLabel.text = user.displayName
-            snapshotListener = Firestore.firestore().documentsQueryForUser(user.uid).addSnapshotListener(snapshotListener)
+    func addListener() {
+        snapshotListener = Firestore.firestore().documentsQueryForUser(user.uid).addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                self.presentDatabaseError(error.localizedDescription)
+            } else if let querySnapshot = querySnapshot {
+                self.leagues = querySnapshot.documents.compactMap { queryDocumentSnapshot in
+                    try? queryDocumentSnapshot.data(as: League.self)
+                }.sorted { lhs, rhs in lhs.name < rhs.name }
+                self.leaguesTable.reloadData()
+            }
         }
     }
     
     @objc func createLeagueButtonPressed() {
-        show(CreateLeagueViewController(), sender: self)
+        let createController = CreateLeagueViewController()
+        createController.user = user
+        show(createController, sender: self)
     }
 
     @objc func logOutButtonPressed() {
