@@ -24,12 +24,21 @@ class HomeViewController: UIViewController {
     
     lazy var userPhoto: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "photo.circle"))
+        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        user.storageReferenceForPhoto.getData(maxSize: 10 * 1024 * 1024) { data, error in
+            if let data = data {
+                imageView.image = UIImage(data: data)
+            }
+        }
         return withAutoLayout(imageView)
     }()
     
     lazy var userStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [userLabel, userPhoto])
         stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.alignment = .fill
         return withAutoLayout(stack)
     }()
     

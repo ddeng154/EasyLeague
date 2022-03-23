@@ -67,7 +67,7 @@ extension Firestore {
 extension User {
     
     var storageReferenceForPhoto: StorageReference {
-        Storage.storage().reference().child("users").child(uid).child("photo.jpg")
+        Storage.storage().reference().child("users").child(uid).child("photo.png")
     }
     
 }
