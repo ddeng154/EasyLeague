@@ -17,6 +17,7 @@ class CreateLeagueViewController: UIViewController {
     lazy var leagueNameField: UITextField = {
         let field = UITextField()
         field.borderStyle = .roundedRect
+        field.autocapitalizationType = .words
         field.placeholder = "League Name"
         return withAutoLayout(field)
     }()
@@ -24,6 +25,7 @@ class CreateLeagueViewController: UIViewController {
     lazy var numTeamsField: UITextField = {
         let field = UITextField()
         field.borderStyle = .roundedRect
+        field.keyboardType = .numberPad
         field.placeholder = "Number of Teams"
         return withAutoLayout(field)
     }()
@@ -31,6 +33,7 @@ class CreateLeagueViewController: UIViewController {
     lazy var numMatchesField: UITextField = {
         let field = UITextField()
         field.borderStyle = .roundedRect
+        field.keyboardType = .numberPad
         field.placeholder = "Number of Matches per Team"
         return withAutoLayout(field)
     }()

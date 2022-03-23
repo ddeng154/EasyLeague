@@ -33,6 +33,7 @@ class LogInViewController: UIViewController {
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
+        field.isSecureTextEntry = true
         field.placeholder = "Password"
         return withAutoLayout(field)
     }()
