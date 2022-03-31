@@ -13,7 +13,7 @@ class LeagueHomeViewController: UIViewController {
     
     lazy var numTeamsLabel: UILabel = {
         let label = UILabel()
-        label.text = "Number of Teams: \(league.numTeams)"
+        label.text = "Number of Teams: \(league.teams.count)"
         return label
     }()
     
@@ -26,6 +26,13 @@ class LeagueHomeViewController: UIViewController {
     lazy var spacer: UIView = {
         let spacer = UIView()
         return spacer
+    }()
+    
+    lazy var inviteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Invite Members", for: .normal)
+        button.addTarget(self, action: #selector(inviteButtonPressed), for: .touchUpInside)
+        return withAutoLayout(button)
     }()
     
     lazy var stackView: UIStackView = {
@@ -48,6 +55,7 @@ class LeagueHomeViewController: UIViewController {
         stackView.addArrangedSubview(numTeamsLabel)
         stackView.addArrangedSubview(numMatchesLabel)
         stackView.addArrangedSubview(spacer)
+        stackView.addArrangedSubview(inviteButton)
         
         view.addSubview(stackView)
         
@@ -57,6 +65,10 @@ class LeagueHomeViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
+    }
+    
+    @objc func inviteButtonPressed() {
+        present(UIActivityViewController(activityItems: [league.id], applicationActivities: nil), animated: true)
     }
 
 }

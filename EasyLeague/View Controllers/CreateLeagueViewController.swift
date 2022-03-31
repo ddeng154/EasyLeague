@@ -98,7 +98,7 @@ class CreateLeagueViewController: UIViewController {
             return presentCreateLeagueError("Number of Matches must be a valid integer greater than or equal to 1")
         }
         let document = Firestore.firestore().leagueCollection.document()
-        let league = League(id: document.documentID, ownerUserID: user.uid, memberUserIDs: [user.uid], name: leagueName, numTeams: numTeams, numMatches: numMatches)
+        let league = League(id: document.documentID, userID: user.uid, name: leagueName, numTeams: numTeams, numMatches: numMatches)
         do {
             try document.setData(from: league)
             popFromNavigation()

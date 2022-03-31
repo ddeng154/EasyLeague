@@ -18,6 +18,8 @@
 		408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 408A40B127D0AFC6004D40B1 /* EasyLeague.xcdatamodeld */; };
 		408A40B527D0AFC7004D40B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B427D0AFC7004D40B1 /* Assets.xcassets */; };
 		408A40B827D0AFC7004D40B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */; };
+		409BF23B27F553450056FC36 /* JoinLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */; };
+		40A6DA4327F585EA0026011D /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6DA4227F585EA0026011D /* Team.swift */; };
 		40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */; };
 		40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653127D14E3D003FA077 /* LogInViewController.swift */; };
 		40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653727D17566003FA077 /* SignUpViewController.swift */; };
@@ -39,6 +41,8 @@
 		408A40B427D0AFC7004D40B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		408A40B727D0AFC7004D40B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		408A40B927D0AFC7004D40B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLeagueViewController.swift; sourceTree = "<group>"; };
+		40A6DA4227F585EA0026011D /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeagueViewController.swift; sourceTree = "<group>"; };
 		40C7653127D14E3D003FA077 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		40C7653727D17566003FA077 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				401A3BF827E97F95005A3CDD /* League.swift */,
+				40A6DA4227F585EA0026011D /* Team.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 				408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */,
 				40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */,
 				401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */,
+				409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -275,12 +281,14 @@
 			files = (
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
+				40A6DA4327F585EA0026011D /* Team.swift in Sources */,
 				40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */,
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
 				401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */,
 				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,
+				409BF23B27F553450056FC36 /* JoinLeagueViewController.swift in Sources */,
 				40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */,
 				40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */,
 				401A3BF927E97F95005A3CDD /* League.swift in Sources */,
