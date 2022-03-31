@@ -58,7 +58,7 @@ extension Firestore {
         collection("leagues")
     }
     
-    func documentsQueryForUser(_ id: String) -> Query {
+    func leaguesQueryForUser(_ id: String) -> Query {
         leagueCollection.whereField("memberUserIDs", arrayContains: id)
     }
     

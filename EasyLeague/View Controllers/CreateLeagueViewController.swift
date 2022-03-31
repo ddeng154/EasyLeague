@@ -64,6 +64,8 @@ class CreateLeagueViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
+        
+        navigationItem.title = "New League"
 
         stackView.addArrangedSubview(leagueNameField)
         stackView.addArrangedSubview(numTeamsField)

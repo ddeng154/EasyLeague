@@ -110,7 +110,7 @@ class HomeViewController: UIViewController {
     }
     
     func addListener() {
-        snapshotListener = Firestore.firestore().documentsQueryForUser(user.uid).addSnapshotListener { querySnapshot, error in
+        snapshotListener = Firestore.firestore().leaguesQueryForUser(user.uid).addSnapshotListener { querySnapshot, error in
             if let error = error {
                 self.presentDatabaseError(error.localizedDescription)
             } else if let querySnapshot = querySnapshot {
