@@ -8,16 +8,11 @@
 import UIKit
 import FirebaseAuth
 
-protocol SignUpStateChanger {
-    func signUpStarted()
-    func signUpCompleted()
-    func signUpError()
+protocol AuthStateChanger {
+    func authenticated(user: User)
 }
 
-class RootViewController: UIViewController, SignUpStateChanger {
-    
-    var isLoggedIn = false
-    var isWaitingForSignUp = false
+class RootViewController: UIViewController {
     
     var currentViewController: UIViewController?
     
@@ -25,40 +20,41 @@ class RootViewController: UIViewController, SignUpStateChanger {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        var initial = true
         Auth.auth().addStateDidChangeListener { _, user in
-            self.isLoggedIn = user != nil
-            self.updateCurrentViewController()
+            if user == nil {
+                self.presentLoginController()
+            } else if initial, let user = user {
+                self.presentHomeController(for: user)
+            }
+            initial = false
         }
     }
     
-    func updateCurrentViewController() {
-        guard !(isLoggedIn && isWaitingForSignUp) else { return }
-        let nextViewController: UIViewController
-        if isLoggedIn, let user = Auth.auth().currentUser {
-            let homeController = HomeViewController()
-            homeController.user = user
-            nextViewController = UINavigationController(rootViewController: homeController)
-        } else {
-            let logInController = LogInViewController()
-            logInController.delegate = self
-            nextViewController = logInController
-        }
+    func presentViewController(_ nextViewController: UIViewController) {
         currentViewController?.remove()
         add(nextViewController)
         currentViewController = nextViewController
     }
     
-    func signUpStarted() {
-        self.isWaitingForSignUp = true
+    func presentLoginController() {
+        let logInController = LogInViewController()
+        logInController.authStateChanger = self
+        presentViewController(logInController)
     }
     
-    func signUpCompleted() {
-        self.isWaitingForSignUp = false
-        updateCurrentViewController()
+    func presentHomeController(for user: User) {
+        let homeController = HomeViewController()
+        homeController.user = user
+        presentViewController(UINavigationController(rootViewController: homeController))
     }
     
-    func signUpError() {
-        self.isWaitingForSignUp = false
+}
+
+extension RootViewController: AuthStateChanger {
+    
+    func authenticated(user: User) {
+        presentHomeController(for: user)
     }
     
 }
