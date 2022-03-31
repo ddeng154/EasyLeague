@@ -47,6 +47,7 @@ class SignUpViewController: UIViewController {
         field.borderStyle = .roundedRect
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
+        field.keyboardType = .emailAddress
         field.placeholder = "Email"
         return withAutoLayout(field)
     }()

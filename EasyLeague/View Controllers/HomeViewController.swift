@@ -56,6 +56,13 @@ class HomeViewController: UIViewController {
         return withAutoLayout(button)
     }()
     
+    lazy var joinLeagueButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Join League", for: .normal)
+        button.addTarget(self, action: #selector(joinLeagueButtonPressed), for: .touchUpInside)
+        return withAutoLayout(button)
+    }()
+    
     lazy var logOutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Log Out", for: .normal)
@@ -85,6 +92,7 @@ class HomeViewController: UIViewController {
         stackView.addArrangedSubview(userStackView)
         stackView.addArrangedSubview(leaguesTable)
         stackView.addArrangedSubview(createLeagueButton)
+        stackView.addArrangedSubview(joinLeagueButton)
         stackView.addArrangedSubview(logOutButton)
         
         view.addSubview(stackView)
@@ -110,7 +118,7 @@ class HomeViewController: UIViewController {
     }
     
     func addListener() {
-        snapshotListener = Firestore.firestore().documentsQueryForUser(user.uid).addSnapshotListener { querySnapshot, error in
+        snapshotListener = Firestore.firestore().leaguesQueryForUser(user.uid).addSnapshotListener { querySnapshot, error in
             if let error = error {
                 self.presentDatabaseError(error.localizedDescription)
             } else if let querySnapshot = querySnapshot {
@@ -126,6 +134,12 @@ class HomeViewController: UIViewController {
         let createController = CreateLeagueViewController()
         createController.user = user
         show(createController, sender: self)
+    }
+    
+    @objc func joinLeagueButtonPressed() {
+        let joinController = JoinLeagueViewController()
+        joinController.user = user
+        show(joinController, sender: self)
     }
 
     @objc func logOutButtonPressed() {
