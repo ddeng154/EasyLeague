@@ -13,7 +13,7 @@ import CropViewController
 
 class SignUpViewController: UIViewController {
     
-    var delegate: SignUpStateChanger!
+    var authStateChanger: AuthStateChanger!
     
     var profilePicture: UIImage?
     
@@ -161,11 +161,9 @@ class SignUpViewController: UIViewController {
             return presentSignUpError("Profile picture cannot be converted to PNG")
         }
         let spinner = addSpinner()
-        delegate.signUpStarted()
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 spinner.remove()
-                self.delegate.signUpError()
                 self.presentSignUpError(error.localizedDescription)
             } else if let user = result?.user {
                 user.storageReferenceForPhoto.putData(photoData, metadata: nil) { metadata, error in
@@ -173,8 +171,8 @@ class SignUpViewController: UIViewController {
                     changeRequest.displayName = "\(firstName) \(lastName)"
                     changeRequest.commitChanges { _ in
                         spinner.remove()
-                        self.delegate.signUpCompleted()
                         self.dismiss(animated: true)
+                        self.authStateChanger.authenticated(user: user)
                     }
                 }
             }

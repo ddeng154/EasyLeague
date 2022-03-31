@@ -10,7 +10,7 @@ import FirebaseAuth
 
 class LogInViewController: UIViewController {
     
-    var delegate: SignUpStateChanger!
+    var authStateChanger: AuthStateChanger!
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -101,17 +101,19 @@ class LogInViewController: UIViewController {
             return presentLogInError("Password field is empty")
         }
         let spinner = addSpinner()
-        Auth.auth().signIn(withEmail: email, password: password) { _, error in
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
             spinner.remove()
             if let error = error {
                 self.presentLogInError(error.localizedDescription)
+            } else if let result = result {
+                self.authStateChanger.authenticated(user: result.user)
             }
         }
     }
     
     @objc func signUpButtonPressed() {
         let signUpController = SignUpViewController()
-        signUpController.delegate = delegate
+        signUpController.authStateChanger = authStateChanger
         show(signUpController, sender: self)
     }
     
