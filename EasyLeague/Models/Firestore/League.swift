@@ -24,4 +24,8 @@ class League: Codable {
         self.numMatches = numMatches
     }
     
+    func teamWith(userID: String) -> Team? {
+        teams.first { t in t.memberUserIDs.contains(userID) }
+    }
+    
 }

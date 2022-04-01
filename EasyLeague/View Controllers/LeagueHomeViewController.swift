@@ -10,18 +10,7 @@ import UIKit
 class LeagueHomeViewController: UIViewController {
     
     var league: League!
-    
-    lazy var numTeamsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Number of Teams: \(league.teams.count)"
-        return label
-    }()
-    
-    lazy var numMatchesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Number of Matches: \(league.numMatches)"
-        return label
-    }()
+    var team: Team!
     
     lazy var spacer: UIView = {
         let spacer = UIView()
@@ -32,6 +21,13 @@ class LeagueHomeViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Invite Members", for: .normal)
         button.addTarget(self, action: #selector(inviteButtonPressed), for: .touchUpInside)
+        return withAutoLayout(button)
+    }()
+    
+    lazy var leagueInfoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("League Info", for: .normal)
+        button.addTarget(self, action: #selector(leagueInfoButtonPressed), for: .touchUpInside)
         return withAutoLayout(button)
     }()
     
@@ -50,12 +46,11 @@ class LeagueHomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
-        navigationItem.title = league.name
+        navigationItem.title = team.name
         
-        stackView.addArrangedSubview(numTeamsLabel)
-        stackView.addArrangedSubview(numMatchesLabel)
         stackView.addArrangedSubview(spacer)
         stackView.addArrangedSubview(inviteButton)
+        stackView.addArrangedSubview(leagueInfoButton)
         
         view.addSubview(stackView)
         
@@ -69,6 +64,12 @@ class LeagueHomeViewController: UIViewController {
     
     @objc func inviteButtonPressed() {
         present(UIActivityViewController(activityItems: [league.id], applicationActivities: nil), animated: true)
+    }
+    
+    @objc func leagueInfoButtonPressed() {
+        let leagueInfoController = LeagueInfoViewController()
+        leagueInfoController.league = league
+        show(leagueInfoController, sender: self)
     }
 
 }

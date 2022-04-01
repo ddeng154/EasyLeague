@@ -43,10 +43,25 @@ class RootViewController: UIViewController {
         presentViewController(logInController)
     }
     
+    func wrapPrimaryController(_ controller: UIViewController, imageName: String, selectedImageName: String) -> UIViewController {
+        let navController = UINavigationController(rootViewController: controller)
+        navController.tabBarItem.image = UIImage(systemName: imageName)
+        navController.tabBarItem.selectedImage = UIImage(systemName: selectedImageName)
+        return navController
+    }
+    
     func presentHomeController(for user: User) {
         let homeController = HomeViewController()
         homeController.user = user
-        presentViewController(UINavigationController(rootViewController: homeController))
+        let profileController = ProfileViewController()
+        profileController.user = user
+        let tabController = UITabBarController()
+        tabController.tabBar.tintColor = .label
+        tabController.viewControllers = [
+            wrapPrimaryController(homeController, imageName: "house", selectedImageName: "house.fill"),
+            wrapPrimaryController(profileController, imageName: "person", selectedImageName: "person.fill"),
+        ]
+        presentViewController(tabController)
     }
     
 }

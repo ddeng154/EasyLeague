@@ -14,33 +14,7 @@ class HomeViewController: UIViewController {
 
     var user: User!
     
-    var leagues: [League] = []
-    
-    lazy var userLabel: UILabel = {
-        let label = UILabel()
-        label.text = user.displayName
-        return withAutoLayout(label)
-    }()
-    
-    lazy var userPhoto: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "photo.circle"))
-        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        user.storageReferenceForPhoto.getData(maxSize: 10 * 1024 * 1024) { data, error in
-            if let data = data {
-                imageView.image = UIImage(data: data)
-            }
-        }
-        return withAutoLayout(imageView)
-    }()
-    
-    lazy var userStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [userLabel, userPhoto])
-        stack.axis = .horizontal
-        stack.distribution = .equalSpacing
-        stack.alignment = .fill
-        return withAutoLayout(stack)
-    }()
+    var leagues: [(league: League, team: Team)] = []
     
     lazy var leaguesTable: UITableView = {
         let tableView = UITableView()
@@ -63,13 +37,6 @@ class HomeViewController: UIViewController {
         return withAutoLayout(button)
     }()
     
-    lazy var logOutButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Log Out", for: .normal)
-        button.addTarget(self, action: #selector(logOutButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
-    
     lazy var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -89,11 +56,9 @@ class HomeViewController: UIViewController {
         
         navigationItem.title = "Home"
         
-        stackView.addArrangedSubview(userStackView)
         stackView.addArrangedSubview(leaguesTable)
         stackView.addArrangedSubview(createLeagueButton)
         stackView.addArrangedSubview(joinLeagueButton)
-        stackView.addArrangedSubview(logOutButton)
         
         view.addSubview(stackView)
         
@@ -123,8 +88,10 @@ class HomeViewController: UIViewController {
                 self.presentDatabaseError(error.localizedDescription)
             } else if let querySnapshot = querySnapshot {
                 self.leagues = querySnapshot.documents.compactMap { queryDocumentSnapshot in
-                    try? queryDocumentSnapshot.data(as: League.self)
-                }.sorted { lhs, rhs in lhs.name < rhs.name }
+                    guard let league = try? queryDocumentSnapshot.data(as: League.self) else { return nil }
+                    guard let team = league.teamWith(userID: self.user.uid) else { return nil }
+                    return (league, team)
+                }.sorted { lhs, rhs in lhs.team.name < rhs.team.name }
                 self.leaguesTable.reloadData()
             }
         }
@@ -142,14 +109,6 @@ class HomeViewController: UIViewController {
         show(joinController, sender: self)
     }
 
-    @objc func logOutButtonPressed() {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            presentSimpleAlert(title: "Log Out Error", message: error.localizedDescription)
-        }
-    }
-
 }
 
 extension HomeViewController: UITableViewDelegate { }
@@ -161,22 +120,27 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = UITableViewCell()
+        var content = UIListContentConfiguration.valueCell()
+        content.text = leagues[indexPath.row].team.name
+        content.secondaryText = leagues[indexPath.row].league.name
+        content.prefersSideBySideTextAndSecondaryText = true
+        cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = leagues[indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let controller = LeagueHomeViewController()
-        controller.league = leagues[indexPath.row]
+        controller.league = leagues[indexPath.row].league
+        controller.team = leagues[indexPath.row].team
         show(controller, sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            Firestore.firestore().leagueCollection.document(leagues[indexPath.row].id).delete { error in
+            Firestore.firestore().leagueCollection.document(leagues[indexPath.row].league.id).delete { error in
                 if let error = error {
                     self.presentDatabaseError(error.localizedDescription)
                 }

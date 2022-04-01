@@ -12,6 +12,8 @@
 		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
 		40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40418A1D27D5E0C1008C8D43 /* Extensions.swift */; };
 		40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40540C3727D130640022B600 /* GoogleService-Info.plist */; };
+		405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23527F67D2E0098C888 /* ProfileViewController.swift */; };
+		405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */; };
 		408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40A827D0AFC6004D40B1 /* AppDelegate.swift */; };
 		408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */; };
 		408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */; };
@@ -33,6 +35,8 @@
 		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
 		40418A1D27D5E0C1008C8D43 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		40540C3727D130640022B600 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		405CC23527F67D2E0098C888 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfoViewController.swift; sourceTree = "<group>"; };
 		408A40A527D0AFC6004D40B1 /* EasyLeague.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyLeague.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		408A40A827D0AFC6004D40B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */,
 				401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */,
 				409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */,
+				405CC23527F67D2E0098C888 /* ProfileViewController.swift */,
+				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -286,11 +292,13 @@
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
 				401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */,
 				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
+				405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,
 				409BF23B27F553450056FC36 /* JoinLeagueViewController.swift in Sources */,
 				40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */,
 				40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */,
+				405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */,
 				401A3BF927E97F95005A3CDD /* League.swift in Sources */,
 				408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */,
 			);
