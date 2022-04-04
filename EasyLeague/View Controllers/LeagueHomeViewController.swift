@@ -12,33 +12,13 @@ class LeagueHomeViewController: UIViewController {
     var league: League!
     var team: Team!
     
-    lazy var spacer: UIView = {
-        let spacer = UIView()
-        return spacer
-    }()
+    lazy var spacer = createSpacer()
     
-    lazy var inviteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Invite Members", for: .normal)
-        button.addTarget(self, action: #selector(inviteButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var inviteButton = createButton(title: "Invite Members", selector: #selector(inviteButtonPressed))
     
-    lazy var leagueInfoButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("League Info", for: .normal)
-        button.addTarget(self, action: #selector(leagueInfoButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var leagueInfoButton = createButton(title: "League Info", selector: #selector(leagueInfoButtonPressed))
     
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 20
-        return withAutoLayout(stack)
-    }()
+    lazy var stackView = createVerticalStack()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,22 +34,21 @@ class LeagueHomeViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-        ])
+        constrainToSafeArea(stackView)
     }
+
+}
+
+@objc extension LeagueHomeViewController {
     
-    @objc func inviteButtonPressed() {
+    func inviteButtonPressed() {
         present(UIActivityViewController(activityItems: [league.id], applicationActivities: nil), animated: true)
     }
     
-    @objc func leagueInfoButtonPressed() {
+    func leagueInfoButtonPressed() {
         let leagueInfoController = LeagueInfoViewController()
         leagueInfoController.league = league
         show(leagueInfoController, sender: self)
     }
-
+    
 }

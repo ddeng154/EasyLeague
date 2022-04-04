@@ -12,60 +12,27 @@ class LogInViewController: UIViewController {
     
     var authStateChanger: AuthStateChanger!
     
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "EasyLeague"
-        return withAutoLayout(label)
-    }()
+    lazy var titleLabel = createLabel(text: "EasyLeague", alignment: .center)
     
-    lazy var emailField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var emailField = createTextField(placeholder: "Email") { field in
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.keyboardType = .emailAddress
-        field.placeholder = "Email"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var passwordField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var passwordField = createTextField(placeholder: "Password") { field in
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.isSecureTextEntry = true
-        field.placeholder = "Password"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var logInButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Log In", for: .normal)
-        button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var logInButton = createButton(title: "Log In", selector: #selector(logInButtonPressed))
     
-    lazy var signUpButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Sign Up", for: .normal)
-        button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var signUpButton = createButton(title: "Sign Up", selector: #selector(signUpButtonPressed))
     
-    lazy var spacer: UIView = {
-        let spacer = UIView()
-        return spacer
-    }()
+    lazy var spacer = createSpacer()
     
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 20
-        return withAutoLayout(stack)
-    }()
+    lazy var stackView = createVerticalStack()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,19 +49,18 @@ class LogInViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-        ])
+        constrainToSafeArea(stackView)
     }
     
     func presentLogInError(_ message: String) {
         presentSimpleAlert(title: "Log In Error", message: message)
     }
     
-    @objc func logInButtonPressed() {
+}
+
+@objc extension LogInViewController {
+    
+    func logInButtonPressed() {
         guard emailField.hasText, let email = emailField.text else {
             return presentLogInError("Email field is empty")
         }
@@ -112,7 +78,7 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @objc func signUpButtonPressed() {
+    func signUpButtonPressed() {
         let signUpController = SignUpViewController()
         signUpController.authStateChanger = authStateChanger
         show(signUpController, sender: self)

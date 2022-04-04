@@ -13,36 +13,17 @@ class JoinLeagueViewController: UIViewController {
     
     var user: User!
     
-    lazy var leagueIDField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var leagueIDField = createTextField(placeholder: "League ID") { field in
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
         field.textAlignment = .center
-        field.placeholder = "League ID"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var confirmButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Confirm", for: .normal)
-        button.addTarget(self, action: #selector(confirmButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var confirmButton = createButton(title: "Confirm", selector: #selector(confirmButtonPressed))
     
-    lazy var spacer: UIView = {
-        let spacer = UIView()
-        return spacer
-    }()
+    lazy var spacer = createSpacer()
     
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 20
-        return withAutoLayout(stack)
-    }()
+    lazy var stackView = createVerticalStack()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,19 +39,18 @@ class JoinLeagueViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-        ])
+        constrainToSafeArea(stackView)
     }
     
     func presentJoinLeagueError(_ message: String) {
         presentSimpleAlert(title: "Join League Error", message: message)
     }
+
+}
+
+@objc extension JoinLeagueViewController {
     
-    @objc func confirmButtonPressed() {
+    func confirmButtonPressed() {
         guard leagueIDField.hasText, let leagueID = leagueIDField.text else {
             return presentJoinLeagueError("League ID field is empty")
         }
@@ -108,5 +88,5 @@ class JoinLeagueViewController: UIViewController {
             }
         }
     }
-
+    
 }
