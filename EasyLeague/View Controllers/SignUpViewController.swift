@@ -17,89 +17,45 @@ class SignUpViewController: UIViewController {
     
     var profilePicture: UIImage?
     
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "EasyLeague"
-        return withAutoLayout(label)
-    }()
+    lazy var titleLabel = createLabel(text: "EasyLeague", alignment: .center)
     
-    lazy var firstNameField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var firstNameField = createTextField(placeholder: "First Name") { field in
         field.autocapitalizationType = .sentences
         field.autocorrectionType = .no
-        field.placeholder = "First Name"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var lastNameField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var lastNameField = createTextField(placeholder: "Last Name") { field in
         field.autocapitalizationType = .sentences
         field.autocorrectionType = .no
-        field.placeholder = "Last Name"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var emailField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var emailField = createTextField(placeholder: "Email") { field in
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.keyboardType = .emailAddress
-        field.placeholder = "Email"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var passwordField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var passwordField = createTextField(placeholder: "Password") { field in
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.isSecureTextEntry = true
-        field.placeholder = "Password"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var repeatPasswordField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var repeatPasswordField = createTextField(placeholder: "Repeat Password") { field in
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.isSecureTextEntry = true
-        field.placeholder = "Repeat Password"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var photoPickerButton: UIButton = {
-        let button = UIButton(type: .system)
+    lazy var photoPickerButton = createButton(title: "Choose Profile Picture", selector: #selector(photoPickerButtonPressed)) { button in
         button.contentHorizontalAlignment = .leading
-        button.setTitle("Choose Profile Picture", for: .normal)
-        button.addTarget(self, action: #selector(photoPickerButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    }
     
-    lazy var signUpButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Sign Up", for: .normal)
-        button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var signUpButton = createButton(title: "Sign Up", selector: #selector(signUpButtonPressed))
     
-    lazy var spacer: UIView = {
-        let spacer = UIView()
-        return spacer
-    }()
+    lazy var spacer = createSpacer()
     
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 20
-        return withAutoLayout(stack)
-    }()
+    lazy var stackView = createVerticalStack()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,19 +75,18 @@ class SignUpViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-        ])
+        constrainToSafeArea(stackView)
     }
     
     func presentSignUpError(_ message: String) {
         presentSimpleAlert(title: "Sign Up Error", message: message)
     }
     
-    @objc func photoPickerButtonPressed() {
+}
+
+@objc extension SignUpViewController {
+    
+    func photoPickerButtonPressed() {
         var configuration = PHPickerConfiguration(photoLibrary: .shared())
         configuration.filter = .images
         let picker = PHPickerViewController(configuration: configuration)
@@ -139,7 +94,7 @@ class SignUpViewController: UIViewController {
         present(picker, animated: true)
     }
     
-    @objc func signUpButtonPressed() {
+    func signUpButtonPressed() {
         guard firstNameField.hasText, let firstName = firstNameField.text else {
             return presentSignUpError("First Name field is empty")
         }

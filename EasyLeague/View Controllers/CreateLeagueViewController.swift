@@ -14,50 +14,23 @@ class CreateLeagueViewController: UIViewController {
 
     var user: User!
 
-    lazy var leagueNameField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var leagueNameField = createTextField(placeholder: "League Name") { field in
         field.autocapitalizationType = .words
-        field.placeholder = "League Name"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var numTeamsField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var numTeamsField = createTextField(placeholder: "Number of Teams") { field in
         field.keyboardType = .numberPad
-        field.placeholder = "Number of Teams"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var numMatchesField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = .roundedRect
+    lazy var numMatchesField = createTextField(placeholder: "Number of Matches per Team") { field in
         field.keyboardType = .numberPad
-        field.placeholder = "Number of Matches per Team"
-        return withAutoLayout(field)
-    }()
+    }
     
-    lazy var createLeagueButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Create League", for: .normal)
-        button.addTarget(self, action: #selector(createLeagueButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var createLeagueButton = createButton(title: "Create League", selector: #selector(createLeagueButtonPressed))
     
-    lazy var spacer: UIView = {
-        let spacer = UIView()
-        return spacer
-    }()
+    lazy var spacer = createSpacer()
     
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 20
-        return withAutoLayout(stack)
-    }()
+    lazy var stackView = createVerticalStack()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,19 +48,18 @@ class CreateLeagueViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-        ])
+        constrainToSafeArea(stackView)
     }
     
     func presentCreateLeagueError(_ message: String) {
         presentSimpleAlert(title: "Create League Error", message: message)
     }
 
-    @objc func createLeagueButtonPressed() {
+}
+
+@objc extension CreateLeagueViewController {
+    
+    func createLeagueButtonPressed() {
         guard leagueNameField.hasText, let leagueName = leagueNameField.text else {
             return presentCreateLeagueError("League Name field is empty")
         }
@@ -106,5 +78,5 @@ class CreateLeagueViewController: UIViewController {
             presentCreateLeagueError(error.localizedDescription)
         }
     }
-
+    
 }

@@ -50,6 +50,62 @@ extension UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    func constrainToSafeArea(_ subview: UIView) {
+        NSLayoutConstraint.activate([
+            subview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            subview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            subview.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            subview.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+        ])
+    }
+    
+    func createSpacer() -> UIView {
+        let spacer = UIView()
+        return withAutoLayout(spacer)
+    }
+    
+    func createVerticalStack() -> UIStackView {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .fill
+        stack.spacing = 20
+        return withAutoLayout(stack)
+    }
+    
+    func createLabel(text: String?, alignment: NSTextAlignment? = nil, customize: ((UILabel) -> Void)? = nil) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        if let alignment = alignment {
+            label.textAlignment = alignment
+        }
+        customize?(label)
+        return withAutoLayout(label)
+    }
+    
+    func createTextField(placeholder: String?, customize: ((UITextField) -> Void)? = nil) -> UITextField {
+        let field = UITextField()
+        field.borderStyle = .roundedRect
+        field.placeholder = placeholder
+        customize?(field)
+        return withAutoLayout(field)
+    }
+    
+    func createButton(title: String, selector: Selector, customize: ((UIButton) -> Void)? = nil) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        customize?(button)
+        return withAutoLayout(button)
+    }
+    
+    func createTable(for vc: UITableViewDelegate & UITableViewDataSource) -> UITableView {
+        let tableView = UITableView()
+        tableView.delegate = vc
+        tableView.dataSource = vc
+        return withAutoLayout(tableView)
+    }
+    
 }
 
 extension Firestore {

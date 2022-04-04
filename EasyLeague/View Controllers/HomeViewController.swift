@@ -16,35 +16,13 @@ class HomeViewController: UIViewController {
     
     var leagues: [(league: League, team: Team)] = []
     
-    lazy var leaguesTable: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        return withAutoLayout(tableView)
-    }()
+    lazy var leaguesTable = createTable(for: self)
     
-    lazy var createLeagueButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Create League", for: .normal)
-        button.addTarget(self, action: #selector(createLeagueButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var createLeagueButton = createButton(title: "Create League", selector: #selector(createLeagueButtonPressed))
     
-    lazy var joinLeagueButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Join League", for: .normal)
-        button.addTarget(self, action: #selector(joinLeagueButtonPressed), for: .touchUpInside)
-        return withAutoLayout(button)
-    }()
+    lazy var joinLeagueButton = createButton(title: "Join League", selector: #selector(joinLeagueButtonPressed))
     
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
-        stack.spacing = 20
-        return withAutoLayout(stack)
-    }()
+    lazy var stackView = createVerticalStack()
     
     var snapshotListener: ListenerRegistration?
     
@@ -62,12 +40,7 @@ class HomeViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-        ])
+        constrainToSafeArea(stackView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,24 +69,26 @@ class HomeViewController: UIViewController {
             }
         }
     }
+
+}
+
+@objc extension HomeViewController {
     
-    @objc func createLeagueButtonPressed() {
+    func createLeagueButtonPressed() {
         let createController = CreateLeagueViewController()
         createController.user = user
         show(createController, sender: self)
     }
     
-    @objc func joinLeagueButtonPressed() {
+    func joinLeagueButtonPressed() {
         let joinController = JoinLeagueViewController()
         joinController.user = user
         show(joinController, sender: self)
     }
-
+    
 }
 
-extension HomeViewController: UITableViewDelegate { }
-
-extension HomeViewController: UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         leagues.count
