@@ -8,7 +8,10 @@
 import UIKit
 import PhotosUI
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import FirebaseStorage
+import FirebaseStorageSwift
 import CropViewController
 
 class SignUpViewController: UIViewController {
@@ -121,14 +124,28 @@ class SignUpViewController: UIViewController {
             if let error = error {
                 spinner.remove()
                 self.presentSignUpError(error.localizedDescription)
-            } else if let user = result?.user {
-                Storage.storage().photoReferenceForUser(user.uid).putData(photoData, metadata: nil) { metadata, error in
-                    let changeRequest = user.createProfileChangeRequest()
-                    changeRequest.displayName = "\(firstName) \(lastName)"
-                    changeRequest.commitChanges { _ in
+            } else if let firebaseUser = result?.user {
+                Task {
+                    do {
+                        let ref = Storage.storage().photoReferenceForUser(firebaseUser.uid)
+                        _ = try await ref.putDataAsync(photoData)
+                        let photoURL = try await ref.downloadURL()
+                        let user = User(id: firebaseUser.uid, name: "\(firstName) \(lastName)", photoURL: photoURL.absoluteString)
+                        try Firestore.firestore().documentForUser(user.id).setData(from: user) { error in
+                            if let error = error {
+                                firebaseUser.delete()
+                                spinner.remove()
+                                self.presentSignUpError(error.localizedDescription)
+                            } else {
+                                spinner.remove()
+                                self.dismiss(animated: true)
+                                self.authStateChanger.authenticated(user: user)
+                            }
+                        }
+                    } catch {
+                        try? await firebaseUser.delete()
                         spinner.remove()
-                        self.dismiss(animated: true)
-                        self.authStateChanger.authenticated(user: user)
+                        self.presentSignUpError(error.localizedDescription)
                     }
                 }
             }
@@ -146,15 +163,14 @@ extension SignUpViewController: PHPickerViewControllerDelegate {
             DispatchQueue.main.async {
                 spinner.remove()
                 if let image = image as? UIImage {
-                    self.dismiss(animated: false) {
-                        let cropController = CropViewController(croppingStyle: .circular, image: image)
-                        cropController.delegate = self
-                        cropController.cancelButtonHidden = true
-                        cropController.rotateButtonsHidden = true
-                        cropController.resetButtonHidden = true
-                        cropController.modalPresentationStyle = .currentContext
-                        self.present(cropController, animated: true)
-                    }
+                    self.dismiss(animated: false)
+                    let cropController = CropViewController(croppingStyle: .circular, image: image)
+                    cropController.delegate = self
+                    cropController.cancelButtonHidden = true
+                    cropController.rotateButtonsHidden = true
+                    cropController.resetButtonHidden = true
+                    cropController.modalPresentationStyle = .currentContext
+                    self.present(cropController, animated: true)
                 } else if let error = error {
                     self.dismiss(animated: true)
                     self.presentSignUpError(error.localizedDescription)

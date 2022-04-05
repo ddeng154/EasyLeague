@@ -117,12 +117,20 @@ extension Firestore {
         leagueCollection.whereField("memberUserIDs", arrayContains: id)
     }
     
+    var userCollection: CollectionReference {
+        collection("users")
+    }
+    
+    func documentForUser(_ id: String) -> DocumentReference {
+        userCollection.document(id)
+    }
+    
 }
 
 extension Storage {
     
     func photoReferenceForUser(_ id: String) -> StorageReference {
-        reference().child("users").child(id).child("photo.png")
+        reference().child("photos").child("\(id).png")
     }
     
 }

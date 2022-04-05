@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class LogInViewController: UIViewController {
     
@@ -68,12 +70,19 @@ class LogInViewController: UIViewController {
             return presentLogInError("Password field is empty")
         }
         let spinner = addSpinner()
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             spinner.remove()
             if let error = error {
                 self.presentLogInError(error.localizedDescription)
-            } else if let result = result {
-                self.authStateChanger.authenticated(user: result.user)
+            } else if let firebaseUser = authResult?.user {
+                Firestore.firestore().documentForUser(firebaseUser.uid).getDocument(as: User.self) { result in
+                    switch result {
+                        case .success(let user):
+                            self.authStateChanger.authenticated(user: user)
+                        case .failure(let error):
+                            self.presentLogInError(error.localizedDescription)
+                    }
+                }
             }
         }
     }
