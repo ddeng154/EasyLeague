@@ -122,7 +122,7 @@ class SignUpViewController: UIViewController {
                 spinner.remove()
                 self.presentSignUpError(error.localizedDescription)
             } else if let user = result?.user {
-                user.storageReferenceForPhoto.putData(photoData, metadata: nil) { metadata, error in
+                Storage.storage().photoReferenceForUser(user.uid).putData(photoData, metadata: nil) { metadata, error in
                     let changeRequest = user.createProfileChangeRequest()
                     changeRequest.displayName = "\(firstName) \(lastName)"
                     changeRequest.commitChanges { _ in

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestore
 
@@ -120,10 +119,10 @@ extension Firestore {
     
 }
 
-extension User {
+extension Storage {
     
-    var storageReferenceForPhoto: StorageReference {
-        Storage.storage().reference().child("users").child(uid).child("photo.png")
+    func photoReferenceForUser(_ id: String) -> StorageReference {
+        reference().child("users").child(id).child("photo.png")
     }
     
 }

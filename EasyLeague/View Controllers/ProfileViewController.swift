@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 class ProfileViewController: UIViewController {
     
@@ -18,7 +19,7 @@ class ProfileViewController: UIViewController {
         let imageView = UIImageView(image: UIImage(systemName: "photo.circle"))
         imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        user.storageReferenceForPhoto.getData(maxSize: 10 * 1024 * 1024) { data, error in
+        Storage.storage().photoReferenceForUser(user.uid).getData(maxSize: 10 * 1024 * 1024) { data, error in
             if let data = data {
                 imageView.image = UIImage(data: data)
             }
