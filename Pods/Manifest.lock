@@ -388,6 +388,8 @@ PODS:
   - FirebaseStorage (8.12.0):
     - FirebaseCore (~> 8.0)
     - GTMSessionFetcher/Core (~> 1.5)
+  - FirebaseStorageSwift (8.14.0-beta):
+    - FirebaseStorage (~> 8.0)
   - GoogleDataTransport (9.1.2):
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
@@ -446,6 +448,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Storage
   - FirebaseFirestoreSwift (= 8.13.0-beta)
+  - FirebaseStorageSwift (= 8.14.0-beta)
 
 SPEC REPOS:
   trunk:
@@ -459,6 +462,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseFirestoreSwift
     - FirebaseStorage
+    - FirebaseStorageSwift
     - GoogleDataTransport
     - GoogleUtilities
     - "gRPC-C++"
@@ -479,6 +483,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: dfeb58916ee3ae0ef2453d4849a683672705920c
   FirebaseFirestoreSwift: 36aa2968411b7a7e82c83d1379f91e5cea07b68e
   FirebaseStorage: 4b75458c35d8b728e4c1fc1371942997456ab299
+  FirebaseStorageSwift: 2c8254fd8496c7c94795827c5b7f2e1236281ad3
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
@@ -488,6 +493,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
 
-PODFILE CHECKSUM: 2ead5689b9092589aba95cb8ac58820dcd11c8bc
+PODFILE CHECKSUM: dd6d2f3362adecd1d4136ea9280f3934a0309771
 
 COCOAPODS: 1.11.3
