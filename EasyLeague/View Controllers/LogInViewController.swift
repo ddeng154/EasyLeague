@@ -14,7 +14,9 @@ class LogInViewController: UIViewController {
     
     var authStateChanger: AuthStateChanger!
     
-    lazy var titleLabel = createLabel(text: "EasyLeague", alignment: .center)
+    lazy var titleLabel = createLabel(text: "EasyLeague") { label in
+        label.textAlignment = .center
+    }
     
     lazy var emailField = createTextField(placeholder: "Email") { field in
         field.autocapitalizationType = .none

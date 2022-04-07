@@ -22,6 +22,8 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        
         var initial = true
         Auth.auth().addStateDidChangeListener { _, firebaseUser in
             if firebaseUser == nil {
@@ -67,6 +69,8 @@ class RootViewController: UIViewController {
         let profileController = ProfileViewController()
         profileController.user = user
         let tabController = UITabBarController()
+        tabController.tabBar.standardAppearance = UITabBarAppearance()
+        tabController.tabBar.standardAppearance.configureWithTransparentBackground()
         tabController.tabBar.tintColor = .label
         tabController.viewControllers = [
             wrapPrimaryController(homeController, imageName: "house", selectedImageName: "house.fill"),

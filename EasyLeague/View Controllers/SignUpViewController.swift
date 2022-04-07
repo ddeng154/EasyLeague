@@ -20,7 +20,9 @@ class SignUpViewController: UIViewController {
     
     var profilePicture: UIImage?
     
-    lazy var titleLabel = createLabel(text: "EasyLeague", alignment: .center)
+    lazy var titleLabel = createLabel(text: "EasyLeague") { label in
+        label.textAlignment = .center
+    }
     
     lazy var firstNameField = createTextField(placeholder: "First Name") { field in
         field.autocapitalizationType = .sentences

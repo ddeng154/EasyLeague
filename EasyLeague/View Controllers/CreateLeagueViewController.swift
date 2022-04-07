@@ -12,6 +12,8 @@ import FirebaseFirestoreSwift
 class CreateLeagueViewController: UIViewController {
 
     var user: User!
+    
+    var statistics: [(UITextField, UISwitch)] = []
 
     lazy var leagueNameField = createTextField(placeholder: "League Name") { field in
         field.autocapitalizationType = .words
@@ -25,11 +27,15 @@ class CreateLeagueViewController: UIViewController {
         field.keyboardType = .numberPad
     }
     
+    lazy var statisticsStack = createVerticalStack()
+    
+    lazy var addStatisticButton = createButton(title: "Add Statistic", selector: #selector(addStatisticButtonPressed))
+    
     lazy var createLeagueButton = createButton(title: "Create League", selector: #selector(createLeagueButtonPressed))
     
-    lazy var spacer = createSpacer()
-    
     lazy var stackView = createVerticalStack()
+    
+    lazy var scrollView = withAutoLayout(UIScrollView())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +48,23 @@ class CreateLeagueViewController: UIViewController {
         stackView.addArrangedSubview(leagueNameField)
         stackView.addArrangedSubview(numTeamsField)
         stackView.addArrangedSubview(numMatchesField)
+        stackView.addArrangedSubview(statisticsStack)
+        stackView.addArrangedSubview(addStatisticButton)
         stackView.addArrangedSubview(createLeagueButton)
-        stackView.addArrangedSubview(spacer)
         
-        view.addSubview(stackView)
+        scrollView.addSubview(stackView)
         
-        constrainToSafeArea(stackView)
+        view.addSubview(scrollView)
+        
+        constrainToSafeArea(scrollView)
+        
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+        ])
     }
     
     func presentCreateLeagueError(_ message: String) {
@@ -57,6 +74,21 @@ class CreateLeagueViewController: UIViewController {
 }
 
 @objc extension CreateLeagueViewController {
+    
+    func addStatisticButtonPressed() {
+        let stack = createVerticalStack(spacing: 10)
+        let field = createTextField(placeholder: "Custom Statistic \(statisticsStack.arrangedSubviews.count + 1)")
+        stack.addArrangedSubview(field)
+        let label = createLabel(text: "Track this statistic for players too")
+        let control = withAutoLayout(UISwitch())
+        let controlStack = withAutoLayout(UIStackView(arrangedSubviews: [label, control]))
+        controlStack.axis = .horizontal
+        controlStack.alignment = .fill
+        controlStack.distribution = .fill
+        stack.addArrangedSubview(controlStack)
+        statisticsStack.addArrangedSubview(stack)
+        statistics.append((field, control))
+    }
     
     func createLeagueButtonPressed() {
         guard leagueNameField.hasText, let leagueName = leagueNameField.text else {
@@ -69,7 +101,11 @@ class CreateLeagueViewController: UIViewController {
             return presentCreateLeagueError("Number of Matches must be a valid integer greater than or equal to 1")
         }
         let document = Firestore.firestore().leagueCollection.document()
-        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches)
+        let stats: [String : Bool] = Dictionary(uniqueKeysWithValues: statistics.compactMap { (field, swtch) in
+            guard let text = field.text, !text.isEmpty else { return nil }
+            return (text, swtch.isOn)
+        })
+        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, statistics: stats)
         do {
             try document.setData(from: league)
             popFromNavigation()
