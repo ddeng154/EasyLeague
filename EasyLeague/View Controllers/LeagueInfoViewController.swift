@@ -23,7 +23,7 @@ class LeagueInfoViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         
         navigationItem.title = league.name
         
@@ -62,6 +62,7 @@ extension LeagueInfoViewController: UITableViewDelegate, UITableViewDataSource {
         content.textProperties.alignment = .center
         content.secondaryTextProperties.alignment = .center
         cell.contentConfiguration = content
+        cell.backgroundColor = .appBackground
         return cell
     }
     

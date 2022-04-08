@@ -13,13 +13,13 @@ class JoinLeagueViewController: UIViewController {
     
     var user: User!
     
+    lazy var doneButton = createBarButton(item: .done, selector: #selector(doneButtonPressed))
+    
     lazy var leagueIDField = createTextField(placeholder: "League ID") { field in
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
         field.textAlignment = .center
     }
-    
-    lazy var confirmButton = createButton(title: "Confirm", selector: #selector(confirmButtonPressed))
     
     lazy var spacer = createSpacer()
     
@@ -29,12 +29,12 @@ class JoinLeagueViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         
         navigationItem.title = "Join League"
+        navigationItem.rightBarButtonItem = doneButton
         
         stackView.addArrangedSubview(leagueIDField)
-        stackView.addArrangedSubview(confirmButton)
         stackView.addArrangedSubview(spacer)
         
         view.addSubview(stackView)
@@ -50,7 +50,7 @@ class JoinLeagueViewController: UIViewController {
 
 @objc extension JoinLeagueViewController {
     
-    func confirmButtonPressed() {
+    func doneButtonPressed() {
         guard leagueIDField.hasText, let leagueID = leagueIDField.text else {
             return presentJoinLeagueError("League ID field is empty")
         }

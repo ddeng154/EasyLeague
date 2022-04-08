@@ -14,6 +14,8 @@ class CreateLeagueViewController: UIViewController {
     var user: User!
     
     var statistics: [(UITextField, UISwitch)] = []
+    
+    lazy var doneButton = createBarButton(item: .done, selector: #selector(doneButtonPressed))
 
     lazy var leagueNameField = createTextField(placeholder: "League Name") { field in
         field.autocapitalizationType = .words
@@ -31,8 +33,6 @@ class CreateLeagueViewController: UIViewController {
     
     lazy var addStatisticButton = createButton(title: "Add Statistic", selector: #selector(addStatisticButtonPressed))
     
-    lazy var createLeagueButton = createButton(title: "Create League", selector: #selector(createLeagueButtonPressed))
-    
     lazy var stackView = createVerticalStack()
     
     lazy var scrollView = withAutoLayout(UIScrollView())
@@ -41,16 +41,16 @@ class CreateLeagueViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         
         navigationItem.title = "New League"
+        navigationItem.rightBarButtonItem = doneButton
 
         stackView.addArrangedSubview(leagueNameField)
         stackView.addArrangedSubview(numTeamsField)
         stackView.addArrangedSubview(numMatchesField)
         stackView.addArrangedSubview(statisticsStack)
         stackView.addArrangedSubview(addStatisticButton)
-        stackView.addArrangedSubview(createLeagueButton)
         
         scrollView.addSubview(stackView)
         
@@ -90,7 +90,7 @@ class CreateLeagueViewController: UIViewController {
         statistics.append((field, control))
     }
     
-    func createLeagueButtonPressed() {
+    func doneButtonPressed() {
         guard leagueNameField.hasText, let leagueName = leagueNameField.text else {
             return presentCreateLeagueError("League Name field is empty")
         }
