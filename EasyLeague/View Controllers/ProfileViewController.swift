@@ -7,22 +7,19 @@
 
 import UIKit
 import FirebaseAuth
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
     var user: User!
     
-    lazy var userLabel = createLabel(text: user.displayName)
+    lazy var userLabel = createLabel(text: user.name)
     
     lazy var userPhoto: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "photo.circle"))
+        let imageView = UIImageView()
         imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        user.storageReferenceForPhoto.getData(maxSize: 10 * 1024 * 1024) { data, error in
-            if let data = data {
-                imageView.image = UIImage(data: data)
-            }
-        }
+        imageView.kf.setImage(with: URL(string: user.photoURL), placeholder: UIImage(systemName: "photo.circle"))
         return withAutoLayout(imageView)
     }()
     

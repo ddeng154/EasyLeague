@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 protocol AuthStateChanger {
     func authenticated(user: User)
@@ -20,12 +22,23 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        
         var initial = true
-        Auth.auth().addStateDidChangeListener { _, user in
-            if user == nil {
+        Auth.auth().addStateDidChangeListener { _, firebaseUser in
+            if firebaseUser == nil {
                 self.presentLoginController()
-            } else if initial, let user = user {
-                self.presentHomeController(for: user)
+            } else if initial, let firebaseUser = firebaseUser {
+                let spinner = self.addSpinner()
+                Firestore.firestore().documentForUser(firebaseUser.uid).getDocument(as: User.self) { result in
+                    spinner.remove()
+                    switch result {
+                        case .success(let user):
+                            self.presentHomeController(for: user)
+                        case .failure:
+                            self.presentLoginController()
+                    }
+                }
             }
             initial = false
         }
@@ -56,6 +69,8 @@ class RootViewController: UIViewController {
         let profileController = ProfileViewController()
         profileController.user = user
         let tabController = UITabBarController()
+        tabController.tabBar.standardAppearance = UITabBarAppearance()
+        tabController.tabBar.standardAppearance.configureWithTransparentBackground()
         tabController.tabBar.tintColor = .label
         tabController.viewControllers = [
             wrapPrimaryController(homeController, imageName: "house", selectedImageName: "house.fill"),

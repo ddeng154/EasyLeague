@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class HomeViewController: UIViewController {
 
@@ -56,13 +56,13 @@ class HomeViewController: UIViewController {
     }
     
     func addListener() {
-        snapshotListener = Firestore.firestore().leaguesQueryForUser(user.uid).addSnapshotListener { querySnapshot, error in
+        snapshotListener = Firestore.firestore().leaguesQueryForUser(user.id).addSnapshotListener { querySnapshot, error in
             if let error = error {
                 self.presentDatabaseError(error.localizedDescription)
             } else if let querySnapshot = querySnapshot {
                 self.leagues = querySnapshot.documents.compactMap { queryDocumentSnapshot in
                     guard let league = try? queryDocumentSnapshot.data(as: League.self) else { return nil }
-                    guard let team = league.teamWith(userID: self.user.uid) else { return nil }
+                    guard let team = league.teamWith(userID: self.user.id) else { return nil }
                     return (league, team)
                 }.sorted { lhs, rhs in lhs.team.name < rhs.team.name }
                 self.leaguesTable.reloadData()
@@ -108,6 +108,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let controller = LeagueHomeViewController()
+        controller.user = user
         controller.league = leagues[indexPath.row].league
         controller.team = leagues[indexPath.row].team
         show(controller, sender: self)

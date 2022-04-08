@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29100F0F02F9B9BEFBCD57E1 /* Pods_EasyLeague.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */; };
+		400E88DB27FBFC3100FE29D0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400E88DA27FBFC3100FE29D0 /* User.swift */; };
 		401A3BF927E97F95005A3CDD /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BF827E97F95005A3CDD /* League.swift */; };
 		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
 		40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40418A1D27D5E0C1008C8D43 /* Extensions.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		11542617403A3FD258414693 /* Pods-EasyLeague.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.debug.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.debug.xcconfig"; sourceTree = "<group>"; };
+		400E88DA27FBFC3100FE29D0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		401A3BF827E97F95005A3CDD /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
 		40418A1D27D5E0C1008C8D43 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				401A3BF827E97F95005A3CDD /* League.swift */,
 				40A6DA4227F585EA0026011D /* Team.swift */,
+				400E88DA27FBFC3100FE29D0 /* User.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
 				401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */,
 				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
+				400E88DB27FBFC3100FE29D0 /* User.swift in Sources */,
 				405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,

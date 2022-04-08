@@ -6,11 +6,15 @@
 //
 
 import UIKit
-import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestore
 
-extension UIViewController {
+extension UIViewController: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -64,29 +68,27 @@ extension UIViewController {
         return withAutoLayout(spacer)
     }
     
-    func createVerticalStack() -> UIStackView {
+    func createVerticalStack(spacing: CGFloat = 20) -> UIStackView {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .fill
-        stack.spacing = 20
+        stack.spacing = spacing
         return withAutoLayout(stack)
     }
     
-    func createLabel(text: String?, alignment: NSTextAlignment? = nil, customize: ((UILabel) -> Void)? = nil) -> UILabel {
+    func createLabel(text: String? = nil, customize: ((UILabel) -> Void)? = nil) -> UILabel {
         let label = UILabel()
         label.text = text
-        if let alignment = alignment {
-            label.textAlignment = alignment
-        }
         customize?(label)
         return withAutoLayout(label)
     }
     
-    func createTextField(placeholder: String?, customize: ((UITextField) -> Void)? = nil) -> UITextField {
+    func createTextField(placeholder: String? = nil, customize: ((UITextField) -> Void)? = nil) -> UITextField {
         let field = UITextField()
         field.borderStyle = .roundedRect
         field.placeholder = placeholder
+        field.delegate = self
         customize?(field)
         return withAutoLayout(field)
     }
@@ -118,12 +120,20 @@ extension Firestore {
         leagueCollection.whereField("memberUserIDs", arrayContains: id)
     }
     
+    var userCollection: CollectionReference {
+        collection("users")
+    }
+    
+    func documentForUser(_ id: String) -> DocumentReference {
+        userCollection.document(id)
+    }
+    
 }
 
-extension User {
+extension Storage {
     
-    var storageReferenceForPhoto: StorageReference {
-        Storage.storage().reference().child("users").child(uid).child("photo.png")
+    func photoReferenceForUser(_ id: String) -> StorageReference {
+        reference().child("photos").child("\(id).png")
     }
     
 }

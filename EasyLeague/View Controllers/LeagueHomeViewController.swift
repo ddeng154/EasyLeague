@@ -6,13 +6,22 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class LeagueHomeViewController: UIViewController {
     
+    var user: User!
+    
     var league: League!
+    
     var team: Team!
     
     lazy var spacer = createSpacer()
+    
+    lazy var leagueStartedLabel = createLabel()
+    
+    lazy var startLeagueButton = createButton(title: "Start League", selector: #selector(startLeagueButtonPressed))
     
     lazy var inviteButton = createButton(title: "Invite Members", selector: #selector(inviteButtonPressed))
     
@@ -28,7 +37,17 @@ class LeagueHomeViewController: UIViewController {
         
         navigationItem.title = team.name
         
+        stackView.addArrangedSubview(leagueStartedLabel)
         stackView.addArrangedSubview(spacer)
+        if league.isStarted {
+            leagueStartedLabel.text = "League is underway!"
+            
+        } else {
+            leagueStartedLabel.text = "League has not started yet"
+            if user.id == league.ownerUserID {
+                stackView.addArrangedSubview(startLeagueButton)
+            }
+        }
         stackView.addArrangedSubview(inviteButton)
         stackView.addArrangedSubview(leagueInfoButton)
         
@@ -40,6 +59,19 @@ class LeagueHomeViewController: UIViewController {
 }
 
 @objc extension LeagueHomeViewController {
+    
+    func startLeagueButtonPressed() {
+        league.isStarted = true
+        do {
+            try Firestore.firestore().leagueCollection.document(league.id).setData(from: league)
+            leagueStartedLabel.text = "League is underway!"
+            stackView.removeArrangedSubview(startLeagueButton)
+            startLeagueButton.removeFromSuperview()
+        } catch {
+            league.isStarted = false
+            presentSimpleAlert(title: "Start League Error", message: error.localizedDescription)
+        }
+    }
     
     func inviteButtonPressed() {
         present(UIActivityViewController(activityItems: [league.id], applicationActivities: nil), animated: true)

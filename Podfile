@@ -8,9 +8,11 @@ target 'EasyLeague' do
   # Pods for EasyLeague
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
+  pod 'FirebaseStorageSwift', '8.14.0-beta'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift', '8.13.0-beta'
   pod 'CropViewController'
+  pod 'Kingfisher'
 
 end
 
