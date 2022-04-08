@@ -11,7 +11,6 @@
 		400E88DB27FBFC3100FE29D0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400E88DA27FBFC3100FE29D0 /* User.swift */; };
 		401A3BF927E97F95005A3CDD /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BF827E97F95005A3CDD /* League.swift */; };
 		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
-		40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40418A1D27D5E0C1008C8D43 /* Extensions.swift */; };
 		40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40540C3727D130640022B600 /* GoogleService-Info.plist */; };
 		405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23527F67D2E0098C888 /* ProfileViewController.swift */; };
 		405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */; };
@@ -30,6 +29,10 @@
 		40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */; };
 		40F81F1C2800B9E000548A62 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F1B2800B9E000548A62 /* Statistic.swift */; };
 		40F81F1E2800CB5800548A62 /* EnterScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */; };
+		40F81F212800CE7F00548A62 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F202800CE7F00548A62 /* Firebase.swift */; };
+		40F81F232800CEFC00548A62 /* Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F222800CEFC00548A62 /* Functionality.swift */; };
+		40F81F252800CF1100548A62 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F242800CF1100548A62 /* Factory.swift */; };
+		40F81F272800CF6800548A62 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F262800CF6800548A62 /* UI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +40,6 @@
 		400E88DA27FBFC3100FE29D0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		401A3BF827E97F95005A3CDD /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
-		40418A1D27D5E0C1008C8D43 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		40540C3727D130640022B600 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		405CC23527F67D2E0098C888 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfoViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,10 @@
 		40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		40F81F1B2800B9E000548A62 /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
 		40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterScoresViewController.swift; sourceTree = "<group>"; };
+		40F81F202800CE7F00548A62 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		40F81F222800CEFC00548A62 /* Functionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functionality.swift; sourceTree = "<group>"; };
+		40F81F242800CF1100548A62 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		40F81F262800CF6800548A62 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyLeague.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FF5CEFFE961825C76753EF /* Pods-EasyLeague.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.release.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,8 +154,8 @@
 		40D7FC3B27D8E27600A895E8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				40F81F1F2800CE6B00548A62 /* Extensions */,
 				40D7FC3C27D8E29F00A895E8 /* View Controllers */,
-				40418A1D27D5E0C1008C8D43 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -160,6 +166,17 @@
 				40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		40F81F1F2800CE6B00548A62 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				40F81F202800CE7F00548A62 /* Firebase.swift */,
+				40F81F222800CEFC00548A62 /* Functionality.swift */,
+				40F81F242800CF1100548A62 /* Factory.swift */,
+				40F81F262800CF6800548A62 /* UI.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		8907EF8A2AC4D9383DF67B63 /* Frameworks */ = {
@@ -296,14 +313,17 @@
 			files = (
 				40F81F1C2800B9E000548A62 /* Statistic.swift in Sources */,
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
+				40F81F252800CF1100548A62 /* Factory.swift in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
 				40A6DA4327F585EA0026011D /* Team.swift in Sources */,
 				40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */,
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
+				40F81F272800CF6800548A62 /* UI.swift in Sources */,
 				401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */,
-				40418A1E27D5E0C1008C8D43 /* Extensions.swift in Sources */,
 				40F81F1E2800CB5800548A62 /* EnterScoresViewController.swift in Sources */,
 				400E88DB27FBFC3100FE29D0 /* User.swift in Sources */,
+				40F81F232800CEFC00548A62 /* Functionality.swift in Sources */,
+				40F81F212800CE7F00548A62 /* Firebase.swift in Sources */,
 				405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,
