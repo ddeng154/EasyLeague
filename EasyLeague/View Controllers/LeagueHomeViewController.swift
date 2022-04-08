@@ -17,13 +17,13 @@ class LeagueHomeViewController: UIViewController {
     
     var team: Team!
     
+    lazy var inviteButton = createBarButton(item: .action, selector: #selector(inviteButtonPressed))
+    
     lazy var spacer = createSpacer()
     
     lazy var leagueStartedLabel = createLabel()
     
     lazy var startLeagueButton = createButton(title: "Start League", selector: #selector(startLeagueButtonPressed))
-    
-    lazy var inviteButton = createButton(title: "Invite Members", selector: #selector(inviteButtonPressed))
     
     lazy var leagueInfoButton = createButton(title: "League Info", selector: #selector(leagueInfoButtonPressed))
     
@@ -33,9 +33,10 @@ class LeagueHomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         
         navigationItem.title = team.name
+        navigationItem.rightBarButtonItem = inviteButton
         
         stackView.addArrangedSubview(leagueStartedLabel)
         stackView.addArrangedSubview(spacer)
@@ -48,7 +49,6 @@ class LeagueHomeViewController: UIViewController {
                 stackView.addArrangedSubview(startLeagueButton)
             }
         }
-        stackView.addArrangedSubview(inviteButton)
         stackView.addArrangedSubview(leagueInfoButton)
         
         view.addSubview(stackView)

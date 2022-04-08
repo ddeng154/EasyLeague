@@ -16,6 +16,7 @@ class LogInViewController: UIViewController {
     
     lazy var titleLabel = createLabel(text: "EasyLeague") { label in
         label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 25)
     }
     
     lazy var emailField = createTextField(placeholder: "Email") { field in
@@ -42,7 +43,7 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(emailField)

@@ -16,9 +16,9 @@ class HomeViewController: UIViewController {
     
     var leagues: [(league: League, team: Team)] = []
     
-    lazy var leaguesTable = createTable(for: self)
+    lazy var createLeagueButton = createBarButton(item: .compose, selector: #selector(createLeagueButtonPressed))
     
-    lazy var createLeagueButton = createButton(title: "Create League", selector: #selector(createLeagueButtonPressed))
+    lazy var leaguesTable = createTable(for: self)
     
     lazy var joinLeagueButton = createButton(title: "Join League", selector: #selector(joinLeagueButtonPressed))
     
@@ -30,12 +30,12 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGray6
         
         navigationItem.title = "Home"
+        navigationItem.rightBarButtonItem = createLeagueButton
         
         stackView.addArrangedSubview(leaguesTable)
-        stackView.addArrangedSubview(createLeagueButton)
         stackView.addArrangedSubview(joinLeagueButton)
         
         view.addSubview(stackView)
@@ -102,6 +102,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         content.prefersSideBySideTextAndSecondaryText = true
         cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator
+        cell.backgroundColor = .appBackground
         return cell
     }
     

@@ -22,6 +22,7 @@ class SignUpViewController: UIViewController {
     
     lazy var titleLabel = createLabel(text: "EasyLeague") { label in
         label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 25)
     }
     
     lazy var firstNameField = createTextField(placeholder: "First Name") { field in
@@ -66,7 +67,7 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(firstNameField)

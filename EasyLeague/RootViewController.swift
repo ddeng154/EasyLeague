@@ -22,7 +22,7 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .appBackground
         
         var initial = true
         Auth.auth().addStateDidChangeListener { _, firebaseUser in
@@ -56,8 +56,11 @@ class RootViewController: UIViewController {
         presentViewController(logInController)
     }
     
-    func wrapPrimaryController(_ controller: UIViewController, imageName: String, selectedImageName: String) -> UIViewController {
+    func wrapPrimaryController(_ controller: UIViewController, title: String, imageName: String, selectedImageName: String) -> UIViewController {
         let navController = UINavigationController(rootViewController: controller)
+        navController.navigationBar.prefersLargeTitles = true
+        navController.navigationBar.tintColor = .appAccent
+        navController.tabBarItem.title = title
         navController.tabBarItem.image = UIImage(systemName: imageName)
         navController.tabBarItem.selectedImage = UIImage(systemName: selectedImageName)
         return navController
@@ -71,10 +74,10 @@ class RootViewController: UIViewController {
         let tabController = UITabBarController()
         tabController.tabBar.standardAppearance = UITabBarAppearance()
         tabController.tabBar.standardAppearance.configureWithTransparentBackground()
-        tabController.tabBar.tintColor = .label
+        tabController.tabBar.tintColor = .appAccent
         tabController.viewControllers = [
-            wrapPrimaryController(homeController, imageName: "house", selectedImageName: "house.fill"),
-            wrapPrimaryController(profileController, imageName: "person", selectedImageName: "person.fill"),
+            wrapPrimaryController(homeController, title: "Home", imageName: "house", selectedImageName: "house.fill"),
+            wrapPrimaryController(profileController, title: "Profile", imageName: "person", selectedImageName: "person.fill"),
         ]
         presentViewController(tabController)
     }

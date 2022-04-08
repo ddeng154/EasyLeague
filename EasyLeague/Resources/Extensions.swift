@@ -9,6 +9,14 @@ import UIKit
 import FirebaseStorage
 import FirebaseFirestore
 
+extension UIColor {
+    
+    class var appBackground: UIColor { .systemGray6 }
+    
+    class var appAccent: UIColor { .systemTeal }
+    
+}
+
 extension UIViewController: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -88,6 +96,7 @@ extension UIViewController: UITextFieldDelegate {
         let field = UITextField()
         field.borderStyle = .roundedRect
         field.placeholder = placeholder
+        field.heightAnchor.constraint(equalToConstant: 40).isActive = true
         field.delegate = self
         customize?(field)
         return withAutoLayout(field)
@@ -97,15 +106,50 @@ extension UIViewController: UITextFieldDelegate {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.addTarget(self, action: selector, for: .touchUpInside)
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.tintColor = .white
+        button.setBackgroundColor(.appAccent, for: .normal)
+        button.layer.cornerRadius = 7
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 17)
         customize?(button)
         return withAutoLayout(button)
     }
     
     func createTable(for vc: UITableViewDelegate & UITableViewDataSource) -> UITableView {
         let tableView = UITableView()
+        tableView.backgroundColor = .appBackground
         tableView.delegate = vc
         tableView.dataSource = vc
         return withAutoLayout(tableView)
+    }
+    
+    func createBarButton(item: UIBarButtonItem.SystemItem, selector: Selector, customize: ((UIBarButtonItem) -> Void)? = nil) -> UIBarButtonItem {
+        let button = UIBarButtonItem(barButtonSystemItem: item, target: self, action: selector)
+        customize?(button)
+        return button
+    }
+    
+}
+
+extension UIImage {
+    
+    static func pixel(ofColor color: UIColor) -> UIImage {
+        let pixel = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(pixel.size)
+        defer { UIGraphicsEndImageContext() }
+        guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
+        context.setFillColor(color.cgColor)
+        context.fill(pixel)
+        return UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
+    }
+    
+}
+
+extension UIButton {
+    
+    func setBackgroundColor(_ backgroundColor: UIColor, for state: UIControl.State) {
+        setBackgroundImage(UIImage.pixel(ofColor: backgroundColor), for: .normal)
     }
     
 }
