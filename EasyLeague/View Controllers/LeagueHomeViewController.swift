@@ -25,6 +25,8 @@ class LeagueHomeViewController: UIViewController {
     
     lazy var startLeagueButton = createButton(title: "Start League", selector: #selector(startLeagueButtonPressed))
     
+    lazy var enterScoresButton = createButton(title: "Enter Scores", selector: #selector(enterScoresButtonPressed))
+    
     lazy var leagueInfoButton = createButton(title: "League Info", selector: #selector(leagueInfoButtonPressed))
     
     lazy var stackView = createVerticalStack()
@@ -42,7 +44,9 @@ class LeagueHomeViewController: UIViewController {
         stackView.addArrangedSubview(spacer)
         if league.isStarted {
             leagueStartedLabel.text = "League is underway!"
-            
+            if user.id == league.ownerUserID && league.numMatchesPlayed < league.numMatches {
+                stackView.addArrangedSubview(enterScoresButton)
+            }
         } else {
             leagueStartedLabel.text = "League has not started yet"
             if user.id == league.ownerUserID {
@@ -62,6 +66,7 @@ class LeagueHomeViewController: UIViewController {
     
     func startLeagueButtonPressed() {
         league.isStarted = true
+        league.playerStats = league.playerStats.mapValues { _ in Dictionary(uniqueKeysWithValues: league.memberUserIDs.map { userID in (userID, Statistic()) }) }
         do {
             try Firestore.firestore().leagueCollection.document(league.id).setData(from: league)
             leagueStartedLabel.text = "League is underway!"
@@ -71,6 +76,12 @@ class LeagueHomeViewController: UIViewController {
             league.isStarted = false
             presentSimpleAlert(title: "Start League Error", message: error.localizedDescription)
         }
+    }
+    
+    func enterScoresButtonPressed() {
+        let enterScoresController = EnterScoresViewController()
+        enterScoresController.league = league
+        show(enterScoresController, sender: self)
     }
     
     func inviteButtonPressed() {

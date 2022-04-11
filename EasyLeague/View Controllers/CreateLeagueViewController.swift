@@ -100,12 +100,15 @@ class CreateLeagueViewController: UIViewController {
         guard numMatchesField.hasText, let numMatches = Int(numMatchesField.text), numMatches >= 1 else {
             return presentCreateLeagueError("Number of Matches must be a valid integer greater than or equal to 1")
         }
+        guard statistics.count == Set(statistics.compactMap { (field, _) in field.text }).count else {
+            return presentCreateLeagueError("Each statistic must have a unique name")
+        }
         let document = Firestore.firestore().leagueCollection.document()
         let stats: [String : Bool] = Dictionary(uniqueKeysWithValues: statistics.compactMap { (field, swtch) in
             guard let text = field.text, !text.isEmpty else { return nil }
             return (text, swtch.isOn)
         })
-        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, statistics: stats)
+        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, stats: stats)
         do {
             try document.setData(from: league)
             popFromNavigation()
