@@ -78,6 +78,8 @@ class RootViewController: UIViewController {
     func presentHomeController(for user: User) {
         let homeController = HomeViewController()
         homeController.user = user
+        let chatController = ChatHomeViewController()
+        chatController.user = user
         let profileController = ProfileViewController()
         profileController.user = user
         profileController.userInterfaceStyle = self
@@ -87,6 +89,7 @@ class RootViewController: UIViewController {
         tabController.tabBar.tintColor = .appAccent
         tabController.viewControllers = [
             wrapPrimaryController(homeController, title: "Home", imageName: "house", selectedImageName: "house.fill"),
+            wrapPrimaryController(chatController, title: "Chat", imageName: "ellipsis.bubble", selectedImageName: "ellipsis.bubble.fill"),
             wrapPrimaryController(profileController, title: "Profile", imageName: "person", selectedImageName: "person.fill"),
         ]
         presentViewController(tabController)

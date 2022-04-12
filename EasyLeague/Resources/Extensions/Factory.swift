@@ -45,6 +45,7 @@ extension UIViewController {
         let field = UITextField()
         field.borderStyle = .roundedRect
         field.placeholder = placeholder
+        field.tintColor = .appAccent
         field.heightAnchor.constraint(equalToConstant: 40).isActive = true
         field.delegate = self
         customize?(field)

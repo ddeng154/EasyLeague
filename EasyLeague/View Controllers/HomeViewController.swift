@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseStorage
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -24,7 +23,11 @@ class HomeViewController: UIViewController {
     
     lazy var stackView = createVerticalStack()
     
-    var snapshotListener: ListenerRegistration?
+    var leaguesListener: ListenerRegistration?
+    
+    deinit {
+        leaguesListener?.remove()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +35,7 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .appBackground
         
-        navigationItem.title = "Home"
+        navigationItem.title = "EasyLeague"
         navigationItem.rightBarButtonItem = createLeagueButton
         
         stackView.addArrangedSubview(leaguesTable)
@@ -41,14 +44,8 @@ class HomeViewController: UIViewController {
         view.addSubview(stackView)
         
         constrainToSafeArea(stackView)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        
         addListener()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        snapshotListener?.remove()
     }
     
     func presentDatabaseError(_ message: String) {
@@ -56,7 +53,7 @@ class HomeViewController: UIViewController {
     }
     
     func addListener() {
-        snapshotListener = Firestore.firestore().leaguesQueryForUser(user.id).addSnapshotListener { querySnapshot, error in
+        leaguesListener = Firestore.firestore().leaguesQueryForUser(user.id).addSnapshotListener { querySnapshot, error in
             if let error = error {
                 self.presentDatabaseError(error.localizedDescription)
             } else if let querySnapshot = querySnapshot {
@@ -97,8 +94,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         var content = UIListContentConfiguration.valueCell()
-        content.text = leagues[indexPath.row].team.name
-        content.secondaryText = leagues[indexPath.row].league.name
+        content.text = leagues[indexPath.row].league.name
+        content.secondaryText = leagues[indexPath.row].team.name
         content.prefersSideBySideTextAndSecondaryText = true
         cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator
