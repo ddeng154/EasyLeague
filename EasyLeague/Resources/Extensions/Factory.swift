@@ -45,6 +45,7 @@ extension UIViewController {
         let field = UITextField()
         field.borderStyle = .roundedRect
         field.placeholder = placeholder
+        field.tintColor = .appAccent
         field.heightAnchor.constraint(equalToConstant: 40).isActive = true
         field.delegate = self
         customize?(field)
@@ -74,9 +75,11 @@ extension UIViewController {
         return withAutoLayout(tableView)
     }
     
-    func createSwitch(action: Selector, customize: ((UISwitch) -> Void)? = nil) -> UISwitch {
+    func createSwitch(action: Selector? = nil, customize: ((UISwitch) -> Void)? = nil) -> UISwitch {
         let swtch = UISwitch()
-        swtch.addTarget(self, action: action, for: .valueChanged)
+        if let action = action {
+            swtch.addTarget(self, action: action, for: .valueChanged)
+        }
         customize?(swtch)
         return withAutoLayout(swtch)
     }

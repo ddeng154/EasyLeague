@@ -166,14 +166,16 @@ extension SignUpViewController: PHPickerViewControllerDelegate {
             DispatchQueue.main.async {
                 spinner.remove()
                 if let image = image as? UIImage {
-                    self.dismiss(animated: false)
-                    let cropController = CropViewController(croppingStyle: .circular, image: image)
-                    cropController.delegate = self
-                    cropController.cancelButtonHidden = true
-                    cropController.rotateButtonsHidden = true
-                    cropController.resetButtonHidden = true
-                    cropController.modalPresentationStyle = .currentContext
-                    self.present(cropController, animated: true)
+                    self.dismiss(animated: true) {
+                        let cropController = CropViewController(croppingStyle: .circular, image: image)
+                        cropController.delegate = self
+                        cropController.cancelButtonHidden = true
+                        cropController.rotateButtonsHidden = true
+                        cropController.resetButtonHidden = true
+                        cropController.doneButtonColor = .appAccent
+                        cropController.modalPresentationStyle = .currentContext
+                        self.present(cropController, animated: true)
+                    }
                 } else if let error = error {
                     self.dismiss(animated: true)
                     self.presentSignUpError(error.localizedDescription)

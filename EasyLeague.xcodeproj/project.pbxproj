@@ -11,6 +11,7 @@
 		400E88DB27FBFC3100FE29D0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400E88DA27FBFC3100FE29D0 /* User.swift */; };
 		401A3BF927E97F95005A3CDD /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BF827E97F95005A3CDD /* League.swift */; };
 		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
+		4045E8232805674B00360B1A /* ChatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4045E8222805674B00360B1A /* ChatHomeViewController.swift */; };
 		40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40540C3727D130640022B600 /* GoogleService-Info.plist */; };
 		405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23527F67D2E0098C888 /* ProfileViewController.swift */; };
 		405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */; };
@@ -20,6 +21,9 @@
 		408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 408A40B127D0AFC6004D40B1 /* EasyLeague.xcdatamodeld */; };
 		408A40B527D0AFC7004D40B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B427D0AFC7004D40B1 /* Assets.xcassets */; };
 		408A40B827D0AFC7004D40B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408A40B627D0AFC7004D40B1 /* LaunchScreen.storyboard */; };
+		408AAEF52805CDC4004B9D89 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408AAEF42805CDC4004B9D89 /* ChatViewController.swift */; };
+		408AAEF72805D1F6004B9D89 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408AAEF62805D1F5004B9D89 /* Message.swift */; };
+		408AAEF92805E03C004B9D89 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408AAEF82805E03C004B9D89 /* Sender.swift */; };
 		409BF23B27F553450056FC36 /* JoinLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */; };
 		40A6DA4327F585EA0026011D /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A6DA4227F585EA0026011D /* Team.swift */; };
 		40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */; };
@@ -40,6 +44,7 @@
 		400E88DA27FBFC3100FE29D0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		401A3BF827E97F95005A3CDD /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
+		4045E8222805674B00360B1A /* ChatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHomeViewController.swift; sourceTree = "<group>"; };
 		40540C3727D130640022B600 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		405CC23527F67D2E0098C888 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfoViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +56,9 @@
 		408A40B427D0AFC7004D40B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		408A40B727D0AFC7004D40B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		408A40B927D0AFC7004D40B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		408AAEF42805CDC4004B9D89 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		408AAEF62805D1F5004B9D89 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		408AAEF82805E03C004B9D89 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLeagueViewController.swift; sourceTree = "<group>"; };
 		40A6DA4227F585EA0026011D /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeagueViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +103,8 @@
 				40A6DA4227F585EA0026011D /* Team.swift */,
 				400E88DA27FBFC3100FE29D0 /* User.swift */,
 				40F81F1B2800B9E000548A62 /* Statistic.swift */,
+				408AAEF62805D1F5004B9D89 /* Message.swift */,
+				408AAEF82805E03C004B9D89 /* Sender.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -147,6 +157,8 @@
 				405CC23527F67D2E0098C888 /* ProfileViewController.swift */,
 				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
 				40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */,
+				4045E8222805674B00360B1A /* ChatHomeViewController.swift */,
+				408AAEF42805CDC4004B9D89 /* ChatViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -311,15 +323,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				408AAEF92805E03C004B9D89 /* Sender.swift in Sources */,
 				40F81F1C2800B9E000548A62 /* Statistic.swift in Sources */,
+				4045E8232805674B00360B1A /* ChatHomeViewController.swift in Sources */,
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
 				40F81F252800CF1100548A62 /* Factory.swift in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
 				40A6DA4327F585EA0026011D /* Team.swift in Sources */,
 				40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */,
+				408AAEF72805D1F6004B9D89 /* Message.swift in Sources */,
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
 				40F81F272800CF6800548A62 /* UI.swift in Sources */,
 				401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */,
+				408AAEF52805CDC4004B9D89 /* ChatViewController.swift in Sources */,
 				40F81F1E2800CB5800548A62 /* EnterScoresViewController.swift in Sources */,
 				400E88DB27FBFC3100FE29D0 /* User.swift in Sources */,
 				40F81F232800CEFC00548A62 /* Functionality.swift in Sources */,
@@ -479,6 +495,7 @@
 				INFOPLIST_FILE = EasyLeague/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -490,7 +507,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -507,6 +524,7 @@
 				INFOPLIST_FILE = EasyLeague/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -518,7 +536,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

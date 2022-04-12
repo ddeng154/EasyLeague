@@ -80,14 +80,10 @@ class CreateLeagueViewController: UIViewController {
         let field = createTextField(placeholder: "Custom Statistic \(statisticsStack.arrangedSubviews.count + 1)")
         stack.addArrangedSubview(field)
         let label = createLabel(text: "Track this statistic for players too")
-        let control = withAutoLayout(UISwitch())
-        let controlStack = withAutoLayout(UIStackView(arrangedSubviews: [label, control]))
-        controlStack.axis = .horizontal
-        controlStack.alignment = .fill
-        controlStack.distribution = .fill
-        stack.addArrangedSubview(controlStack)
+        let swtch = createSwitch()
+        stack.addArrangedSubview(createHorizontalStack(for: [label, swtch]))
         statisticsStack.addArrangedSubview(stack)
-        statistics.append((field, control))
+        statistics.append((field, swtch))
     }
     
     func doneButtonPressed() {

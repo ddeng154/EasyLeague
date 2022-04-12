@@ -9,7 +9,7 @@ import UIKit
 
 extension UIColor {
     
-    class var appBackground: UIColor { .systemGray6 }
+    class var appBackground: UIColor { .systemBackground }
     
     class var appAccent: UIColor { .systemTeal }
     
