@@ -74,9 +74,11 @@ extension UIViewController {
         return withAutoLayout(tableView)
     }
     
-    func createSwitch(action: Selector, customize: ((UISwitch) -> Void)? = nil) -> UISwitch {
+    func createSwitch(action: Selector? = nil, customize: ((UISwitch) -> Void)? = nil) -> UISwitch {
         let swtch = UISwitch()
-        swtch.addTarget(self, action: action, for: .valueChanged)
+        if let action = action {
+            swtch.addTarget(self, action: action, for: .valueChanged)
+        }
         customize?(swtch)
         return withAutoLayout(swtch)
     }
