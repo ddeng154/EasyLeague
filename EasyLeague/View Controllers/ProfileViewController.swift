@@ -13,6 +13,8 @@ class ProfileViewController: UIViewController {
     
     var user: User!
     
+    var userInterfaceStyle: UserInterfaceStyleWrapper!
+    
     lazy var userLabel = createLabel(text: user.name)
     
     lazy var userPhoto: UIImageView = {
@@ -23,17 +25,23 @@ class ProfileViewController: UIViewController {
         return withAutoLayout(imageView)
     }()
     
-    lazy var userStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [userLabel, userPhoto])
-        stack.axis = .horizontal
-        stack.distribution = .equalSpacing
-        stack.alignment = .fill
-        return withAutoLayout(stack)
-    }()
+    lazy var userStackView = createHorizontalStack(for: [userLabel, userPhoto])
+    
+    lazy var overrideSystemAppearanceLabel = createLabel(text: "Override System Appearance")
+    
+    lazy var overrideSystemAppearanceSwitch = createSwitch(action: #selector(overrideSystemAppearanceSwitchPressed))
+    
+    lazy var overrideSystemAppearanceStackView = createHorizontalStack(for: [overrideSystemAppearanceLabel, overrideSystemAppearanceSwitch])
+    
+    lazy var darkModeLabel = createLabel(text: "Dark Mode")
+    
+    lazy var darkModeSwitch = createSwitch(action: #selector(darkModeSwitchPressed))
+    
+    lazy var darkModeStackView = createHorizontalStack(for: [darkModeLabel, darkModeSwitch])
     
     lazy var spacer = createSpacer()
     
-    lazy var logOutButton = createButton(title: "Log Out", selector: #selector(logOutButtonPressed))
+    lazy var logOutButton = createButton(title: "Log Out", action: #selector(logOutButtonPressed))
     
     lazy var stackView = createVerticalStack()
 
@@ -46,17 +54,50 @@ class ProfileViewController: UIViewController {
         navigationItem.title = "Profile"
         
         stackView.addArrangedSubview(userStackView)
+        stackView.addArrangedSubview(overrideSystemAppearanceStackView)
+        stackView.addArrangedSubview(darkModeStackView)
         stackView.addArrangedSubview(spacer)
         stackView.addArrangedSubview(logOutButton)
+        
+        updateDarkModeControls()
         
         view.addSubview(stackView)
         
         constrainToSafeArea(stackView)
     }
+    
+    func updateDarkModeControls() {
+        let style = userInterfaceStyle.get()
+        if style == .unspecified {
+            overrideSystemAppearanceSwitch.setOn(false, animated: false)
+            darkModeStackView.isHidden = true
+        } else {
+            overrideSystemAppearanceSwitch.setOn(true, animated: false)
+            darkModeStackView.isHidden = false
+            darkModeSwitch.setOn(style == .dark, animated: false)
+        }
+    }
 
 }
 
 @objc extension ProfileViewController {
+    
+    func overrideSystemAppearanceSwitchPressed() {
+        if overrideSystemAppearanceSwitch.isOn {
+            userInterfaceStyle.set(.light)
+        } else {
+            userInterfaceStyle.set(.unspecified)
+        }
+        updateDarkModeControls()
+    }
+    
+    func darkModeSwitchPressed() {
+        if darkModeSwitch.isOn {
+            userInterfaceStyle.set(.dark)
+        } else {
+            userInterfaceStyle.set(.light)
+        }
+    }
     
     func logOutButtonPressed() {
         do {

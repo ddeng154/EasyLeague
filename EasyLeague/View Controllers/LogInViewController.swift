@@ -31,9 +31,9 @@ class LogInViewController: UIViewController {
         field.isSecureTextEntry = true
     }
     
-    lazy var logInButton = createButton(title: "Log In", selector: #selector(logInButtonPressed))
+    lazy var logInButton = createButton(title: "Log In", action: #selector(logInButtonPressed))
     
-    lazy var signUpButton = createButton(title: "Sign Up", selector: #selector(signUpButtonPressed))
+    lazy var signUpButton = createButton(title: "Sign Up", action: #selector(signUpButtonPressed))
     
     lazy var spacer = createSpacer()
     

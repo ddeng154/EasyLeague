@@ -17,17 +17,17 @@ class LeagueHomeViewController: UIViewController {
     
     var team: Team!
     
-    lazy var inviteButton = createBarButton(item: .action, selector: #selector(inviteButtonPressed))
+    lazy var inviteButton = createBarButton(item: .action, action: #selector(inviteButtonPressed))
     
     lazy var spacer = createSpacer()
     
     lazy var leagueStartedLabel = createLabel()
     
-    lazy var startLeagueButton = createButton(title: "Start League", selector: #selector(startLeagueButtonPressed))
+    lazy var startLeagueButton = createButton(title: "Start League", action: #selector(startLeagueButtonPressed))
     
-    lazy var enterScoresButton = createButton(title: "Enter Scores", selector: #selector(enterScoresButtonPressed))
+    lazy var enterScoresButton = createButton(title: "Enter Scores", action: #selector(enterScoresButtonPressed))
     
-    lazy var leagueInfoButton = createButton(title: "League Info", selector: #selector(leagueInfoButtonPressed))
+    lazy var leagueInfoButton = createButton(title: "League Info", action: #selector(leagueInfoButtonPressed))
     
     lazy var stackView = createVerticalStack()
     

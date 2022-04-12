@@ -9,17 +9,28 @@ import UIKit
 
 extension UIViewController {
     
-    func createSpacer() -> UIView {
+    func createSpacer(customize: ((UIView) -> Void)? = nil) -> UIView {
         let spacer = UIView()
+        customize?(spacer)
         return withAutoLayout(spacer)
     }
     
-    func createVerticalStack(spacing: CGFloat = 20) -> UIStackView {
+    func createVerticalStack(spacing: CGFloat = 20, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .fill
         stack.spacing = spacing
+        customize?(stack)
+        return withAutoLayout(stack)
+    }
+    
+    func createHorizontalStack(for subviews: [UIView], customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
+        let stack = UIStackView(arrangedSubviews: subviews)
+        stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.alignment = .fill
+        customize?(stack)
         return withAutoLayout(stack)
     }
     
@@ -40,10 +51,10 @@ extension UIViewController {
         return withAutoLayout(field)
     }
     
-    func createButton(title: String, selector: Selector, customize: ((UIButton) -> Void)? = nil) -> UIButton {
+    func createButton(title: String, action: Selector, customize: ((UIButton) -> Void)? = nil) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
-        button.addTarget(self, action: selector, for: .touchUpInside)
+        button.addTarget(self, action: action, for: .touchUpInside)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.tintColor = .white
         button.setBackgroundColor(.appAccent, for: .normal)
@@ -54,16 +65,24 @@ extension UIViewController {
         return withAutoLayout(button)
     }
     
-    func createTable(for vc: UITableViewDelegate & UITableViewDataSource) -> UITableView {
+    func createTable(for vc: UITableViewDelegate & UITableViewDataSource, customize: ((UITableView) -> Void)? = nil) -> UITableView {
         let tableView = UITableView()
         tableView.backgroundColor = .appBackground
         tableView.delegate = vc
         tableView.dataSource = vc
+        customize?(tableView)
         return withAutoLayout(tableView)
     }
     
-    func createBarButton(item: UIBarButtonItem.SystemItem, selector: Selector, customize: ((UIBarButtonItem) -> Void)? = nil) -> UIBarButtonItem {
-        let button = UIBarButtonItem(barButtonSystemItem: item, target: self, action: selector)
+    func createSwitch(action: Selector, customize: ((UISwitch) -> Void)? = nil) -> UISwitch {
+        let swtch = UISwitch()
+        swtch.addTarget(self, action: action, for: .valueChanged)
+        customize?(swtch)
+        return withAutoLayout(swtch)
+    }
+    
+    func createBarButton(item: UIBarButtonItem.SystemItem, action: Selector, customize: ((UIBarButtonItem) -> Void)? = nil) -> UIBarButtonItem {
+        let button = UIBarButtonItem(barButtonSystemItem: item, target: self, action: action)
         customize?(button)
         return button
     }

@@ -16,11 +16,11 @@ class HomeViewController: UIViewController {
     
     var leagues: [(league: League, team: Team)] = []
     
-    lazy var createLeagueButton = createBarButton(item: .compose, selector: #selector(createLeagueButtonPressed))
+    lazy var createLeagueButton = createBarButton(item: .compose, action: #selector(createLeagueButtonPressed))
     
     lazy var leaguesTable = createTable(for: self)
     
-    lazy var joinLeagueButton = createButton(title: "Join League", selector: #selector(joinLeagueButtonPressed))
+    lazy var joinLeagueButton = createButton(title: "Join League", action: #selector(joinLeagueButtonPressed))
     
     lazy var stackView = createVerticalStack()
     
