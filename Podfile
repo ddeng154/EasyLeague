@@ -13,6 +13,7 @@ target 'EasyLeague' do
   pod 'FirebaseFirestoreSwift', '8.13.0-beta'
   pod 'CropViewController'
   pod 'Kingfisher'
+  pod 'MessageKit'
 
 end
 
