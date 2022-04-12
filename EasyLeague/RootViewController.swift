@@ -14,7 +14,14 @@ protocol AuthStateChanger {
     func authenticated(user: User)
 }
 
+protocol UserInterfaceStyleWrapper {
+    func get() -> UIUserInterfaceStyle
+    func set(_ style: UIUserInterfaceStyle)
+}
+
 class RootViewController: UIViewController {
+    
+    var setUserInterfaceStyle: ((UIUserInterfaceStyle) -> Void)!
     
     var currentViewController: UIViewController?
     
@@ -22,16 +29,18 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .appBackground
+        view.backgroundColor = .appAccent
         
         var initial = true
         Auth.auth().addStateDidChangeListener { _, firebaseUser in
             if firebaseUser == nil {
+                if initial {
+                    self.set(self.get())
+                }
                 self.presentLoginController()
             } else if initial, let firebaseUser = firebaseUser {
-                let spinner = self.addSpinner()
                 Firestore.firestore().documentForUser(firebaseUser.uid).getDocument(as: User.self) { result in
-                    spinner.remove()
+                    self.set(self.get())
                     switch result {
                         case .success(let user):
                             self.presentHomeController(for: user)
@@ -71,6 +80,7 @@ class RootViewController: UIViewController {
         homeController.user = user
         let profileController = ProfileViewController()
         profileController.user = user
+        profileController.userInterfaceStyle = self
         let tabController = UITabBarController()
         tabController.tabBar.standardAppearance = UITabBarAppearance()
         tabController.tabBar.standardAppearance.configureWithTransparentBackground()
@@ -88,6 +98,21 @@ extension RootViewController: AuthStateChanger {
     
     func authenticated(user: User) {
         presentHomeController(for: user)
+    }
+    
+}
+
+extension RootViewController: UserInterfaceStyleWrapper {
+    
+    static let userInterfaceStyleKey = "EasyLeagueUserInterfaceStyleKey"
+    
+    func get() -> UIUserInterfaceStyle {
+        UIUserInterfaceStyle(rawValue: UserDefaults.standard.integer(forKey: Self.userInterfaceStyleKey)) ?? .unspecified
+    }
+    
+    func set(_ style: UIUserInterfaceStyle) {
+        UserDefaults.standard.set(style.rawValue, forKey: Self.userInterfaceStyleKey)
+        setUserInterfaceStyle(style)
     }
     
 }

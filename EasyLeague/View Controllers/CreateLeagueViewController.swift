@@ -15,7 +15,7 @@ class CreateLeagueViewController: UIViewController {
     
     var statistics: [(UITextField, UISwitch)] = []
     
-    lazy var doneButton = createBarButton(item: .done, selector: #selector(doneButtonPressed))
+    lazy var doneButton = createBarButton(item: .done, action: #selector(doneButtonPressed))
 
     lazy var leagueNameField = createTextField(placeholder: "League Name") { field in
         field.autocapitalizationType = .words
@@ -31,7 +31,7 @@ class CreateLeagueViewController: UIViewController {
     
     lazy var statisticsStack = createVerticalStack()
     
-    lazy var addStatisticButton = createButton(title: "Add Statistic", selector: #selector(addStatisticButtonPressed))
+    lazy var addStatisticButton = createButton(title: "Add Statistic", action: #selector(addStatisticButtonPressed))
     
     lazy var stackView = createVerticalStack()
     

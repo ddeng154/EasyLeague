@@ -13,7 +13,7 @@ class JoinLeagueViewController: UIViewController {
     
     var user: User!
     
-    lazy var doneButton = createBarButton(item: .done, selector: #selector(doneButtonPressed))
+    lazy var doneButton = createBarButton(item: .done, action: #selector(doneButtonPressed))
     
     lazy var leagueIDField = createTextField(placeholder: "League ID") { field in
         field.autocorrectionType = .no
