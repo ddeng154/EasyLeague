@@ -14,12 +14,12 @@ class ChooseLeagueTypeViewController: UIViewController {
     var user: User!
     
     let choices = [
-        ("Basketball"),
-        ("Hockey"),
-        ("Football"),
-        ("Volleyball"),
-        ("Soccer"),
-        ("Custom"),
+        ("Basketball", [("Points", true), ("Rebounds", true), ("Assists", true), ("Steals", false), ("Blocks", false)]),
+        ("Hockey", [("Goals", true), ("Assists", true), ("Shots on Goal", false)]),
+        ("Football", [("Passing Touchdowns", true), ("Receiving Touchdowns", true), ("Rushing Touchdowns", true), ("Turnovers", false)]),
+        ("Volleyball", [("Kills", true), ("Assists", true), ("Total Blocks", false)]),
+        ("Soccer", [("Goals", true), ("Assists", true), ("Shots", false), ("Tackles", false)]),
+        ("Custom", []),
     ]
     
     lazy var choicesCollection: UICollectionView = {
@@ -81,17 +81,15 @@ extension ChooseLeagueTypeViewController: UICollectionViewDelegate, UICollection
         cell.layer.shadowOffset = CGSize(width: 4, height: 4)
         cell.layer.shadowRadius = 4
         
-        let image = withAutoLayout(UIImageView(image: UIImage(named: choices[indexPath.row])))
+        let image = withAutoLayout(UIImageView(image: UIImage(named: choices[indexPath.row].0)))
         image.heightAnchor.constraint(equalToConstant: 100).isActive = true
         image.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        let label = createLabel(text: choices[indexPath.row])
+        let label = createLabel(text: choices[indexPath.row].0)
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         
-        let stack = createVerticalStack(spacing: 0, distribution: .equalCentering, alignment: .center)
-        stack.addArrangedSubview(image)
-        stack.addArrangedSubview(label)
+        let stack = createVerticalStack(for: [image, label], spacing: 0, distribution: .equalCentering, alignment: .center)
         cell.contentView.addSubview(stack)
         
         constrainToSafeArea(stack, superview: cell.contentView)
