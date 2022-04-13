@@ -27,6 +27,23 @@ class ProfileViewController: UIViewController {
     
     lazy var userStackView = createHorizontalStack(for: [userLabel, userPhoto])
     
+    lazy var updateEmailLabel = createLabel(text: "Update Email Address")
+    
+    lazy var updatePasswordLabel = createLabel(text: "Change Password")
+    
+    var arrowSymbol: UIImageView {
+        let imageView = UIImageView()
+        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.image = UIImage(systemName: "arrow.right")
+        imageView.tintColor = .lightGray
+        return imageView
+    }
+    
+    lazy var updateEmailView = createHorizontalStack(for: [updateEmailLabel, arrowSymbol])
+    
+    lazy var updatePasswordView = createHorizontalStack(for: [updatePasswordLabel, arrowSymbol])
+    
     lazy var overrideSystemAppearanceLabel = createLabel(text: "Override System Appearance")
     
     lazy var overrideSystemAppearanceSwitch = createSwitch(action: #selector(overrideSystemAppearanceSwitchPressed))
@@ -53,7 +70,13 @@ class ProfileViewController: UIViewController {
         
         navigationItem.title = "Profile"
         
+        let updateEmailPress = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.updateEmailPressed))
+        
+        let updatePasswordPress = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.changePasswordPressed))
+        
         stackView.addArrangedSubview(userStackView)
+        stackView.addArrangedSubview(updateEmailView)
+        stackView.addArrangedSubview(updatePasswordView)
         stackView.addArrangedSubview(overrideSystemAppearanceStackView)
         stackView.addArrangedSubview(darkModeStackView)
         stackView.addArrangedSubview(spacer)
@@ -62,6 +85,12 @@ class ProfileViewController: UIViewController {
         updateDarkModeControls()
         
         view.addSubview(stackView)
+        
+        updateEmailView.isUserInteractionEnabled = true
+        updateEmailView.addGestureRecognizer(updateEmailPress)
+        updatePasswordView.isUserInteractionEnabled = true
+        updatePasswordView.addGestureRecognizer(updatePasswordPress)
+        
         
         constrainToSafeArea(stackView)
     }
@@ -81,6 +110,18 @@ class ProfileViewController: UIViewController {
 }
 
 @objc extension ProfileViewController {
+    
+    func updateEmailPressed() {
+        let updateEmailController = UpdateEmailViewController()
+        updateEmailController.user = user
+        show(updateEmailController, sender: self)
+    }
+    
+    func changePasswordPressed() {
+        let changePasswordController = ChangePasswordViewController()
+        changePasswordController.user = user
+        show(changePasswordController, sender: self)
+    }
     
     func overrideSystemAppearanceSwitchPressed() {
         if overrideSystemAppearanceSwitch.isOn {
