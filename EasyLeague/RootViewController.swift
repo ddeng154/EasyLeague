@@ -23,6 +23,13 @@ class RootViewController: UIViewController {
     
     var setUserInterfaceStyle: ((UIUserInterfaceStyle) -> Void)!
     
+    lazy var appLogo: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "AppLogo"))
+        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        return withAutoLayout(imageView)
+    }()
+    
     var currentViewController: UIViewController?
     
     override func viewDidLoad() {
@@ -30,6 +37,13 @@ class RootViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         view.backgroundColor = .appAccent
+
+        view.addSubview(appLogo)
+
+        NSLayoutConstraint.activate([
+            appLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            appLogo.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
         
         var initial = true
         Auth.auth().addStateDidChangeListener { _, firebaseUser in
