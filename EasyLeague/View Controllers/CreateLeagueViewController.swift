@@ -13,6 +13,8 @@ class CreateLeagueViewController: UIViewController {
 
     var user: User!
     
+    var leagueType: String!
+    
     var statistics: [(UITextField, UISwitch)] = []
     
     lazy var doneButton = createBarButton(item: .done, action: #selector(doneButtonPressed))

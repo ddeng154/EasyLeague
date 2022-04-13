@@ -52,7 +52,8 @@ extension UIViewController: UITextFieldDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    func constrainToSafeArea(_ subview: UIView) {
+    func constrainToSafeArea(_ subview: UIView, superview: UIView? = nil) {
+        guard let view = superview ?? view else { return }
         NSLayoutConstraint.activate([
             subview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             subview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),

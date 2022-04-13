@@ -72,9 +72,9 @@ class HomeViewController: UIViewController {
 @objc extension HomeViewController {
     
     func createLeagueButtonPressed() {
-        let createController = CreateLeagueViewController()
-        createController.user = user
-        show(createController, sender: self)
+        let chooseTypeController = ChooseLeagueTypeViewController()
+        chooseTypeController.user = user
+        show(chooseTypeController, sender: self)
     }
     
     func joinLeagueButtonPressed() {

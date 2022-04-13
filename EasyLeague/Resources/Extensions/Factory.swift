@@ -15,11 +15,11 @@ extension UIViewController {
         return withAutoLayout(spacer)
     }
     
-    func createVerticalStack(spacing: CGFloat = 20, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
+    func createVerticalStack(spacing: CGFloat = 20, distribution: UIStackView.Distribution = .fill, alignment: UIStackView.Alignment = .fill, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
+        stack.distribution = distribution
+        stack.alignment = alignment
         stack.spacing = spacing
         customize?(stack)
         return withAutoLayout(stack)
