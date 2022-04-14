@@ -80,9 +80,27 @@ class LeagueHomeViewController: UIViewController {
 @objc extension LeagueHomeViewController {
     
     func editButtonPressed() {
-        let controller = EnterScoresViewController()
-        controller.league = league
-        show(controller, sender: self)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Share Invite Identifier", style: .default) { _ in
+            let activity = UIActivityViewController(activityItems: [self.league.id], applicationActivities: nil)
+            self.present(activity, animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "Edit League", style: .default) { _ in
+            
+        })
+        alert.addAction(UIAlertAction(title: "Enter Scores", style: .default) { _ in
+            guard self.user.id == self.league.ownerUserID else {
+                return self.presentSimpleAlert(title: "Enter Scores Error", message: "Only the league owner can enter scores")
+            }
+            guard self.league.results.count < self.league.schedule.count else {
+                return self.presentSimpleAlert(title: "Enter Scores Error", message: "League is over!")
+            }
+            let controller = EnterScoresViewController()
+            controller.league = self.league
+            self.show(controller, sender: self)
+        })
+        present(alert, animated: true)
     }
     
 }

@@ -37,7 +37,7 @@ class UpdateEmailViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .appBackground
         
-        navigationItem.title = "Update email address"
+        navigationItem.title = "Update Email Address"
         navigationItem.rightBarButtonItem = saveButton
         
         stackView.addArrangedSubview(emailField)
