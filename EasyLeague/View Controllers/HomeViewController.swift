@@ -10,6 +10,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class HomeViewController: UIViewController {
+    
+    static let reuseIdentifier = "HomeLeaguesCell"
 
     var user: User!
     
@@ -17,7 +19,7 @@ class HomeViewController: UIViewController {
     
     lazy var createLeagueButton = createBarButton(item: .compose, action: #selector(createLeagueButtonPressed))
     
-    lazy var leaguesTable = createTable(for: self)
+    lazy var leaguesCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier, cellType: UICollectionViewListCell.self)
     
     lazy var joinLeagueButton = createButton(title: "Join League", action: #selector(joinLeagueButtonPressed))
     
@@ -38,7 +40,7 @@ class HomeViewController: UIViewController {
         navigationItem.title = "EasyLeague"
         navigationItem.rightBarButtonItem = createLeagueButton
         
-        stackView.addArrangedSubview(leaguesTable)
+        stackView.addArrangedSubview(leaguesCollection)
         stackView.addArrangedSubview(joinLeagueButton)
         
         view.addSubview(stackView)
@@ -46,6 +48,11 @@ class HomeViewController: UIViewController {
         constrainToSafeArea(stackView)
         
         addListener()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureLayout()
     }
     
     func presentDatabaseError(_ message: String) {
@@ -61,9 +68,18 @@ class HomeViewController: UIViewController {
                     guard let league = try? queryDocumentSnapshot.data(as: League.self) else { return nil }
                     guard let team = league.teamWith(userID: self.user.id) else { return nil }
                     return (league, team)
-                }.sorted { lhs, rhs in lhs.team.name < rhs.team.name }
-                self.leaguesTable.reloadData()
+                }.sorted { lhs, rhs in lhs.league.name < rhs.league.name }
+                self.leaguesCollection.reloadData()
             }
+        }
+    }
+    
+    func configureLayout() {
+        if let layout = leaguesCollection.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .vertical
+            layout.itemSize = CGSize(width: leaguesCollection.bounds.width - 15, height: 90)
+            layout.minimumLineSpacing = 20
+            layout.sectionInset = UIEdgeInsets(top: 5, left: 7, bottom: 5, right: 7)
         }
     }
 
@@ -72,9 +88,9 @@ class HomeViewController: UIViewController {
 @objc extension HomeViewController {
     
     func createLeagueButtonPressed() {
-        let createController = CreateLeagueViewController()
-        createController.user = user
-        show(createController, sender: self)
+        let chooseTypeController = ChooseLeagueTypeViewController()
+        chooseTypeController.user = user
+        show(chooseTypeController, sender: self)
     }
     
     func joinLeagueButtonPressed() {
@@ -85,41 +101,47 @@ class HomeViewController: UIViewController {
     
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         leagues.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        var content = UIListContentConfiguration.valueCell()
-        content.text = leagues[indexPath.row].league.name
-        content.secondaryText = leagues[indexPath.row].team.name
-        content.prefersSideBySideTextAndSecondaryText = true
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.reuseIdentifier, for: indexPath)
+        guard let cell = cell as? UICollectionViewListCell else { return cell }
+        cell.accessories = [.disclosureIndicator()]
+        
+        cell.layer.masksToBounds = false
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.3
+        cell.layer.shadowOffset = CGSize(width: 1, height: 2)
+        cell.layer.shadowRadius = 3
+        
+        var background = UIBackgroundConfiguration.listPlainCell()
+        background.backgroundColor = .systemGray6
+        background.cornerRadius = 15
+        cell.backgroundConfiguration = background
+        
+        var content = cell.defaultContentConfiguration()
+        let data = leagues[indexPath.row]
+        content.image = UIImage(named: data.league.type)
+        content.text = data.league.name
+        content.textProperties.font = .systemFont(ofSize: 17, weight: .semibold)
+        content.secondaryText = data.team.name
+        content.secondaryTextProperties.font = .systemFont(ofSize: 14, weight: .light)
         cell.contentConfiguration = content
-        cell.accessoryType = .disclosureIndicator
-        cell.backgroundColor = .appBackground
+        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         let controller = LeagueHomeViewController()
         controller.user = user
         controller.league = leagues[indexPath.row].league
         controller.team = leagues[indexPath.row].team
         show(controller, sender: self)
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            Firestore.firestore().leagueCollection.document(leagues[indexPath.row].league.id).delete { error in
-                if let error = error {
-                    self.presentDatabaseError(error.localizedDescription)
-                }
-            }
-        }
     }
     
 }

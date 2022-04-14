@@ -15,21 +15,21 @@ extension UIViewController {
         return withAutoLayout(spacer)
     }
     
-    func createVerticalStack(spacing: CGFloat = 20, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
-        let stack = UIStackView()
+    func createVerticalStack(for subviews: [UIView] = [], spacing: CGFloat = 20, distribution: UIStackView.Distribution = .fill, alignment: UIStackView.Alignment = .fill, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
+        let stack = UIStackView(arrangedSubviews: subviews)
         stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .fill
+        stack.distribution = distribution
+        stack.alignment = alignment
         stack.spacing = spacing
         customize?(stack)
         return withAutoLayout(stack)
     }
     
-    func createHorizontalStack(for subviews: [UIView], customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
+    func createHorizontalStack(for subviews: [UIView], distribution: UIStackView.Distribution = .equalSpacing, alignment: UIStackView.Alignment = .fill, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
         let stack = UIStackView(arrangedSubviews: subviews)
         stack.axis = .horizontal
-        stack.distribution = .equalSpacing
-        stack.alignment = .fill
+        stack.distribution = distribution
+        stack.alignment = alignment
         customize?(stack)
         return withAutoLayout(stack)
     }
@@ -41,10 +41,11 @@ extension UIViewController {
         return withAutoLayout(label)
     }
     
-    func createTextField(placeholder: String? = nil, customize: ((UITextField) -> Void)? = nil) -> UITextField {
+    func createTextField(placeholder: String? = nil, text: String? = nil, customize: ((UITextField) -> Void)? = nil) -> UITextField {
         let field = UITextField()
         field.borderStyle = .roundedRect
         field.placeholder = placeholder
+        field.text = text
         field.tintColor = .appAccent
         field.heightAnchor.constraint(equalToConstant: 40).isActive = true
         field.delegate = self
@@ -59,7 +60,7 @@ extension UIViewController {
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.tintColor = .white
         button.setBackgroundColor(.appAccent, for: .normal)
-        button.layer.cornerRadius = 7
+        button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
         button.titleLabel?.font = .systemFont(ofSize: 17)
         customize?(button)
@@ -82,6 +83,33 @@ extension UIViewController {
         }
         customize?(swtch)
         return withAutoLayout(swtch)
+    }
+    
+    func createSegmentedControl(items: [String], selected: Int = 0, customize: ((UISegmentedControl) -> Void)? = nil) -> UISegmentedControl {
+        let control = UISegmentedControl(items: items)
+        control.selectedSegmentIndex = selected
+        customize?(control)
+        return withAutoLayout(control)
+    }
+    
+    func createImageView(name: String? = nil, customize: ((UIImageView) -> Void)? = nil) -> UIImageView {
+        var image: UIImageView
+        if let name = name {
+            image = UIImageView(image: UIImage(named: name))
+        } else {
+            image = UIImageView()
+        }
+        customize?(image)
+        return withAutoLayout(image)
+    }
+    
+    func createCollection(for vc: UICollectionViewDelegate & UICollectionViewDataSource, reuseIdentifier: String, cellType: AnyClass = UICollectionViewCell.self, layout: UICollectionViewLayout = UICollectionViewFlowLayout(), customize: ((UICollectionView) -> Void)? = nil) -> UICollectionView {
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.delegate = vc
+        collection.dataSource = vc
+        collection.register(cellType, forCellWithReuseIdentifier: reuseIdentifier)
+        customize?(collection)
+        return withAutoLayout(collection)
     }
     
     func createBarButton(item: UIBarButtonItem.SystemItem, action: Selector, customize: ((UIBarButtonItem) -> Void)? = nil) -> UIBarButtonItem {

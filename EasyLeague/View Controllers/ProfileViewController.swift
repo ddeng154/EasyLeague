@@ -17,13 +17,11 @@ class ProfileViewController: UIViewController {
     
     lazy var userLabel = createLabel(text: user.name)
     
-    lazy var userPhoto: UIImageView = {
-        let imageView = UIImageView()
+    lazy var userPhoto = createImageView { imageView in
         imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        imageView.kf.setImage(with: URL(string: user.photoURL), placeholder: UIImage(systemName: "photo.circle"))
-        return withAutoLayout(imageView)
-    }()
+        imageView.kf.setImage(with: URL(string: self.user.photoURL), placeholder: UIImage(systemName: "photo.circle"))
+    }
     
     lazy var userStackView = createHorizontalStack(for: [userLabel, userPhoto])
     

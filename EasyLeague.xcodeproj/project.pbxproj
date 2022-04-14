@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		29100F0F02F9B9BEFBCD57E1 /* Pods_EasyLeague.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */; };
 		400E88DB27FBFC3100FE29D0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400E88DA27FBFC3100FE29D0 /* User.swift */; };
+		40149A7F2806D36000C542E6 /* ChooseLeagueTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40149A7E2806D36000C542E6 /* ChooseLeagueTypeViewController.swift */; };
 		401A3BF927E97F95005A3CDD /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BF827E97F95005A3CDD /* League.swift */; };
 		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
 		4045E8232805674B00360B1A /* ChatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4045E8222805674B00360B1A /* ChatHomeViewController.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		11542617403A3FD258414693 /* Pods-EasyLeague.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.debug.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.debug.xcconfig"; sourceTree = "<group>"; };
 		400E88DA27FBFC3100FE29D0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		40149A7E2806D36000C542E6 /* ChooseLeagueTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLeagueTypeViewController.swift; sourceTree = "<group>"; };
 		401A3BF827E97F95005A3CDD /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
 		4045E8222805674B00360B1A /* ChatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHomeViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				408AAEF42805CDC4004B9D89 /* ChatViewController.swift */,
 				98F9B88B28064A1B000E1FE7 /* ContentCollectionViewCell.swift */,
 				98F9B88D28064A41000E1FE7 /* CustomCollectionViewLayout.swift */,
+				40149A7E2806D36000C542E6 /* ChooseLeagueTypeViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				409BF23B27F553450056FC36 /* JoinLeagueViewController.swift in Sources */,
 				40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */,
 				40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */,
+				40149A7F2806D36000C542E6 /* ChooseLeagueTypeViewController.swift in Sources */,
 				405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */,
 				401A3BF927E97F95005A3CDD /* League.swift in Sources */,
 				408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */,

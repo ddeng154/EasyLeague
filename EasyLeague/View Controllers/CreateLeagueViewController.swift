@@ -10,10 +10,12 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class CreateLeagueViewController: UIViewController {
+    
+    static let forPlayerOptions = ["Players and Teams", "Teams Only"]
 
     var user: User!
     
-    var statistics: [(UITextField, UISwitch)] = []
+    var leagueType: (name: String, stats: [(name: String, forPlayer: Bool)])!
     
     lazy var doneButton = createBarButton(item: .done, action: #selector(doneButtonPressed))
 
@@ -29,13 +31,17 @@ class CreateLeagueViewController: UIViewController {
         field.keyboardType = .numberPad
     }
     
-    lazy var statisticsStack = createVerticalStack()
+    lazy var statistics: [(field: UITextField, control: UISegmentedControl)] = leagueType.stats.map { (name, forPlayer) in
+        (createTextField(text: name), createSegmentedControl(items: Self.forPlayerOptions, selected: forPlayer ? 0 : 1))
+    }
+    
+    lazy var statisticsTable = createTable(for: self) { table in
+        table.allowsSelection = false
+    }
     
     lazy var addStatisticButton = createButton(title: "Add Statistic", action: #selector(addStatisticButtonPressed))
     
     lazy var stackView = createVerticalStack()
-    
-    lazy var scrollView = withAutoLayout(UIScrollView())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,22 +55,12 @@ class CreateLeagueViewController: UIViewController {
         stackView.addArrangedSubview(leagueNameField)
         stackView.addArrangedSubview(numTeamsField)
         stackView.addArrangedSubview(numMatchesField)
-        stackView.addArrangedSubview(statisticsStack)
+        stackView.addArrangedSubview(statisticsTable)
         stackView.addArrangedSubview(addStatisticButton)
         
-        scrollView.addSubview(stackView)
+        view.addSubview(stackView)
         
-        view.addSubview(scrollView)
-        
-        constrainToSafeArea(scrollView)
-        
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-        ])
+        constrainToSafeArea(stackView)
     }
     
     func presentCreateLeagueError(_ message: String) {
@@ -76,14 +72,9 @@ class CreateLeagueViewController: UIViewController {
 @objc extension CreateLeagueViewController {
     
     func addStatisticButtonPressed() {
-        let stack = createVerticalStack(spacing: 10)
-        let field = createTextField(placeholder: "Custom Statistic \(statisticsStack.arrangedSubviews.count + 1)")
-        stack.addArrangedSubview(field)
-        let label = createLabel(text: "Track this statistic for players too")
-        let swtch = createSwitch()
-        stack.addArrangedSubview(createHorizontalStack(for: [label, swtch]))
-        statisticsStack.addArrangedSubview(stack)
-        statistics.append((field, swtch))
+        statistics.append((createTextField(placeholder: "Custom Stat"), createSegmentedControl(items: Self.forPlayerOptions)))
+        statisticsTable.reloadData()
+        statisticsTable.scrollToRow(at: IndexPath(row: statistics.count - 1, section: 0), at: .bottom, animated: true)
     }
     
     func doneButtonPressed() {
@@ -96,20 +87,45 @@ class CreateLeagueViewController: UIViewController {
         guard numMatchesField.hasText, let numMatches = Int(numMatchesField.text), numMatches >= 1 else {
             return presentCreateLeagueError("Number of Matches must be a valid integer greater than or equal to 1")
         }
-        guard statistics.count == Set(statistics.compactMap { (field, _) in field.text }).count else {
-            return presentCreateLeagueError("Each statistic must have a unique name")
+        guard statistics.count == Set(statistics.compactMap { (field, _) in field.hasText ? field.text : nil }).count else {
+            return presentCreateLeagueError("Each statistic must have a unique, nonempty name")
         }
         let document = Firestore.firestore().leagueCollection.document()
-        let stats: [String : Bool] = Dictionary(uniqueKeysWithValues: statistics.compactMap { (field, swtch) in
+        let stats: [String : Bool] = Dictionary(uniqueKeysWithValues: statistics.compactMap { (field, control) in
             guard let text = field.text, !text.isEmpty else { return nil }
-            return (text, swtch.isOn)
+            return (text, control.selectedSegmentIndex == 0)
         })
-        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, stats: stats)
+        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, stats: stats, type: leagueType.name)
         do {
             try document.setData(from: league)
             popFromNavigation()
+            popFromNavigation()
         } catch {
             presentCreateLeagueError(error.localizedDescription)
+        }
+    }
+    
+}
+
+extension CreateLeagueViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        statistics.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let stat = statistics[indexPath.row]
+        let stack = createVerticalStack(for: [stat.field, stat.control], spacing: 5)
+        cell.contentView.addSubview(stack)
+        constrainToSafeArea(stack, superview: cell.contentView)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            statistics.remove(at: indexPath.row)
+            statisticsTable.deleteRows(at: [indexPath], with: .fade)
         }
     }
     

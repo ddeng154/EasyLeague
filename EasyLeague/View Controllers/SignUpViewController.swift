@@ -53,9 +53,7 @@ class SignUpViewController: UIViewController {
         field.isSecureTextEntry = true
     }
     
-    lazy var photoPickerButton = createButton(title: "Choose Profile Picture", action: #selector(photoPickerButtonPressed)) { button in
-        button.contentHorizontalAlignment = .leading
-    }
+    lazy var photoPickerButton = createButton(title: "Choose Profile Picture", action: #selector(photoPickerButtonPressed))
     
     lazy var signUpButton = createButton(title: "Sign Up", action: #selector(signUpButtonPressed))
     
