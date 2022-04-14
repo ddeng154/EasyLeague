@@ -154,22 +154,62 @@
 		40C7653B27D1837B003FA077 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				40C7653127D14E3D003FA077 /* LogInViewController.swift */,
-				98F9B891280770ED000E1FE7 /* ChangePasswordViewController.swift */,
-				40C7653727D17566003FA077 /* SignUpViewController.swift */,
-				408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */,
-				40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */,
-				401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */,
-				409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */,
-				98F9B88F28067B94000E1FE7 /* UpdateEmailViewController.swift */,
-				405CC23527F67D2E0098C888 /* ProfileViewController.swift */,
-				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
-				40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */,
-				4045E8222805674B00360B1A /* ChatHomeViewController.swift */,
-				408AAEF42805CDC4004B9D89 /* ChatViewController.swift */,
-				40149A7E2806D36000C542E6 /* ChooseLeagueTypeViewController.swift */,
+				40C846B92807E4FE005B0CD0 /* Authentication */,
+				40C846BA2807E51C005B0CD0 /* Home */,
+				40C846BD2807E5AC005B0CD0 /* League */,
+				40C846BB2807E545005B0CD0 /* Chat */,
+				40C846BC2807E556005B0CD0 /* Profile */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		40C846B92807E4FE005B0CD0 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				40C7653127D14E3D003FA077 /* LogInViewController.swift */,
+				40C7653727D17566003FA077 /* SignUpViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		40C846BA2807E51C005B0CD0 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */,
+				40149A7E2806D36000C542E6 /* ChooseLeagueTypeViewController.swift */,
+				40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */,
+				409BF23A27F553450056FC36 /* JoinLeagueViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		40C846BB2807E545005B0CD0 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4045E8222805674B00360B1A /* ChatHomeViewController.swift */,
+				408AAEF42805CDC4004B9D89 /* ChatViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		40C846BC2807E556005B0CD0 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				405CC23527F67D2E0098C888 /* ProfileViewController.swift */,
+				98F9B88F28067B94000E1FE7 /* UpdateEmailViewController.swift */,
+				98F9B891280770ED000E1FE7 /* ChangePasswordViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		40C846BD2807E5AC005B0CD0 /* League */ = {
+			isa = PBXGroup;
+			children = (
+				401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */,
+				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
+				40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */,
+			);
+			path = League;
 			sourceTree = "<group>";
 		};
 		40D7FC3B27D8E27600A895E8 /* Resources */ = {
