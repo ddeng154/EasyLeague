@@ -25,11 +25,12 @@ extension UIViewController {
         return withAutoLayout(stack)
     }
     
-    func createHorizontalStack(for subviews: [UIView], distribution: UIStackView.Distribution = .equalSpacing, alignment: UIStackView.Alignment = .fill, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
+    func createHorizontalStack(for subviews: [UIView], spacing: CGFloat = 0, distribution: UIStackView.Distribution = .equalSpacing, alignment: UIStackView.Alignment = .fill, customize: ((UIStackView) -> Void)? = nil) -> UIStackView {
         let stack = UIStackView(arrangedSubviews: subviews)
         stack.axis = .horizontal
         stack.distribution = distribution
         stack.alignment = alignment
+        stack.spacing = spacing
         customize?(stack)
         return withAutoLayout(stack)
     }
@@ -41,13 +42,13 @@ extension UIViewController {
         return withAutoLayout(label)
     }
     
-    func createTextField(placeholder: String? = nil, text: String? = nil, customize: ((UITextField) -> Void)? = nil) -> UITextField {
+    func createTextField(placeholder: String? = nil, text: String? = nil, height: CGFloat = 40, customize: ((UITextField) -> Void)? = nil) -> UITextField {
         let field = UITextField()
         field.borderStyle = .roundedRect
         field.placeholder = placeholder
         field.text = text
         field.tintColor = .appAccent
-        field.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        field.heightAnchor.constraint(equalToConstant: height).isActive = true
         field.delegate = self
         customize?(field)
         return withAutoLayout(field)

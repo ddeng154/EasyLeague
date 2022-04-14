@@ -18,15 +18,24 @@ class ProfileViewController: UIViewController {
     var userInterfaceStyle: UserInterfaceStyleWrapper!
     
     lazy var userLabel = createLabel(text: user.name) { label in
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.font = .systemFont(ofSize: 25, weight: .semibold)
     }
     
+    lazy var emailLabel = createLabel() { label in
+        label.font = .systemFont(ofSize: 15, weight: .light)
+    }
+    
+    lazy var userLabelStack = createVerticalStack(for: [userLabel, emailLabel], spacing: 5, distribution: .fill, alignment: .leading)
+    
     lazy var userPhoto = createImageView { imageView in
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
         imageView.kf.setImage(with: URL(string: self.user.photoURL), placeholder: UIImage(systemName: "photo.circle"))
     }
     
-    lazy var userStackView = createHorizontalStack(for: [userLabel, userPhoto])
+    lazy var spacer = createSpacer()
+    
+    lazy var userStackView = createHorizontalStack(for: [userPhoto, userLabelStack, spacer], spacing: 15, distribution: .fill, alignment: .center)
     
     lazy var updateEmailLabel = createLabel(text: "Update Email Address") { label in
         label.font = .systemFont(ofSize: 17, weight: .semibold)
@@ -56,7 +65,7 @@ class ProfileViewController: UIViewController {
     
     lazy var darkModeStackView = createHorizontalStack(for: [darkModeLabel, darkModeSwitch])
     
-    lazy var profileStacks: [UIStackView] = [userStackView, updateEmailView, updatePasswordView, overrideSystemAppearanceStackView]
+    lazy var profileStacks = [updateEmailView, updatePasswordView, overrideSystemAppearanceStackView]
     
     lazy var profileCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier, cellType: UICollectionViewListCell.self)
     
@@ -72,6 +81,7 @@ class ProfileViewController: UIViewController {
         
         navigationItem.title = "Profile"
         
+        stackView.addArrangedSubview(userStackView)
         stackView.addArrangedSubview(profileCollection)
         stackView.addArrangedSubview(logOutButton)
         
@@ -100,13 +110,13 @@ class ProfileViewController: UIViewController {
         let style = userInterfaceStyle.get()
         if style == .unspecified {
             overrideSystemAppearanceSwitch.setOn(false, animated: false)
-            if profileStacks.count == 5 {
+            if profileStacks.count == 4 {
                 profileStacks.removeLast()
                 darkModeStackView.removeFromSuperview()
             }
         } else {
             overrideSystemAppearanceSwitch.setOn(true, animated: false)
-            if profileStacks.count < 5 {
+            if profileStacks.count < 4 {
                 profileStacks.append(darkModeStackView)
             }
             darkModeSwitch.setOn(style == .dark, animated: false)
@@ -179,11 +189,13 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == 1 {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let stack = profileStacks[indexPath.row]
+        if stack === updateEmailView {
             let updateEmailController = UpdateEmailViewController()
             updateEmailController.user = user
             show(updateEmailController, sender: self)
-        } else if indexPath.row == 2 {
+        } else if stack === updatePasswordView {
             let changePasswordController = ChangePasswordViewController()
             changePasswordController.user = user
             show(changePasswordController, sender: self)

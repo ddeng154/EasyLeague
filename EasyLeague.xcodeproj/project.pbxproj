@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		29100F0F02F9B9BEFBCD57E1 /* Pods_EasyLeague.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */; };
 		400E88DB27FBFC3100FE29D0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400E88DA27FBFC3100FE29D0 /* User.swift */; };
+		401416D92808A90D00D2BE47 /* EnterMatchupResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401416D82808A90D00D2BE47 /* EnterMatchupResultsViewController.swift */; };
+		401416DB2808B87300D2BE47 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401416DA2808B87300D2BE47 /* Shared.swift */; };
 		40149A7F2806D36000C542E6 /* ChooseLeagueTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40149A7E2806D36000C542E6 /* ChooseLeagueTypeViewController.swift */; };
 		401A3BF927E97F95005A3CDD /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BF827E97F95005A3CDD /* League.swift */; };
 		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
@@ -47,6 +49,8 @@
 /* Begin PBXFileReference section */
 		11542617403A3FD258414693 /* Pods-EasyLeague.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.debug.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.debug.xcconfig"; sourceTree = "<group>"; };
 		400E88DA27FBFC3100FE29D0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		401416D82808A90D00D2BE47 /* EnterMatchupResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMatchupResultsViewController.swift; sourceTree = "<group>"; };
+		401416DA2808B87300D2BE47 /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		40149A7E2806D36000C542E6 /* ChooseLeagueTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLeagueTypeViewController.swift; sourceTree = "<group>"; };
 		401A3BF827E97F95005A3CDD /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 				40C846C6280818DA005B0CD0 /* StandingsViewController.swift */,
 				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
 				40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */,
+				401416D82808A90D00D2BE47 /* EnterMatchupResultsViewController.swift */,
 			);
 			path = League;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 			children = (
 				40F81F1F2800CE6B00548A62 /* Extensions */,
 				40D7FC3C27D8E29F00A895E8 /* View Controllers */,
+				401416DA2808B87300D2BE47 /* Shared.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -383,9 +389,11 @@
 				4045E8232805674B00360B1A /* ChatHomeViewController.swift in Sources */,
 				98F9B892280770ED000E1FE7 /* ChangePasswordViewController.swift in Sources */,
 				40C846C528080293005B0CD0 /* Outcome.swift in Sources */,
+				401416D92808A90D00D2BE47 /* EnterMatchupResultsViewController.swift in Sources */,
 				40C846BF280800F7005B0CD0 /* Matchup.swift in Sources */,
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
 				40F81F252800CF1100548A62 /* Factory.swift in Sources */,
+				401416DB2808B87300D2BE47 /* Shared.swift in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
 				40A6DA4327F585EA0026011D /* Team.swift in Sources */,
 				98F9B89028067B94000E1FE7 /* UpdateEmailViewController.swift in Sources */,

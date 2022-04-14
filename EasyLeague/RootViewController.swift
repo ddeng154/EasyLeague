@@ -30,10 +30,18 @@ class RootViewController: UIViewController {
     
     var currentViewController: UIViewController?
     
+    var userMapListener: ListenerRegistration?
+    
+    deinit {
+        userMapListener?.remove()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        initializeSharedResources()
+        
         view.backgroundColor = .appAccent
 
         view.addSubview(appLogo)
@@ -62,6 +70,15 @@ class RootViewController: UIViewController {
                 }
             }
             initial = false
+        }
+    }
+    
+    func initializeSharedResources() {
+        userMapListener = Firestore.firestore().userCollection.addSnapshotListener { querySnapshot, _ in
+            guard let snapshot = querySnapshot else { return }
+            for user in snapshot.documents.compactMap({ qds in try? qds.data(as: User.self)}) {
+                Shared.userMap[user.id] = user
+            }
         }
     }
     

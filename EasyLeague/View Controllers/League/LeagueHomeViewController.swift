@@ -46,6 +46,12 @@ class LeagueHomeViewController: UIViewController {
     
     lazy var buttonsCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier, cellType: UICollectionViewListCell.self)
     
+    var leagueListener: ListenerRegistration?
+    
+    deinit {
+        leagueListener?.remove()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,6 +65,8 @@ class LeagueHomeViewController: UIViewController {
         view.addSubview(buttonsCollection)
         
         constrainToSafeArea(buttonsCollection)
+        
+        addListener()
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,6 +80,14 @@ class LeagueHomeViewController: UIViewController {
             layout.itemSize = CGSize(width: buttonsCollection.bounds.width - 20, height: 75)
             layout.minimumLineSpacing = 20
             layout.sectionInset = UIEdgeInsets(top: 5, left: 7, bottom: 5, right: 7)
+        }
+    }
+    
+    func addListener() {
+        leagueListener = Firestore.firestore().leagueCollection.document(league.id).addSnapshotListener { documentSnapshot, _ in
+            guard let snapshot = documentSnapshot else { return }
+            guard let updated = try? snapshot.data(as: League.self) else { return }
+            self.league = updated
         }
     }
 

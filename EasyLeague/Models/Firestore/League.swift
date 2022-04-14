@@ -5,6 +5,8 @@
 //  Created by Aly Hirani on 3/21/22.
 //
 
+import Foundation
+
 class League: Codable {
     
     let id: String
@@ -36,6 +38,11 @@ class League: Codable {
     
     func teamWith(userID: String) -> Team? {
         teams.first { t in t.memberUserIDs.contains(userID) }
+    }
+    
+    func copy() throws -> League {
+        let data = try JSONEncoder().encode(self)
+        return try JSONDecoder().decode(Self.self, from: data)
     }
     
     static func createSchedule(numTeams: Int, numMatches: Int) -> [Matchups] {
