@@ -50,6 +50,7 @@ class CreateLeagueViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "New League"
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = doneButton
 
         stackView.addArrangedSubview(leagueNameField)

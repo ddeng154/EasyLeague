@@ -22,6 +22,7 @@ class EnterScoresViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "Enter Scores"
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = doneButton
     }
     
@@ -34,13 +35,7 @@ class EnterScoresViewController: UIViewController {
 @objc extension EnterScoresViewController {
     
     func doneButtonPressed() {
-        league.numMatchesPlayed += 1
-        do {
-            try Firestore.firestore().leagueCollection.document(league.id).setData(from: league)
-            popFromNavigation()
-        } catch {
-            presentEnterScoresError(error.localizedDescription)
-        }
+        popFromNavigation()
     }
     
 }

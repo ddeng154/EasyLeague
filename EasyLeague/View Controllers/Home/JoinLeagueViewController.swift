@@ -32,6 +32,7 @@ class JoinLeagueViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "Join League"
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = doneButton
         
         stackView.addArrangedSubview(leagueIDField)

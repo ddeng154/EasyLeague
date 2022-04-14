@@ -30,9 +30,11 @@
 		40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */; };
 		40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653127D14E3D003FA077 /* LogInViewController.swift */; };
 		40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7653727D17566003FA077 /* SignUpViewController.swift */; };
+		40C846BF280800F7005B0CD0 /* Matchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C846BE280800F7005B0CD0 /* Matchup.swift */; };
+		40C846C528080293005B0CD0 /* Outcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C846C428080293005B0CD0 /* Outcome.swift */; };
+		40C846C7280818DA005B0CD0 /* StandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C846C6280818DA005B0CD0 /* StandingsViewController.swift */; };
 		40D7FC3A27D8D5C500A895E8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3927D8D5C500A895E8 /* RootViewController.swift */; };
 		40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */; };
-		40F81F1C2800B9E000548A62 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F1B2800B9E000548A62 /* Statistic.swift */; };
 		40F81F1E2800CB5800548A62 /* EnterScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */; };
 		40F81F212800CE7F00548A62 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F202800CE7F00548A62 /* Firebase.swift */; };
 		40F81F232800CEFC00548A62 /* Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F222800CEFC00548A62 /* Functionality.swift */; };
@@ -68,9 +70,11 @@
 		40B1C32B27E9252300002873 /* CreateLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeagueViewController.swift; sourceTree = "<group>"; };
 		40C7653127D14E3D003FA077 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		40C7653727D17566003FA077 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		40C846BE280800F7005B0CD0 /* Matchup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchup.swift; sourceTree = "<group>"; };
+		40C846C428080293005B0CD0 /* Outcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outcome.swift; sourceTree = "<group>"; };
+		40C846C6280818DA005B0CD0 /* StandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsViewController.swift; sourceTree = "<group>"; };
 		40D7FC3927D8D5C500A895E8 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		40D7FC3D27D8E33000A895E8 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
-		40F81F1B2800B9E000548A62 /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
 		40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterScoresViewController.swift; sourceTree = "<group>"; };
 		40F81F202800CE7F00548A62 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		40F81F222800CEFC00548A62 /* Functionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functionality.swift; sourceTree = "<group>"; };
@@ -108,9 +112,10 @@
 				401A3BF827E97F95005A3CDD /* League.swift */,
 				40A6DA4227F585EA0026011D /* Team.swift */,
 				400E88DA27FBFC3100FE29D0 /* User.swift */,
-				40F81F1B2800B9E000548A62 /* Statistic.swift */,
 				408AAEF62805D1F5004B9D89 /* Message.swift */,
 				408AAEF82805E03C004B9D89 /* Sender.swift */,
+				40C846BE280800F7005B0CD0 /* Matchup.swift */,
+				40C846C428080293005B0CD0 /* Outcome.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */,
+				40C846C6280818DA005B0CD0 /* StandingsViewController.swift */,
 				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
 				40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */,
 			);
@@ -373,9 +379,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				408AAEF92805E03C004B9D89 /* Sender.swift in Sources */,
-				40F81F1C2800B9E000548A62 /* Statistic.swift in Sources */,
+				40C846C7280818DA005B0CD0 /* StandingsViewController.swift in Sources */,
 				4045E8232805674B00360B1A /* ChatHomeViewController.swift in Sources */,
 				98F9B892280770ED000E1FE7 /* ChangePasswordViewController.swift in Sources */,
+				40C846C528080293005B0CD0 /* Outcome.swift in Sources */,
+				40C846BF280800F7005B0CD0 /* Matchup.swift in Sources */,
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
 				40F81F252800CF1100548A62 /* Factory.swift in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,

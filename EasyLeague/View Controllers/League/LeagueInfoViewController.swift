@@ -25,7 +25,7 @@ class LeagueInfoViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .appBackground
         
-        navigationItem.title = league.name
+        navigationItem.title = "Info"
         
         stackView.addArrangedSubview(teamsTable)
         
@@ -59,6 +59,7 @@ extension LeagueInfoViewController: UITableViewDelegate, UITableViewDataSource {
         content.text = league.teams[indexPath.row].name
         content.secondaryText = league.teams[indexPath.row].memberUserIDs.compactMap { memberID in users[memberID]?.name }.joined(separator: "\n")
         content.prefersSideBySideTextAndSecondaryText = false
+        content.textProperties.font = .systemFont(ofSize: 17, weight: .semibold)
         content.textProperties.alignment = .center
         content.secondaryTextProperties.alignment = .center
         cell.contentConfiguration = content
