@@ -9,7 +9,7 @@ import UIKit
 
 class ChooseLeagueTypeViewController: UIViewController {
     
-    static let reuseIdentifier = "LeagueTypeCollectionViewCellReuseIdentifier"
+    static let reuseIdentifier = "ChooseLeagueTypeCell"
     
     var user: User!
     
@@ -22,13 +22,7 @@ class ChooseLeagueTypeViewController: UIViewController {
         ("Custom", []),
     ]
     
-    lazy var choicesCollection: UICollectionView = {
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collection.delegate = self
-        collection.dataSource = self
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Self.reuseIdentifier)
-        return withAutoLayout(collection)
-    }()
+    lazy var choicesCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,11 +46,11 @@ class ChooseLeagueTypeViewController: UIViewController {
     func configureLayout() {
         if let layout = choicesCollection.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
-            let size = (choicesCollection.bounds.width - 25) / 2
+            let size = (choicesCollection.bounds.width - 30) / 2
             layout.itemSize = CGSize(width: size, height: size)
             layout.minimumInteritemSpacing = 15
             layout.minimumLineSpacing = 15
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+            layout.sectionInset = UIEdgeInsets(top: 5, left: 7, bottom: 5, right: 7)
         }
     }
 
@@ -71,17 +65,15 @@ extension ChooseLeagueTypeViewController: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.reuseIdentifier, for: indexPath)
         cell.backgroundColor = .systemGray6
-        cell.layer.borderColor = UIColor.systemGray6.cgColor
-        cell.layer.borderWidth = 1
-        cell.layer.cornerRadius = 15
         
         cell.layer.masksToBounds = false
-        cell.layer.shadowColor = UIColor.systemGray5.cgColor
-        cell.layer.shadowOpacity = 0.7
-        cell.layer.shadowOffset = CGSize(width: 4, height: 4)
-        cell.layer.shadowRadius = 4
+        cell.layer.cornerRadius = 15
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.3
+        cell.layer.shadowOffset = CGSize(width: 1, height: 2)
+        cell.layer.shadowRadius = 3
         
-        let image = withAutoLayout(UIImageView(image: UIImage(named: choices[indexPath.row].0)))
+        let image = createImageView(name: choices[indexPath.row].0)
         image.heightAnchor.constraint(equalToConstant: 100).isActive = true
         image.widthAnchor.constraint(equalToConstant: 100).isActive = true
         

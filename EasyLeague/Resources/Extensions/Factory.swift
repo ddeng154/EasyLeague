@@ -60,7 +60,7 @@ extension UIViewController {
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.tintColor = .white
         button.setBackgroundColor(.appAccent, for: .normal)
-        button.layer.cornerRadius = 7
+        button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
         button.titleLabel?.font = .systemFont(ofSize: 17)
         customize?(button)
@@ -90,6 +90,26 @@ extension UIViewController {
         control.selectedSegmentIndex = selected
         customize?(control)
         return withAutoLayout(control)
+    }
+    
+    func createImageView(name: String? = nil, customize: ((UIImageView) -> Void)? = nil) -> UIImageView {
+        var image: UIImageView
+        if let name = name {
+            image = UIImageView(image: UIImage(named: name))
+        } else {
+            image = UIImageView()
+        }
+        customize?(image)
+        return withAutoLayout(image)
+    }
+    
+    func createCollection(for vc: UICollectionViewDelegate & UICollectionViewDataSource, reuseIdentifier: String, cellType: AnyClass = UICollectionViewCell.self, layout: UICollectionViewLayout = UICollectionViewFlowLayout(), customize: ((UICollectionView) -> Void)? = nil) -> UICollectionView {
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.delegate = vc
+        collection.dataSource = vc
+        collection.register(cellType, forCellWithReuseIdentifier: reuseIdentifier)
+        customize?(collection)
+        return withAutoLayout(collection)
     }
     
     func createBarButton(item: UIBarButtonItem.SystemItem, action: Selector, customize: ((UIBarButtonItem) -> Void)? = nil) -> UIBarButtonItem {

@@ -23,12 +23,10 @@ class RootViewController: UIViewController {
     
     var setUserInterfaceStyle: ((UIUserInterfaceStyle) -> Void)!
     
-    lazy var appLogo: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "AppLogo"))
+    lazy var appLogo = createImageView(name: "AppLogo") { imageView in
         imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        return withAutoLayout(imageView)
-    }()
+    }
     
     var currentViewController: UIViewController?
     
