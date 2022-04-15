@@ -63,7 +63,7 @@ extension UIViewController {
         button.setBackgroundColor(.appAccent, for: .normal)
         button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
-        button.titleLabel?.font = .systemFont(ofSize: 17)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         customize?(button)
         return withAutoLayout(button)
     }
