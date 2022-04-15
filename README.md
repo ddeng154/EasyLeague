@@ -1,28 +1,40 @@
-# EasyLeague
+# EasyLeague (Group 4)
 
 ## Contributions
 
-**Aly Hirani (35%)**
-- Root View Controller (dynamic context switching based on the Auth listener)
-- Login and Signup Screens
-  - Profile pictures (cropping, uploading, downloading)
-- Home Screen
-- League Home Screen
-- Firebase integration with their Auth, Storage, and Firestore services
+**Aly Hirani (Release 45%, Overall 40%)**
+- Root Layout (Tabs)
+- Some of the Login and Signup Screens
+- Firebase integration
+- Home page
+- Chat page
+- Choose League Type page
+- Join League page
+- League Home page
+- Enter Scores/Enter Matchups pages
+- League Info page
+- Standings page
+- Player statistics page
+- Dark mode
 
-**Daniel Deng (25%)**
+**Daniel Deng (Release 30%, Overall 30%)**
+- Mockups
+- Design planning
 - Create League Screen
 - League model
+- Profile page
+- Team Statistics page
+- Majority of Login and Signup screens
 
-**Shreyas Konana (20%)**
+**Shreyas Konana (Release 25%, Overall 25%)**
 - Pair programmed with Daniel
 
-**Ishan Phadke (20%)**
+**Ishan Phadke (Release 0%, Overall 5%)**
 - Pair programmed with Aly
 
 ## Deviations
-- We accomplished our plans to create functional pages (but limited in features) for the Leagues (Home) Screen, League Overview (League Home) Screen, and the Create League Screen.
-- Although the Login Screen was initially planned for the Beta release, we already added the ability to log in or sign up with an email and password.
+- We did everything for the Beta that we included in the proposal paper, plus we also did the Profile/Settings page, which was originally planned for the final release
 
 ## Notes
-- Daniel and Ishan do not have Macs, so they pair programmed with Shreyas and Aly, respectively. They also had a large role in the design and planning phases.
+- Ishan dropped the course
+- Daniel does not have a Mac, so he pair programmed with Shreyas
