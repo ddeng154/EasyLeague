@@ -14,22 +14,27 @@ class LeagueHomeViewController: UIViewController {
     static let reuseIdentifier = "LeagueHomeButtonsCell"
     
     static let buttons: [(name: String, imageName: String, color: UIColor, enabled: (League) -> Bool, controller: (League) -> UIViewController)] = [
-        ("Standings", "list.number", .systemRed, { _ in true }, { league in
+        ("Matchups", "calendar", .systemRed, { _ in true }, { league in
+            let controller = MatchupsViewController()
+            controller.league = league
+            return controller
+        }),
+        ("Standings", "list.number", .systemOrange, { _ in true }, { league in
             let controller = StandingsViewController()
             controller.league = league
             return controller
         }),
-        ("Team Statistics", "person.2.fill", .systemOrange, { league in !league.teamStats.isEmpty }, { league in
+        ("Team Statistics", "person.2.fill", .systemYellow, { league in !league.teamStats.isEmpty }, { league in
             let controller = TeamStatisticsViewController()
             controller.league = league
             return controller
         }),
-        ("Player Statistics", "figure.walk", .systemYellow, { league in !league.playerStats.isEmpty }, { league in
+        ("Player Statistics", "figure.walk", .systemGreen, { league in !league.playerStats.isEmpty }, { league in
             let controller = PlayerStatisticsViewController()
             controller.league = league
             return controller
         }),
-        ("League Info", "info", .systemGreen, { _ in true }, { league in
+        ("League Info", "info", .systemBlue, { _ in true }, { league in
             let controller = LeagueInfoViewController()
             controller.league = league
             return controller
@@ -103,7 +108,9 @@ class LeagueHomeViewController: UIViewController {
             self.present(activity, animated: true)
         })
         alert.addAction(UIAlertAction(title: "Edit League", style: .default) { _ in
-            
+            let editController = EditLeagueViewController()
+            editController.league = self.league
+            self.show(editController, sender: self)
         })
         alert.addAction(UIAlertAction(title: "Enter Scores", style: .default) { _ in
             guard self.user.id == self.league.ownerUserID else {

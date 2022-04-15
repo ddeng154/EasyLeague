@@ -11,7 +11,6 @@ class League: Codable {
     
     let id: String
     let ownerUserID: String
-    var isStarted: Bool
     var name: String
     var memberUserIDs: [String]
     let teams: [Team]
@@ -24,7 +23,6 @@ class League: Codable {
     init(id: String, userID: String, name: String, numTeams: Int, numMatches: Int, stats: [String : Bool], type: String) {
         self.id = id
         self.ownerUserID = userID
-        self.isStarted = false
         self.name = name
         self.memberUserIDs = [userID]
         self.teams = (0..<numTeams).map(Team.init)
@@ -34,15 +32,6 @@ class League: Codable {
         self.playerStats = Dictionary(uniqueKeysWithValues: stats.compactMap { (stat, forPlayer) in forPlayer ? (stat, [:]) : nil })
         self.teamStats = Dictionary(uniqueKeysWithValues: stats.keys.map { stat in (stat, Array(repeating: 0, count: numTeams)) })
         self.type = type
-    }
-    
-    func teamWith(userID: String) -> Team? {
-        teams.first { t in t.memberUserIDs.contains(userID) }
-    }
-    
-    func copy() throws -> League {
-        let data = try JSONEncoder().encode(self)
-        return try JSONDecoder().decode(Self.self, from: data)
     }
     
     static func createSchedule(numTeams: Int, numMatches: Int) -> [Matchups] {
@@ -62,6 +51,19 @@ class League: Codable {
             first.insert(second.removeFirst(), at: 1)
         }
         return schedule
+    }
+    
+}
+
+extension League {
+    
+    func teamWith(userID: String) -> Team? {
+        teams.first { t in t.memberUserIDs.contains(userID) }
+    }
+    
+    func copy() throws -> League {
+        let data = try JSONEncoder().encode(self)
+        return try JSONDecoder().decode(Self.self, from: data)
     }
     
 }

@@ -20,6 +20,8 @@
 		405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */; };
 		407E87372808EB1400C548DE /* TeamStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E87362808EB1400C548DE /* TeamStatisticsViewController.swift */; };
 		407E873B2808FD0100C548DE /* PlayerStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E873A2808FD0100C548DE /* PlayerStatisticsViewController.swift */; };
+		407E873D280903A900C548DE /* EditLeagueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E873C280903A900C548DE /* EditLeagueViewController.swift */; };
+		407E873F2809052A00C548DE /* MatchupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E873E2809052A00C548DE /* MatchupsViewController.swift */; };
 		408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40A827D0AFC6004D40B1 /* AppDelegate.swift */; };
 		408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */; };
 		408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */; };
@@ -62,6 +64,8 @@
 		405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfoViewController.swift; sourceTree = "<group>"; };
 		407E87362808EB1400C548DE /* TeamStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStatisticsViewController.swift; sourceTree = "<group>"; };
 		407E873A2808FD0100C548DE /* PlayerStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatisticsViewController.swift; sourceTree = "<group>"; };
+		407E873C280903A900C548DE /* EditLeagueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLeagueViewController.swift; sourceTree = "<group>"; };
+		407E873E2809052A00C548DE /* MatchupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupsViewController.swift; sourceTree = "<group>"; };
 		408A40A527D0AFC6004D40B1 /* EasyLeague.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyLeague.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		408A40A827D0AFC6004D40B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -225,6 +229,8 @@
 				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
 				40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */,
 				401416D82808A90D00D2BE47 /* EnterMatchupResultsViewController.swift */,
+				407E873C280903A900C548DE /* EditLeagueViewController.swift */,
+				407E873E2809052A00C548DE /* MatchupsViewController.swift */,
 			);
 			path = League;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 				4045E8232805674B00360B1A /* ChatHomeViewController.swift in Sources */,
 				98F9B892280770ED000E1FE7 /* ChangePasswordViewController.swift in Sources */,
 				40C846C528080293005B0CD0 /* Outcome.swift in Sources */,
+				407E873D280903A900C548DE /* EditLeagueViewController.swift in Sources */,
 				401416D92808A90D00D2BE47 /* EnterMatchupResultsViewController.swift in Sources */,
 				40C846BF280800F7005B0CD0 /* Matchup.swift in Sources */,
 				408A40B327D0AFC6004D40B1 /* EasyLeague.xcdatamodeld in Sources */,
@@ -402,6 +409,7 @@
 				401416DB2808B87300D2BE47 /* Shared.swift in Sources */,
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
 				40A6DA4327F585EA0026011D /* Team.swift in Sources */,
+				407E873F2809052A00C548DE /* MatchupsViewController.swift in Sources */,
 				98F9B89028067B94000E1FE7 /* UpdateEmailViewController.swift in Sources */,
 				40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */,
 				408AAEF72805D1F6004B9D89 /* Message.swift in Sources */,
