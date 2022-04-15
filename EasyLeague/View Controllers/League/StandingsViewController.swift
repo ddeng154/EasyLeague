@@ -11,8 +11,8 @@ class StandingsViewController: UIViewController {
     
     var league: League!
     
-    lazy var standings: [(wins: Int, losses: Int)] = {
-        var standings: [(wins: Int, losses: Int)] = Array(repeating: (0, 0), count: league.teams.count)
+    lazy var standings: [(team: String, wins: Int, losses: Int)] = {
+        var standings: [(team: String, wins: Int, losses: Int)] = league.teams.map { team in (team.name, 0, 0) }
         for outcomes in league.results {
             for outcome in outcomes.value {
                 standings[outcome.winner].wins += 1
@@ -65,7 +65,7 @@ extension StandingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell()
         var content = UIListContentConfiguration.valueCell()
         let data = standings[indexPath.row]
-        content.text = league.teams[indexPath.row].name
+        content.text = standings[indexPath.row].team
         content.secondaryText = "\(data.wins) - \(data.losses)"
         content.textProperties.font = .systemFont(ofSize: 15, weight: .semibold)
         content.secondaryTextProperties.font = .systemFont(ofSize: 15, weight: .light)

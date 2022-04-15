@@ -82,8 +82,8 @@ class CreateLeagueViewController: UIViewController {
         guard leagueNameField.hasText, let leagueName = leagueNameField.text else {
             return presentCreateLeagueError("League Name field is empty")
         }
-        guard numTeamsField.hasText, let numTeams = Int(numTeamsField.text), numTeams >= 2 else {
-            return presentCreateLeagueError("Number of Teams must be a valid integer greater than or equal to 2")
+        guard numTeamsField.hasText, let numTeams = Int(numTeamsField.text), numTeams >= 3 else {
+            return presentCreateLeagueError("Number of Teams must be a valid integer greater than or equal to 3")
         }
         guard numMatchesField.hasText, let numMatches = Int(numMatchesField.text), numMatches >= 1 else {
             return presentCreateLeagueError("Number of Matches must be a valid integer greater than or equal to 1")
