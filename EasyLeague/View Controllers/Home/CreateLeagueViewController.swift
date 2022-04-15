@@ -50,6 +50,7 @@ class CreateLeagueViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "New League"
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = doneButton
 
         stackView.addArrangedSubview(leagueNameField)
@@ -97,9 +98,14 @@ class CreateLeagueViewController: UIViewController {
         })
         let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, stats: stats, type: leagueType.name)
         do {
-            try document.setData(from: league)
-            popFromNavigation()
-            popFromNavigation()
+            try document.setData(from: league) { error in
+                if let error = error {
+                    self.presentCreateLeagueError(error.localizedDescription)
+                } else {
+                    self.popFromNavigation()
+                    self.popFromNavigation()
+                }
+            }
         } catch {
             presentCreateLeagueError(error.localizedDescription)
         }

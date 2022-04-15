@@ -15,7 +15,7 @@ class JoinLeagueViewController: UIViewController {
     
     lazy var doneButton = createBarButton(item: .done, action: #selector(doneButtonPressed))
     
-    lazy var leagueIDField = createTextField(placeholder: "League ID") { field in
+    lazy var leagueIDField = createTextField(placeholder: "Invite Identifier") { field in
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
         field.textAlignment = .center
@@ -32,6 +32,7 @@ class JoinLeagueViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "Join League"
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = doneButton
         
         stackView.addArrangedSubview(leagueIDField)
@@ -52,7 +53,7 @@ class JoinLeagueViewController: UIViewController {
     
     func doneButtonPressed() {
         guard leagueIDField.hasText, let leagueID = leagueIDField.text else {
-            return presentJoinLeagueError("League ID field is empty")
+            return presentJoinLeagueError("Invite Identifier field is empty")
         }
         let documentReference = Firestore.firestore().leagueCollection.document(leagueID)
         documentReference.getDocument(as: League.self) { result in

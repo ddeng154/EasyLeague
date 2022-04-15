@@ -82,6 +82,10 @@ class ChatViewController: MessagesViewController {
             return false
         }
     }
+    
+    func presentSendError(_ message: String) {
+        presentSimpleAlert(title: "Send Error", message: message)
+    }
 
 }
 
@@ -90,10 +94,14 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         let document = Firestore.firestore().chatsForLeague(league.id).document()
         do {
-            try document.setData(from: Message(messageId: document.documentID, sender: sender, content: text))
+            try document.setData(from: Message(messageId: document.documentID, sender: sender, content: text)) { error in
+                if let error = error {
+                    self.presentSendError(error.localizedDescription)
+                }
+            }
             inputBar.inputTextView.text = ""
         } catch {
-            presentSimpleAlert(title: "Send Error", message: error.localizedDescription)
+            presentSendError(error.localizedDescription)
         }
     }
     

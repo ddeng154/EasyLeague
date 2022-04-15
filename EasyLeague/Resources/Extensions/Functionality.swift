@@ -31,7 +31,7 @@ extension UIViewController: UITextFieldDelegate {
         removeFromParent()
     }
     
-    func presentSimpleAlert(title: String, message: String) {
+    func presentSimpleAlert(title: String? = nil, message: String? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alert, animated: true)

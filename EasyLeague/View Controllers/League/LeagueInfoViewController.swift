@@ -13,8 +13,6 @@ class LeagueInfoViewController: UIViewController {
     
     var league: League!
     
-    var users: [String : User] = [:]
-    
     lazy var teamsTable = createTable(for: self)
     
     lazy var stackView = createVerticalStack()
@@ -25,24 +23,13 @@ class LeagueInfoViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .appBackground
         
-        navigationItem.title = league.name
+        navigationItem.title = "Info"
         
         stackView.addArrangedSubview(teamsTable)
         
         view.addSubview(stackView)
         
         constrainToSafeArea(stackView)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        Task {
-            let spinner = addSpinner()
-            for memberID in league.memberUserIDs {
-                users[memberID] = try? await Firestore.firestore().documentForUser(memberID).getDocument(as: User.self)
-            }
-            teamsTable.reloadData()
-            spinner.remove()
-        }
     }
     
 }
@@ -57,8 +44,9 @@ extension LeagueInfoViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell()
         var content = UIListContentConfiguration.valueCell()
         content.text = league.teams[indexPath.row].name
-        content.secondaryText = league.teams[indexPath.row].memberUserIDs.compactMap { memberID in users[memberID]?.name }.joined(separator: "\n")
+        content.secondaryText = league.teams[indexPath.row].memberUserIDs.compactMap { memberID in Shared.userMap[memberID]?.name }.joined(separator: "\n")
         content.prefersSideBySideTextAndSecondaryText = false
+        content.textProperties.font = .systemFont(ofSize: 17, weight: .semibold)
         content.textProperties.alignment = .center
         content.secondaryTextProperties.alignment = .center
         cell.contentConfiguration = content

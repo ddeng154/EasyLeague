@@ -5,6 +5,8 @@
 //  Created by Aly Hirani on 3/21/22.
 //
 
+import Foundation
+
 class League: Codable {
     
     let id: String
@@ -13,30 +15,53 @@ class League: Codable {
     var name: String
     var memberUserIDs: [String]
     let teams: [Team]
-    var numMatches: Int
-    var numMatchesPlayed: Int
-    var playerStats: [String : [String : Statistic]]
-    var teamStats: [String : [Statistic]]
-    var type: String
+    let schedule: [Matchups]
+    var results: [Outcomes]
+    var playerStats: [String : [String : Int]]
+    var teamStats: [String : [Int]]
+    let type: String
     
     init(id: String, userID: String, name: String, numTeams: Int, numMatches: Int, stats: [String : Bool], type: String) {
-        let range = (0..<numTeams)
         self.id = id
         self.ownerUserID = userID
         self.isStarted = false
         self.name = name
         self.memberUserIDs = [userID]
-        self.teams = range.map(Team.init)
+        self.teams = (0..<numTeams).map(Team.init)
         self.teams.first?.memberUserIDs.append(userID)
-        self.numMatches = numMatches
-        self.numMatchesPlayed = 0
+        self.schedule = Self.createSchedule(numTeams: numTeams, numMatches: numMatches)
+        self.results = []
         self.playerStats = Dictionary(uniqueKeysWithValues: stats.compactMap { (stat, forPlayer) in forPlayer ? (stat, [:]) : nil })
-        self.teamStats = Dictionary(uniqueKeysWithValues: stats.keys.map { stat in (stat, range.map { _ in Statistic() }) })
+        self.teamStats = Dictionary(uniqueKeysWithValues: stats.keys.map { stat in (stat, Array(repeating: 0, count: numTeams)) })
         self.type = type
     }
     
     func teamWith(userID: String) -> Team? {
         teams.first { t in t.memberUserIDs.contains(userID) }
+    }
+    
+    func copy() throws -> League {
+        let data = try JSONEncoder().encode(self)
+        return try JSONDecoder().decode(Self.self, from: data)
+    }
+    
+    static func createSchedule(numTeams: Int, numMatches: Int) -> [Matchups] {
+        let total = Array(0..<numTeams) + (numTeams.isMultiple(of: 2) ? [] : [-1])
+        var first = Array(total[0..<(total.count / 2)])
+        var second = Array(total[(total.count / 2)...].reversed())
+        var schedule: [Matchups] = []
+        for _ in 1...numMatches {
+            var matchups: [Matchup] = []
+            for (a, b) in zip(first, second) {
+                if a != -1 && b != -1 {
+                    matchups.append(Matchup(teamA: a, teamB: b))
+                }
+            }
+            schedule.append(Matchups(value: matchups))
+            second.append(first.removeLast())
+            first.insert(second.removeFirst(), at: 1)
+        }
+        return schedule
     }
     
 }

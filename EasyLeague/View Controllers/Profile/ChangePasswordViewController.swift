@@ -45,7 +45,7 @@ class ChangePasswordViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .appBackground
         
-        navigationItem.title = "Update email address"
+        navigationItem.title = "Change Password"
         navigationItem.rightBarButtonItem = saveButton
         
         stackView.addArrangedSubview(oldPasswordField)

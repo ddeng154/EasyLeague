@@ -13,7 +13,7 @@ class ChooseLeagueTypeViewController: UIViewController {
     
     var user: User!
     
-    let choices = [
+    static let choices = [
         ("Basketball", [("Points", true), ("Rebounds", true), ("Assists", true), ("Steals", false), ("Blocks", false)]),
         ("Hockey", [("Goals", true), ("Assists", true), ("Shots on Goal", false)]),
         ("Football", [("Passing Touchdowns", true), ("Receiving Touchdowns", true), ("Rushing Touchdowns", true), ("Turnovers", false)]),
@@ -59,7 +59,7 @@ class ChooseLeagueTypeViewController: UIViewController {
 extension ChooseLeagueTypeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        choices.count
+        Self.choices.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -73,11 +73,11 @@ extension ChooseLeagueTypeViewController: UICollectionViewDelegate, UICollection
         cell.layer.shadowOffset = CGSize(width: 1, height: 2)
         cell.layer.shadowRadius = 3
         
-        let image = createImageView(name: choices[indexPath.row].0)
+        let image = createImageView(name: Self.choices[indexPath.row].0)
         image.heightAnchor.constraint(equalToConstant: 100).isActive = true
         image.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        let label = createLabel(text: choices[indexPath.row].0)
+        let label = createLabel(text: Self.choices[indexPath.row].0)
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         
@@ -92,7 +92,7 @@ extension ChooseLeagueTypeViewController: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let createController = CreateLeagueViewController()
         createController.user = user
-        createController.leagueType = choices[indexPath.row]
+        createController.leagueType = Self.choices[indexPath.row]
         show(createController, sender: self)
     }
     
