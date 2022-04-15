@@ -40,8 +40,6 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        initializeSharedResources()
-        
         view.backgroundColor = .appAccent
 
         view.addSubview(appLogo)
@@ -54,18 +52,22 @@ class RootViewController: UIViewController {
         var initial = true
         Auth.auth().addStateDidChangeListener { _, firebaseUser in
             if firebaseUser == nil {
+                self.userMapListener?.remove()
                 if initial {
                     self.set(self.get())
                 }
                 self.presentLoginController()
-            } else if initial, let firebaseUser = firebaseUser {
-                Firestore.firestore().documentForUser(firebaseUser.uid).getDocument(as: User.self) { result in
-                    self.set(self.get())
-                    switch result {
-                        case .success(let user):
-                            self.presentHomeController(for: user)
-                        case .failure:
-                            self.presentLoginController()
+            } else if let firebaseUser = firebaseUser {
+                self.initializeSharedResources()
+                if initial {
+                    Firestore.firestore().documentForUser(firebaseUser.uid).getDocument(as: User.self) { result in
+                        self.set(self.get())
+                        switch result {
+                            case .success(let user):
+                                self.presentHomeController(for: user)
+                            case .failure:
+                                self.presentLoginController()
+                        }
                     }
                 }
             }

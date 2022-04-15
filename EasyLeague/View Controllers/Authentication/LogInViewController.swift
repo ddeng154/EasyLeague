@@ -16,7 +16,8 @@ class LogInViewController: UIViewController {
     
     lazy var titleLabel = createLabel(text: "EasyLeague") { label in
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 50, weight: .bold)
+        label.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
     lazy var emailField = createTextField(placeholder: "Email") { field in
@@ -37,7 +38,7 @@ class LogInViewController: UIViewController {
     
     lazy var spacer = createSpacer()
     
-    lazy var stackView = createVerticalStack()
+    lazy var stackView = createVerticalStack(spacing: 35)
     
     override func viewDidLoad() {
         super.viewDidLoad()
