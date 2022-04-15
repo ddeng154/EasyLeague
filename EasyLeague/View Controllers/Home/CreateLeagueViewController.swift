@@ -32,7 +32,7 @@ class CreateLeagueViewController: UIViewController {
     }
     
     lazy var statistics: [(field: UITextField, control: UISegmentedControl)] = leagueType.stats.map { (name, forPlayer) in
-        (createTextField(text: name), createSegmentedControl(items: Self.forPlayerOptions, selected: forPlayer ? 0 : 1))
+        (createTextField(text: name, height: 35), createSegmentedControl(items: Self.forPlayerOptions, selected: forPlayer ? 0 : 1))
     }
     
     lazy var statisticsTable = createTable(for: self) { table in
@@ -73,7 +73,7 @@ class CreateLeagueViewController: UIViewController {
 @objc extension CreateLeagueViewController {
     
     func addStatisticButtonPressed() {
-        statistics.append((createTextField(placeholder: "Custom Stat"), createSegmentedControl(items: Self.forPlayerOptions)))
+        statistics.append((createTextField(placeholder: "Custom Stat", height: 35), createSegmentedControl(items: Self.forPlayerOptions)))
         statisticsTable.reloadData()
         statisticsTable.scrollToRow(at: IndexPath(row: statistics.count - 1, section: 0), at: .bottom, animated: true)
     }

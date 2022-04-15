@@ -22,7 +22,8 @@ class SignUpViewController: UIViewController {
     
     lazy var titleLabel = createLabel(text: "EasyLeague") { label in
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.heightAnchor.constraint(equalToConstant: 75).isActive = true
     }
     
     lazy var firstNameField = createTextField(placeholder: "First Name") { field in
@@ -74,8 +75,8 @@ class SignUpViewController: UIViewController {
         stackView.addArrangedSubview(passwordField)
         stackView.addArrangedSubview(repeatPasswordField)
         stackView.addArrangedSubview(photoPickerButton)
-        stackView.addArrangedSubview(signUpButton)
         stackView.addArrangedSubview(spacer)
+        stackView.addArrangedSubview(signUpButton)
         
         view.addSubview(stackView)
         

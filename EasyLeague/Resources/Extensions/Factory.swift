@@ -42,7 +42,7 @@ extension UIViewController {
         return withAutoLayout(label)
     }
     
-    func createTextField(placeholder: String? = nil, text: String? = nil, height: CGFloat = 40, customize: ((UITextField) -> Void)? = nil) -> UITextField {
+    func createTextField(placeholder: String? = nil, text: String? = nil, height: CGFloat = 50, customize: ((UITextField) -> Void)? = nil) -> UITextField {
         let field = UITextField()
         field.borderStyle = .roundedRect
         field.placeholder = placeholder
