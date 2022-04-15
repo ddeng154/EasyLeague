@@ -13,23 +13,23 @@ class LeagueHomeViewController: UIViewController {
     
     static let reuseIdentifier = "LeagueHomeButtonsCell"
     
-    static let buttons: [(name: String, imageName: String, color: UIColor, controller: (League) -> UIViewController)] = [
-        ("Standings", "list.number", .systemRed, { league in
+    static let buttons: [(name: String, imageName: String, color: UIColor, enabled: (League) -> Bool, controller: (League) -> UIViewController)] = [
+        ("Standings", "list.number", .systemRed, { _ in true }, { league in
             let controller = StandingsViewController()
             controller.league = league
             return controller
         }),
-        ("Team Statistics", "person.2.fill", .systemOrange, { league in
-            let controller = LeagueInfoViewController()
+        ("Team Statistics", "person.2.fill", .systemOrange, { league in !league.teamStats.isEmpty }, { league in
+            let controller = TeamStatisticsViewController()
             controller.league = league
             return controller
         }),
-        ("Player Statistics", "figure.walk", .systemYellow, { league in
-            let controller = LeagueInfoViewController()
+        ("Player Statistics", "figure.walk", .systemYellow, { league in !league.playerStats.isEmpty }, { league in
+            let controller = PlayerStatisticsViewController()
             controller.league = league
             return controller
         }),
-        ("League Info", "info", .systemGreen, { league in
+        ("League Info", "info", .systemGreen, { _ in true }, { league in
             let controller = LeagueInfoViewController()
             controller.league = league
             return controller
@@ -149,6 +149,7 @@ extension LeagueHomeViewController: UICollectionViewDelegate, UICollectionViewDa
         content.textProperties.font = .systemFont(ofSize: 17, weight: .semibold)
         content.image = UIImage(systemName: data.imageName)
         content.imageProperties.tintColor = data.color
+        cell.isUserInteractionEnabled = data.enabled(league)
         cell.contentConfiguration = content
         
         return cell

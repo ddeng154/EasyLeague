@@ -18,6 +18,8 @@
 		40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40540C3727D130640022B600 /* GoogleService-Info.plist */; };
 		405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23527F67D2E0098C888 /* ProfileViewController.swift */; };
 		405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */; };
+		407E87372808EB1400C548DE /* TeamStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E87362808EB1400C548DE /* TeamStatisticsViewController.swift */; };
+		407E873B2808FD0100C548DE /* PlayerStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E873A2808FD0100C548DE /* PlayerStatisticsViewController.swift */; };
 		408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40A827D0AFC6004D40B1 /* AppDelegate.swift */; };
 		408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */; };
 		408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408A40AC27D0AFC6004D40B1 /* HomeViewController.swift */; };
@@ -58,6 +60,8 @@
 		40540C3727D130640022B600 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		405CC23527F67D2E0098C888 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfoViewController.swift; sourceTree = "<group>"; };
+		407E87362808EB1400C548DE /* TeamStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStatisticsViewController.swift; sourceTree = "<group>"; };
+		407E873A2808FD0100C548DE /* PlayerStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatisticsViewController.swift; sourceTree = "<group>"; };
 		408A40A527D0AFC6004D40B1 /* EasyLeague.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyLeague.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		408A40A827D0AFC6004D40B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		408A40AA27D0AFC6004D40B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +220,8 @@
 			children = (
 				401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */,
 				40C846C6280818DA005B0CD0 /* StandingsViewController.swift */,
+				407E87362808EB1400C548DE /* TeamStatisticsViewController.swift */,
+				407E873A2808FD0100C548DE /* PlayerStatisticsViewController.swift */,
 				405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */,
 				40F81F1D2800CB5800548A62 /* EnterScoresViewController.swift */,
 				401416D82808A90D00D2BE47 /* EnterMatchupResultsViewController.swift */,
@@ -402,11 +408,13 @@
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
 				40F81F272800CF6800548A62 /* UI.swift in Sources */,
 				401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */,
+				407E87372808EB1400C548DE /* TeamStatisticsViewController.swift in Sources */,
 				408AAEF52805CDC4004B9D89 /* ChatViewController.swift in Sources */,
 				40F81F1E2800CB5800548A62 /* EnterScoresViewController.swift in Sources */,
 				400E88DB27FBFC3100FE29D0 /* User.swift in Sources */,
 				40F81F232800CEFC00548A62 /* Functionality.swift in Sources */,
 				40F81F212800CE7F00548A62 /* Firebase.swift in Sources */,
+				407E873B2808FD0100C548DE /* PlayerStatisticsViewController.swift in Sources */,
 				405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */,
 				408A40A927D0AFC6004D40B1 /* AppDelegate.swift in Sources */,
 				40C7653227D14E3D003FA077 /* LogInViewController.swift in Sources */,

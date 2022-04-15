@@ -113,6 +113,14 @@ extension UIViewController {
         return withAutoLayout(collection)
     }
     
+    func createPicker(for vc: UIPickerViewDelegate & UIPickerViewDataSource, customize: ((UIPickerView) -> Void)? = nil) -> UIPickerView {
+        let picker = UIPickerView()
+        picker.delegate = vc
+        picker.dataSource = vc
+        customize?(picker)
+        return withAutoLayout(picker)
+    }
+    
     func createBarButton(item: UIBarButtonItem.SystemItem, action: Selector, customize: ((UIBarButtonItem) -> Void)? = nil) -> UIBarButtonItem {
         let button = UIBarButtonItem(barButtonSystemItem: item, target: self, action: action)
         customize?(button)

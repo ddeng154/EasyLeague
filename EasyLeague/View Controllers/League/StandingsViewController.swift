@@ -12,7 +12,7 @@ class StandingsViewController: UIViewController {
     var league: League!
     
     lazy var standings: [(wins: Int, losses: Int)] = {
-        var standings: [(wins: Int, losses: Int)] = league.teams.indices.map { _ in (0, 0) }
+        var standings: [(wins: Int, losses: Int)] = Array(repeating: (0, 0), count: league.teams.count)
         for outcomes in league.results {
             for outcome in outcomes.value {
                 standings[outcome.winner].wins += 1
