@@ -9,10 +9,14 @@ class Outcome: Codable {
     
     let winner: Int
     let loser: Int
+    let tiedA: Int
+    let tiedB: Int
     
-    init(winner: Int, loser: Int) {
+    init(winner: Int, loser: Int, tiedA: Int, tiedB: Int) {
         self.winner = winner
         self.loser = loser
+        self.tiedA = tiedA
+        self.tiedB = tiedB
     }
     
 }

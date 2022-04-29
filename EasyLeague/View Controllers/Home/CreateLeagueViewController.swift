@@ -31,6 +31,14 @@ class CreateLeagueViewController: UIViewController {
         field.keyboardType = .numberPad
     }
     
+    lazy var allowTiesLabel = createLabel(text: "Allow Ties") { label in
+        label.font = .systemFont(ofSize: 17)
+    }
+    
+    lazy var allowTiesSwitch = createSwitch()
+    
+    lazy var allowTiesStackView = createHorizontalStack(for: [allowTiesLabel, allowTiesSwitch])
+    
     lazy var statistics: [(field: UITextField, control: UISegmentedControl)] = leagueType.stats.map { (name, forPlayer) in
         (createTextField(text: name, height: 35), createSegmentedControl(items: Self.forPlayerOptions, selected: forPlayer ? 0 : 1))
     }
@@ -56,6 +64,7 @@ class CreateLeagueViewController: UIViewController {
         stackView.addArrangedSubview(leagueNameField)
         stackView.addArrangedSubview(numTeamsField)
         stackView.addArrangedSubview(numMatchesField)
+        stackView.addArrangedSubview(allowTiesStackView)
         stackView.addArrangedSubview(statisticsTable)
         stackView.addArrangedSubview(addStatisticButton)
         
@@ -91,12 +100,13 @@ class CreateLeagueViewController: UIViewController {
         guard statistics.count == Set(statistics.compactMap { (field, _) in field.hasText ? field.text : nil }).count else {
             return presentCreateLeagueError("Each statistic must have a unique, nonempty name")
         }
+        let allowTiesOn = allowTiesSwitch.isOn
         let document = Firestore.firestore().leagueCollection.document()
         let stats: [String : Bool] = Dictionary(uniqueKeysWithValues: statistics.compactMap { (field, control) in
             guard let text = field.text, !text.isEmpty else { return nil }
             return (text, control.selectedSegmentIndex == 0)
         })
-        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, stats: stats, type: leagueType.name)
+        let league = League(id: document.documentID, userID: user.id, name: leagueName, numTeams: numTeams, numMatches: numMatches, stats: stats, type: leagueType.name, allowTies: allowTiesOn)
         do {
             try document.setData(from: league) { error in
                 if let error = error {
