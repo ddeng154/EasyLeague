@@ -62,7 +62,9 @@ class EnterMatchupResultsViewController: UIViewController {
     
     lazy var winnerControl = createSegmentedControl(items: [league.teams[matchup.teamA].name, league.teams[matchup.teamB].name])
     
-    lazy var winnerStack = createVerticalStack(for: [winnerLabel, winnerControl], spacing: 10)
+    lazy var tiedControl = createSegmentedControl(items: [league.teams[matchup.teamA].name, "Tie", league.teams[matchup.teamB].name])
+    
+    lazy var winnerStack = league.allowTies ? createVerticalStack(for: [winnerLabel, tiedControl], spacing: 10) : createVerticalStack(for: [winnerLabel, winnerControl], spacing: 10)
     
     lazy var tableView = createTable(for: self) { table in
         table.allowsSelection = false
@@ -129,10 +131,20 @@ class EnterMatchupResultsViewController: UIViewController {
         let statsB: [String : Int] = Dictionary(uniqueKeysWithValues: teamStatsB.indices.map { i in (teamStatNames[i], teamStatsB[i]) })
         
         let outcome: Outcome
-        if winnerControl.selectedSegmentIndex == 0 {
-            outcome = Outcome(winner: matchup.teamA, loser: matchup.teamB)
+        if league.allowTies {
+            if tiedControl.selectedSegmentIndex == 0 {
+                outcome = Outcome(winner: matchup.teamA, loser: matchup.teamB, tiedA: -1, tiedB: -1)
+            } else if tiedControl.selectedSegmentIndex == 1 {
+                outcome = Outcome(winner: -1, loser: -1, tiedA: matchup.teamA, tiedB: matchup.teamB)
+            } else {
+                outcome = Outcome(winner: matchup.teamB, loser: matchup.teamA, tiedA: -1, tiedB: -1)
+            }
         } else {
-            outcome = Outcome(winner: matchup.teamB, loser: matchup.teamA)
+            if winnerControl.selectedSegmentIndex == 0 {
+                outcome = Outcome(winner: matchup.teamA, loser: matchup.teamB, tiedA: -1, tiedB: -1)
+            } else {
+                outcome = Outcome(winner: matchup.teamB, loser: matchup.teamA, tiedA: -1, tiedB: -1)
+            }
         }
         
         completion(outcome, (matchup.teamA, statsA), (matchup.teamB, statsB), playerStats)

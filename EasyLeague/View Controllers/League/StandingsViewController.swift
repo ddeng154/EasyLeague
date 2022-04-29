@@ -11,12 +11,18 @@ class StandingsViewController: UIViewController {
     
     var league: League!
     
-    lazy var standings: [(team: String, wins: Int, losses: Int)] = {
-        var standings: [(team: String, wins: Int, losses: Int)] = league.teams.map { team in (team.name, 0, 0) }
+    lazy var standings: [(team: String, wins: Int, losses: Int, ties: Int)] = {
+        var standings: [(team: String, wins: Int, losses: Int, ties: Int)] = league.teams.map { team in (team.name, 0, 0, 0) }
         for outcomes in league.results {
             for outcome in outcomes.value {
-                standings[outcome.winner].wins += 1
-                standings[outcome.loser].losses += 1
+                if outcome.winner != -1 { standings[outcome.winner].wins += 1 }
+                if outcome.loser != -1 { standings[outcome.loser].losses += 1 }
+                if outcome.tiedA != -1 { standings[outcome.tiedA].ties += 1 }
+                if outcome.tiedB != -1 { standings[outcome.tiedB].ties += 1 }
+                print(outcome.winner)
+                print(outcome.loser)
+                print(outcome.tiedA)
+                print(outcome.tiedB)
             }
         }
         return standings.sorted { lhs, rhs in lhs.wins > rhs.wins }
@@ -26,7 +32,8 @@ class StandingsViewController: UIViewController {
         label.font = .systemFont(ofSize: 20, weight: .bold)
     }
     
-    lazy var recordLabel = createLabel(text: "W - L    ") { label in
+    lazy var recordLabel = league.allowTies ? createLabel(text: "W - L - T   ") { label in
+        label.font = .systemFont(ofSize: 20, weight: .bold) } : createLabel(text: "W - L    ") { label in
         label.font = .systemFont(ofSize: 20, weight: .bold)
     }
     
@@ -66,7 +73,7 @@ extension StandingsViewController: UITableViewDelegate, UITableViewDataSource {
         var content = UIListContentConfiguration.valueCell()
         let data = standings[indexPath.row]
         content.text = standings[indexPath.row].team
-        content.secondaryText = "\(data.wins) - \(data.losses)"
+        content.secondaryText = league.allowTies ? "\(data.wins) - \(data.losses) - \(data.ties)" : "\(data.wins) - \(data.losses)"
         content.textProperties.font = .systemFont(ofSize: 15, weight: .semibold)
         content.secondaryTextProperties.font = .systemFont(ofSize: 15, weight: .light)
         cell.contentConfiguration = content

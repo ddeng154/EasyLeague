@@ -19,8 +19,9 @@ class League: Codable {
     var playerStats: [String : [String : Int]]
     var teamStats: [String : [Int]]
     let type: String
+    let allowTies: Bool
     
-    init(id: String, userID: String, name: String, numTeams: Int, numMatches: Int, stats: [String : Bool], type: String) {
+    init(id: String, userID: String, name: String, numTeams: Int, numMatches: Int, stats: [String : Bool], type: String, allowTies: Bool) {
         self.id = id
         self.ownerUserID = userID
         self.name = name
@@ -32,6 +33,7 @@ class League: Codable {
         self.playerStats = Dictionary(uniqueKeysWithValues: stats.compactMap { (stat, forPlayer) in forPlayer ? (stat, [:]) : nil })
         self.teamStats = Dictionary(uniqueKeysWithValues: stats.keys.map { stat in (stat, Array(repeating: 0, count: numTeams)) })
         self.type = type
+        self.allowTies = allowTies
     }
     
     static func createSchedule(numTeams: Int, numMatches: Int) -> [Matchups] {
