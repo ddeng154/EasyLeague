@@ -6,16 +6,28 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class EditLeagueViewController: UIViewController {
     
+    var user: User!
+    
     var league: League!
+    
+    var team: Team!
     
     lazy var doneButton = createBarButton(item: .done, action: #selector(doneButtonPressed))
     
-    lazy var placeholderLabel = createLabel(text: "Edit League coming soon") { label in
-        label.textAlignment = .center
+    lazy var leagueNameField = createTextField(placeholder: "New League Name") { field in
+        field.autocapitalizationType = .words
     }
+    
+    lazy var teamNameField = createTextField(placeholder: "New Team Name") { field in
+        field.autocapitalizationType = .words
+    }
+    
+    lazy var spacer = createSpacer()
     
     lazy var stackView = createVerticalStack()
     
@@ -29,11 +41,19 @@ class EditLeagueViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = doneButton
         
-        stackView.addArrangedSubview(placeholderLabel)
+        if user.id == league.ownerUserID {
+            stackView.addArrangedSubview(leagueNameField)
+        }
+        stackView.addArrangedSubview(teamNameField)
+        stackView.addArrangedSubview(spacer)
         
         view.addSubview(stackView)
         
         constrainToSafeArea(stackView)
+    }
+    
+    func presentEditLeagueError(_ message: String) {
+        presentSimpleAlert(title: "Edit League Error", message: message)
     }
     
 }
@@ -41,7 +61,29 @@ class EditLeagueViewController: UIViewController {
 @objc extension EditLeagueViewController {
     
     func doneButtonPressed() {
-        popFromNavigation()
+        let leagueName = leagueNameField.hasText ? leagueNameField.text : nil
+        let teamName = teamNameField.hasText ? teamNameField.text : nil
+        guard leagueName != nil || teamName != nil else {
+            return popFromNavigation()
+        }
+        do {
+            let copy = try league.copy()
+            if let leagueName = leagueName {
+                copy.name = leagueName
+            }
+            if let teamName = teamName {
+                copy.teams[team.index].name = teamName
+            }
+            try Firestore.firestore().leagueCollection.document(copy.id).setData(from: copy) { error in
+                if let error = error {
+                    self.presentEditLeagueError(error.localizedDescription)
+                } else {
+                    self.popFromNavigation()
+                }
+            }
+        } catch {
+            self.presentEditLeagueError(error.localizedDescription)
+        }
     }
     
 }

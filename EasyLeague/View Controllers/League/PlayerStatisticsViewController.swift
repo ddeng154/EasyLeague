@@ -96,6 +96,8 @@ extension PlayerStatisticsViewController: UITableViewDelegate, UITableViewDataSo
         var content = UIListContentConfiguration.valueCell()
         content.text = stats[indexPath.row].name
         content.secondaryText = String(stats[indexPath.row].val)
+        content.textProperties.font = .systemFont(ofSize: 15, weight: .semibold)
+        content.secondaryTextProperties.font = .systemFont(ofSize: 15, weight: .light)
         cell.contentConfiguration = content
         return cell
     }

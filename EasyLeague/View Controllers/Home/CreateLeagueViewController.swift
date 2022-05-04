@@ -43,9 +43,7 @@ class CreateLeagueViewController: UIViewController {
         (createTextField(text: name, height: 35), createSegmentedControl(items: Self.forPlayerOptions, selected: forPlayer ? 0 : 1))
     }
     
-    lazy var statisticsTable = createTable(for: self) { table in
-        table.allowsSelection = false
-    }
+    lazy var statisticsTable = createTable(for: self)
     
     lazy var addStatisticButton = createButton(title: "Add Statistic", action: #selector(addStatisticButtonPressed))
     

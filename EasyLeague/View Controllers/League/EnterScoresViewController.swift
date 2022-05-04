@@ -23,7 +23,7 @@ class EnterScoresViewController: UIViewController {
     
     lazy var leaguePlayerStats = league.playerStats
     
-    lazy var tableView = createTable(for: self)
+    lazy var tableView = createTable(for: self, allowsSelection: true)
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -68,11 +68,12 @@ extension UIViewController {
         return withAutoLayout(button)
     }
     
-    func createTable(for vc: UITableViewDelegate & UITableViewDataSource, customize: ((UITableView) -> Void)? = nil) -> UITableView {
+    func createTable(for vc: UITableViewDelegate & UITableViewDataSource, allowsSelection: Bool = false, customize: ((UITableView) -> Void)? = nil) -> UITableView {
         let tableView = UITableView()
         tableView.backgroundColor = .appBackground
         tableView.delegate = vc
         tableView.dataSource = vc
+        tableView.allowsSelection = allowsSelection
         customize?(tableView)
         return withAutoLayout(tableView)
     }
