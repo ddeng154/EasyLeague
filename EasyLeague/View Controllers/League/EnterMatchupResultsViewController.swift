@@ -67,7 +67,6 @@ class EnterMatchupResultsViewController: UIViewController {
     lazy var winnerStack = league.allowTies ? createVerticalStack(for: [winnerLabel, tiedControl], spacing: 10) : createVerticalStack(for: [winnerLabel, winnerControl], spacing: 10)
     
     lazy var tableView = createTable(for: self) { table in
-        table.allowsSelection = false
         table.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tableTapRecognized)))
     }
     

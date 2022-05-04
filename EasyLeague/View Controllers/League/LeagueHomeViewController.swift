@@ -91,8 +91,9 @@ class LeagueHomeViewController: UIViewController {
     func addListener() {
         leagueListener = Firestore.firestore().leagueCollection.document(league.id).addSnapshotListener { documentSnapshot, _ in
             guard let snapshot = documentSnapshot else { return }
-            guard let updated = try? snapshot.data(as: League.self) else { return }
-            self.league = updated
+            guard let league = try? snapshot.data(as: League.self) else { return }
+            self.league = league
+            self.navigationItem.title = self.league.name
         }
     }
 
@@ -109,7 +110,9 @@ class LeagueHomeViewController: UIViewController {
         })
         alert.addAction(UIAlertAction(title: "Edit League", style: .default) { _ in
             let editController = EditLeagueViewController()
+            editController.user = self.user
             editController.league = self.league
+            editController.team = self.team
             self.show(editController, sender: self)
         })
         alert.addAction(UIAlertAction(title: "Enter Scores", style: .default) { _ in
