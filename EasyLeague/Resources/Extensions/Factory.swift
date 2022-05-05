@@ -9,8 +9,14 @@ import UIKit
 
 extension UIViewController {
     
-    func createSpacer(customize: ((UIView) -> Void)? = nil) -> UIView {
+    func createSpacer(height: CGFloat? = nil, width: CGFloat? = nil, customize: ((UIView) -> Void)? = nil) -> UIView {
         let spacer = UIView()
+        if let height = height {
+            spacer.heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+        if let width = width {
+            spacer.widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
         customize?(spacer)
         return withAutoLayout(spacer)
     }
