@@ -9,8 +9,14 @@ import UIKit
 
 extension UIViewController {
     
-    func createSpacer(customize: ((UIView) -> Void)? = nil) -> UIView {
+    func createSpacer(height: CGFloat? = nil, width: CGFloat? = nil, customize: ((UIView) -> Void)? = nil) -> UIView {
         let spacer = UIView()
+        if let height = height {
+            spacer.heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+        if let width = width {
+            spacer.widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
         customize?(spacer)
         return withAutoLayout(spacer)
     }
@@ -114,10 +120,14 @@ extension UIViewController {
         return withAutoLayout(collection)
     }
     
-    func createPicker(for vc: UIPickerViewDelegate & UIPickerViewDataSource, customize: ((UIPickerView) -> Void)? = nil) -> UIPickerView {
+    func createPicker(for vc: UIPickerViewDelegate & UIPickerViewDataSource, selectedRow: Int? = nil, customize: ((UIPickerView) -> Void)? = nil) -> UIPickerView {
         let picker = UIPickerView()
         picker.delegate = vc
         picker.dataSource = vc
+        picker.heightAnchor.constraint(equalToConstant: 125).isActive = true
+        if let selectedRow = selectedRow {
+            picker.selectRow(selectedRow, inComponent: 0, animated: false)
+        }
         customize?(picker)
         return withAutoLayout(picker)
     }
