@@ -120,10 +120,14 @@ extension UIViewController {
         return withAutoLayout(collection)
     }
     
-    func createPicker(for vc: UIPickerViewDelegate & UIPickerViewDataSource, customize: ((UIPickerView) -> Void)? = nil) -> UIPickerView {
+    func createPicker(for vc: UIPickerViewDelegate & UIPickerViewDataSource, selectedRow: Int? = nil, customize: ((UIPickerView) -> Void)? = nil) -> UIPickerView {
         let picker = UIPickerView()
         picker.delegate = vc
         picker.dataSource = vc
+        picker.heightAnchor.constraint(equalToConstant: 125).isActive = true
+        if let selectedRow = selectedRow {
+            picker.selectRow(selectedRow, inComponent: 0, animated: false)
+        }
         customize?(picker)
         return withAutoLayout(picker)
     }

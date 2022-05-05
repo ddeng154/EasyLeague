@@ -70,10 +70,10 @@ extension StandingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell()
         var content = UIListContentConfiguration.valueCell()
         let data = standings[indexPath.row]
-        content.text = standings[indexPath.row].team
+        content.text = "\(indexPath.row + 1).\t\(standings[indexPath.row].team)"
         content.secondaryText = league.allowTies ? "\(data.wins) - \(data.ties) - \(data.losses)" : "\(data.wins) - \(data.losses)"
-        content.textProperties.font = .systemFont(ofSize: 15, weight: .semibold)
-        content.secondaryTextProperties.font = .systemFont(ofSize: 15, weight: .light)
+        content.textProperties.font = .systemFont(ofSize: 15, weight: .medium)
+        content.secondaryTextProperties.font = .systemFont(ofSize: 15, weight: .medium)
         cell.contentConfiguration = content
         return cell
     }

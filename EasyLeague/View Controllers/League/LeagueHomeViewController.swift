@@ -13,28 +13,29 @@ class LeagueHomeViewController: UIViewController {
     
     static let reuseIdentifier = "LeagueHomeButtonsCell"
     
-    static let buttons: [(name: String, imageName: String, color: UIColor, enabled: (League) -> Bool, controller: (League) -> UIViewController)] = [
-        ("Matchups", "calendar", .systemRed, { _ in true }, { league in
+    static let buttons: [(name: String, imageName: String, color: UIColor, enabled: (League) -> Bool, controller: (League, Team) -> UIViewController)] = [
+        ("Matchups", "calendar", .systemRed, { _ in true }, { league, team in
             let controller = MatchupsViewController()
             controller.league = league
+            controller.team = team
             return controller
         }),
-        ("Standings", "list.number", .systemOrange, { _ in true }, { league in
+        ("Standings", "list.number", .systemOrange, { _ in true }, { league, _ in
             let controller = StandingsViewController()
             controller.league = league
             return controller
         }),
-        ("Team Statistics", "person.2.fill", .systemYellow, { league in !league.teamStats.isEmpty }, { league in
+        ("Team Statistics", "person.2.fill", .systemYellow, { league in !league.teamStats.isEmpty }, { league, _ in
             let controller = TeamStatisticsViewController()
             controller.league = league
             return controller
         }),
-        ("Player Statistics", "figure.walk", .systemGreen, { league in !league.playerStats.isEmpty }, { league in
+        ("Player Statistics", "figure.walk", .systemGreen, { league in !league.playerStats.isEmpty }, { league, _ in
             let controller = PlayerStatisticsViewController()
             controller.league = league
             return controller
         }),
-        ("League Info", "info", .systemBlue, { _ in true }, { league in
+        ("League Info", "info", .systemBlue, { _ in true }, { league, _ in
             let controller = LeagueInfoViewController()
             controller.league = league
             return controller
@@ -167,7 +168,7 @@ extension LeagueHomeViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        show(Self.buttons[indexPath.row].controller(league), sender: self)
+        show(Self.buttons[indexPath.row].controller(league, team), sender: self)
     }
     
 }

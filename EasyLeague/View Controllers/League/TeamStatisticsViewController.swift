@@ -15,10 +15,7 @@ class TeamStatisticsViewController: UIViewController {
         (name: name, stats: stats.indices.map { i in (name: league.teams[i].name, val: stats[i]) })
     }.sorted { lhs, rhs in lhs.name < rhs.name }
     
-    lazy var statPicker = createPicker(for: self) { picker in
-        picker.selectRow(self.allStats.count / 2, inComponent: 0, animated: false)
-        picker.heightAnchor.constraint(equalToConstant: 125).isActive = true
-    }
+    lazy var statPicker = createPicker(for: self, selectedRow: self.allStats.count / 2)
     
     lazy var nameLabel = createLabel(text: "    Name") { label in
         label.font = .systemFont(ofSize: 20, weight: .bold)
@@ -91,10 +88,10 @@ extension TeamStatisticsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         var content = UIListContentConfiguration.valueCell()
-        content.text = stats[indexPath.row].name
+        content.text = "\(indexPath.row + 1).\t\(stats[indexPath.row].name)"
         content.secondaryText = String(stats[indexPath.row].val)
-        content.textProperties.font = .systemFont(ofSize: 15, weight: .semibold)
-        content.secondaryTextProperties.font = .systemFont(ofSize: 15, weight: .light)
+        content.textProperties.font = .systemFont(ofSize: 15, weight: .medium)
+        content.secondaryTextProperties.font = .systemFont(ofSize: 15, weight: .medium)
         cell.contentConfiguration = content
         return cell
     }
