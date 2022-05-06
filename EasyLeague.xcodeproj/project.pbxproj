@@ -16,6 +16,7 @@
 		401A3BFB27EA3420005A3CDD /* LeagueHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */; };
 		4045E8232805674B00360B1A /* ChatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4045E8222805674B00360B1A /* ChatHomeViewController.swift */; };
 		40540C3827D130640022B600 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40540C3727D130640022B600 /* GoogleService-Info.plist */; };
+		4058A5602824D22E00279DD4 /* ChangeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4058A55F2824D22E00279DD4 /* ChangeNameViewController.swift */; };
 		405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23527F67D2E0098C888 /* ProfileViewController.swift */; };
 		405CC23827F6AA550098C888 /* LeagueInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */; };
 		407E87372808EB1400C548DE /* TeamStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E87362808EB1400C548DE /* TeamStatisticsViewController.swift */; };
@@ -46,7 +47,7 @@
 		40F81F232800CEFC00548A62 /* Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F222800CEFC00548A62 /* Functionality.swift */; };
 		40F81F252800CF1100548A62 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F242800CF1100548A62 /* Factory.swift */; };
 		40F81F272800CF6800548A62 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F81F262800CF6800548A62 /* UI.swift */; };
-		98F9B89028067B94000E1FE7 /* UpdateEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9B88F28067B94000E1FE7 /* UpdateEmailViewController.swift */; };
+		98F9B89028067B94000E1FE7 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9B88F28067B94000E1FE7 /* ChangeEmailViewController.swift */; };
 		98F9B892280770ED000E1FE7 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F9B891280770ED000E1FE7 /* ChangePasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		401A3BFA27EA3420005A3CDD /* LeagueHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueHomeViewController.swift; sourceTree = "<group>"; };
 		4045E8222805674B00360B1A /* ChatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHomeViewController.swift; sourceTree = "<group>"; };
 		40540C3727D130640022B600 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4058A55F2824D22E00279DD4 /* ChangeNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameViewController.swift; sourceTree = "<group>"; };
 		405CC23527F67D2E0098C888 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		405CC23727F6AA550098C888 /* LeagueInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueInfoViewController.swift; sourceTree = "<group>"; };
 		407E87362808EB1400C548DE /* TeamStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStatisticsViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +95,7 @@
 		40F81F242800CF1100548A62 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		40F81F262800CF6800548A62 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		457DEA3F163AB6D622831288 /* Pods_EasyLeague.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyLeague.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		98F9B88F28067B94000E1FE7 /* UpdateEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEmailViewController.swift; sourceTree = "<group>"; };
+		98F9B88F28067B94000E1FE7 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		98F9B891280770ED000E1FE7 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		B4FF5CEFFE961825C76753EF /* Pods-EasyLeague.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyLeague.release.xcconfig"; path = "Target Support Files/Pods-EasyLeague/Pods-EasyLeague.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -213,7 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				405CC23527F67D2E0098C888 /* ProfileViewController.swift */,
-				98F9B88F28067B94000E1FE7 /* UpdateEmailViewController.swift */,
+				4058A55F2824D22E00279DD4 /* ChangeNameViewController.swift */,
+				98F9B88F28067B94000E1FE7 /* ChangeEmailViewController.swift */,
 				98F9B891280770ED000E1FE7 /* ChangePasswordViewController.swift */,
 			);
 			path = Profile;
@@ -410,7 +413,7 @@
 				40C7653827D17566003FA077 /* SignUpViewController.swift in Sources */,
 				40A6DA4327F585EA0026011D /* Team.swift in Sources */,
 				407E873F2809052A00C548DE /* MatchupsViewController.swift in Sources */,
-				98F9B89028067B94000E1FE7 /* UpdateEmailViewController.swift in Sources */,
+				98F9B89028067B94000E1FE7 /* ChangeEmailViewController.swift in Sources */,
 				40B1C32C27E9252300002873 /* CreateLeagueViewController.swift in Sources */,
 				408AAEF72805D1F6004B9D89 /* Message.swift in Sources */,
 				408A40AD27D0AFC6004D40B1 /* HomeViewController.swift in Sources */,
@@ -431,6 +434,7 @@
 				40D7FC3E27D8E33000A895E8 /* SpinnerViewController.swift in Sources */,
 				40149A7F2806D36000C542E6 /* ChooseLeagueTypeViewController.swift in Sources */,
 				405CC23627F67D2E0098C888 /* ProfileViewController.swift in Sources */,
+				4058A5602824D22E00279DD4 /* ChangeNameViewController.swift in Sources */,
 				401A3BF927E97F95005A3CDD /* League.swift in Sources */,
 				408A40AB27D0AFC6004D40B1 /* SceneDelegate.swift in Sources */,
 			);

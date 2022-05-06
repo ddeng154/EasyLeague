@@ -2,7 +2,7 @@
 //  ChangePasswordViewController.swift
 //  EasyLeague
 //
-//  Created by Chen Zhou on 4/13/22.
+//  Created by Daniel Deng on 4/13/22.
 //
 
 import UIKit
@@ -12,26 +12,23 @@ class ChangePasswordViewController: UIViewController {
     
     var user: User!
     
-    lazy var saveButton = createBarButton(item: .save, action: #selector(saveButtonPressed))
+    lazy var doneButton = createBarButton(item: .done, action: #selector(doneButtonPressed))
     
-    lazy var oldPasswordField = createTextField(placeholder: "Enter old password") { field in
-        field.autocorrectionType = .no
+    lazy var oldPasswordField = createTextField(placeholder: "Old Password") { field in
         field.autocapitalizationType = .none
-        field.textAlignment = .left
+        field.autocorrectionType = .no
         field.isSecureTextEntry = true
     }
     
-    lazy var newPasswordField = createTextField(placeholder: "Enter new password") { field in
-        field.autocorrectionType = .no
+    lazy var newPasswordField = createTextField(placeholder: "New Password") { field in
         field.autocapitalizationType = .none
-        field.textAlignment = .left
+        field.autocorrectionType = .no
         field.isSecureTextEntry = true
     }
     
-    lazy var newPasswordField2 = createTextField(placeholder: "Reenter new password") { field in
-        field.autocorrectionType = .no
+    lazy var repeatNewPasswordField = createTextField(placeholder: "Repeat New Password") { field in
         field.autocapitalizationType = .none
-        field.textAlignment = .left
+        field.autocorrectionType = .no
         field.isSecureTextEntry = true
     }
     
@@ -46,11 +43,12 @@ class ChangePasswordViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "Change Password"
-        navigationItem.rightBarButtonItem = saveButton
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = doneButton
         
         stackView.addArrangedSubview(oldPasswordField)
         stackView.addArrangedSubview(newPasswordField)
-        stackView.addArrangedSubview(newPasswordField2)
+        stackView.addArrangedSubview(repeatNewPasswordField)
         stackView.addArrangedSubview(spacer)
         
         view.addSubview(stackView)
@@ -58,48 +56,43 @@ class ChangePasswordViewController: UIViewController {
         constrainToSafeArea(stackView)
     }
     
-    func presentSignUpError(_ message: String) {
-        presentSimpleAlert(title: "Failed to change password", message: message)
+    func presentChangePasswordError(_ message: String) {
+        presentSimpleAlert(title: "Change Password Error", message: message)
     }
+    
 }
-
 
 @objc extension ChangePasswordViewController {
     
-    func saveButtonPressed() {
-    
+    func doneButtonPressed() {
         guard oldPasswordField.hasText, let oldPassword = oldPasswordField.text else {
-            return presentSignUpError("Password field cannot be empty")
+            return presentChangePasswordError("Old Password field is empty")
         }
-        
         guard newPasswordField.hasText, let newPassword = newPasswordField.text else {
-            return presentSignUpError("Password field cannot be empty")
+            return presentChangePasswordError("New Password field is empty")
         }
-        
-        guard newPasswordField2.hasText, let newPassword2 = newPasswordField2.text else {
-            return presentSignUpError("Password field cannot be empty")
+        guard repeatNewPasswordField.text == newPassword else {
+            return presentChangePasswordError("New Passwords do not match")
         }
-        
-        guard newPassword == newPassword2 else {
-            return presentSignUpError("New passwords do not match")
+        guard let user = Auth.auth().currentUser, let email = user.email else {
+            return presentChangePasswordError("Could not find user information")
         }
-        
-        let user = Auth.auth().currentUser
-        let credential = EmailAuthProvider.credential(withEmail: (user?.email)!, password: oldPassword)
-        user?.reauthenticate(with: credential, completion: { (result, error) in
+        let spinner = addSpinner()
+        user.reauthenticate(with: EmailAuthProvider.credential(withEmail: email, password: oldPassword)) { _, error in
             if let error = error {
-                self.presentSignUpError(error.localizedDescription)
+                spinner.remove()
+                self.presentChangePasswordError(error.localizedDescription)
             } else {
-                user?.updatePassword(to: newPassword) { error in
+                user.updatePassword(to: newPassword) { error in
+                    spinner.remove()
                     if let error = error {
-                        self.presentSignUpError(error.localizedDescription)
+                        self.presentChangePasswordError(error.localizedDescription)
                     } else {
-                        _ = self.navigationController?.popViewController(animated: true)
+                        self.popFromNavigation()
                     }
                 }
             }
-        })
-        
+        }
     }
     
 }

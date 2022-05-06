@@ -5,6 +5,8 @@
 //  Created by Aly Hirani on 4/4/22.
 //
 
+import Foundation
+
 class User: Codable {
     
     let id: String
@@ -15,6 +17,15 @@ class User: Codable {
         self.id = id
         self.name = name
         self.photoURL = photoURL
+    }
+    
+}
+
+extension User {
+    
+    func copy() throws -> User {
+        let data = try JSONEncoder().encode(self)
+        return try JSONDecoder().decode(Self.self, from: data)
     }
     
 }
