@@ -146,4 +146,10 @@ extension UIViewController {
         return button
     }
     
+    func createCustomBarButton(title: String, style: UIBarButtonItem.Style = .done, action: Selector, customize: ((UIBarButtonItem) -> Void)? = nil) -> UIBarButtonItem {
+        let button = UIBarButtonItem(title: title, style: style, target: self, action: action)
+        customize?(button)
+        return button
+    }
+    
 }

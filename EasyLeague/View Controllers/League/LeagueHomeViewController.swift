@@ -104,17 +104,9 @@ class LeagueHomeViewController: UIViewController {
     
     func editButtonPressed() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Share Invite Identifier", style: .default) { _ in
             let activity = UIActivityViewController(activityItems: [self.league.id], applicationActivities: nil)
             self.present(activity, animated: true)
-        })
-        alert.addAction(UIAlertAction(title: "Edit League", style: .default) { _ in
-            let editController = EditLeagueViewController()
-            editController.user = self.user
-            editController.league = self.league
-            editController.team = self.team
-            self.show(editController, sender: self)
         })
         alert.addAction(UIAlertAction(title: "Enter Scores", style: .default) { _ in
             guard self.user.id == self.league.ownerUserID else {
@@ -127,6 +119,30 @@ class LeagueHomeViewController: UIViewController {
             controller.league = self.league
             self.show(controller, sender: self)
         })
+        alert.addAction(UIAlertAction(title: "Edit League", style: .default) { _ in
+            let editController = EditLeagueViewController()
+            editController.user = self.user
+            editController.league = self.league
+            editController.team = self.team
+            self.show(editController, sender: self)
+        })
+        alert.addAction(UIAlertAction(title: "Delete League", style: .destructive) { _ in
+            let alert = UIAlertController(title: "Would you like to delete this league? This operation is permanent.", message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
+                let spinner = self.addSpinner()
+                Firestore.firestore().leagueCollection.document(self.league.id).delete { error in
+                    spinner.remove()
+                    if let error = error {
+                        self.presentSimpleAlert(title: "Delete League Error", message: error.localizedDescription)
+                    } else {
+                        self.popFromNavigation()
+                    }
+                }
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)
     }
     
