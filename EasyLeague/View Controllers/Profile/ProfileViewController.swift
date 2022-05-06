@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import PhotosUI
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
+import FirebaseStorageSwift
+import CropViewController
 import Kingfisher
 
 class ProfileViewController: UIViewController {
@@ -136,13 +140,21 @@ class ProfileViewController: UIViewController {
         }
         profileCollection.reloadData()
     }
+    
+    func presentChangePhotoError(_ message: String) {
+        presentSimpleAlert(title: "Change Photo Error", message: message)
+    }
 
 }
 
 @objc extension ProfileViewController {
     
     func photoButtonPressed() {
-        
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = .images
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
     }
     
     func overrideSystemAppearanceSwitchPressed() {
@@ -221,6 +233,67 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         collectionView.deselectItem(at: indexPath, animated: true)
         if let controller = self.options[indexPath.row].controller?() {
             show(controller, sender: self)
+        }
+    }
+    
+}
+
+extension ProfileViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        guard !results.isEmpty else { return }
+        let spinner = picker.addSpinner()
+        results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+            DispatchQueue.main.async {
+                spinner.remove()
+                if let image = image as? UIImage {
+                    self.dismiss(animated: true) {
+                        let cropController = CropViewController(croppingStyle: .circular, image: image)
+                        cropController.delegate = self
+                        cropController.cancelButtonHidden = false
+                        cropController.rotateButtonsHidden = true
+                        cropController.resetButtonHidden = true
+                        cropController.doneButtonColor = .appAccent
+                        cropController.modalPresentationStyle = .fullScreen
+                        self.present(cropController, animated: true)
+                    }
+                } else if let error = error {
+                    self.dismiss(animated: true)
+                    self.presentChangePhotoError(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+}
+
+extension ProfileViewController: CropViewControllerDelegate {
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        dismiss(animated: true)
+        guard let photoData = image.pngData() else {
+            return presentChangePhotoError("Profile picture cannot be converted to PNG")
+        }
+        let spinner = addSpinner()
+        Task {
+            do {
+                let ref = Storage.storage().photoReferenceForUser(user.id)
+                _ = try await ref.putDataAsync(photoData)
+                let newURL = try await ref.downloadURL()
+                let copy = try user.copy()
+                copy.photoURL = newURL.absoluteString
+                try Firestore.firestore().documentForUser(copy.id).setData(from: copy) { error in
+                    spinner.remove()
+                    if let error = error {
+                        self.presentChangePhotoError(error.localizedDescription)
+                    } else {
+                        self.popFromNavigation()
+                    }
+                }
+            } catch {
+                spinner.remove()
+                self.presentChangePhotoError(error.localizedDescription)
+            }
         }
     }
     
