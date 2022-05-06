@@ -23,6 +23,8 @@ class ProfileViewController: UIViewController {
     
     var userInterfaceStyle: UserInterfaceStyleWrapper!
     
+    lazy var logOutButton = createCustomBarButton(title: "Log Out", action: #selector(logOutButtonPressed))
+    
     lazy var userLabel = createLabel() { label in
         label.font = .systemFont(ofSize: 25, weight: .semibold)
     }
@@ -65,8 +67,6 @@ class ProfileViewController: UIViewController {
     
     lazy var profileCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier, cellType: UICollectionViewListCell.self)
     
-    lazy var logOutButton = createButton(title: "Log Out", action: #selector(logOutButtonPressed))
-    
     lazy var stackView = createVerticalStack()
     
     var userListener: ListenerRegistration?
@@ -82,10 +82,10 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "Profile"
+        navigationItem.rightBarButtonItem = logOutButton
         
         stackView.addArrangedSubview(userStackView)
         stackView.addArrangedSubview(profileCollection)
-        stackView.addArrangedSubview(logOutButton)
         
         updateDarkModeControls()
         

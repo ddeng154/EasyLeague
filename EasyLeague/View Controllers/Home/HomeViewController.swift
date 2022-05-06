@@ -17,13 +17,16 @@ class HomeViewController: UIViewController {
     
     var leagues: [(league: League, team: Team)] = []
     
-    lazy var createLeagueButton = createBarButton(item: .compose, action: #selector(createLeagueButtonPressed))
+    lazy var createLeagueButton = createCustomBarButton(title: "Create", action: #selector(createLeagueButtonPressed))
+    
+    lazy var joinLeagueButton = createCustomBarButton(title: "Join", action: #selector(joinLeagueButtonPressed))
+    
+    lazy var emptyMessageLabel = createLabel(text: "Create or join a league to get started!") { label in
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.textAlignment = .center
+    }
     
     lazy var leaguesCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier, cellType: UICollectionViewListCell.self)
-    
-    lazy var joinLeagueButton = createButton(title: "Join League", action: #selector(joinLeagueButtonPressed))
-    
-    lazy var stackView = createVerticalStack()
     
     var leaguesListener: ListenerRegistration?
     
@@ -38,14 +41,11 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .appBackground
         
         navigationItem.title = "EasyLeague"
-        navigationItem.rightBarButtonItem = createLeagueButton
+        navigationItem.rightBarButtonItems = [createLeagueButton, joinLeagueButton]
         
-        stackView.addArrangedSubview(leaguesCollection)
-        stackView.addArrangedSubview(joinLeagueButton)
+        view.addSubview(leaguesCollection)
         
-        view.addSubview(stackView)
-        
-        constrainToSafeArea(stackView)
+        constrainToSafeArea(leaguesCollection)
         
         addListener()
     }
@@ -104,7 +104,12 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        leagues.count
+        if leagues.isEmpty {
+            collectionView.setBackground(emptyMessageLabel)
+        } else {
+            collectionView.clearBackground()
+        }
+        return leagues.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

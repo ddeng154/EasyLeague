@@ -17,6 +17,11 @@ class ChatHomeViewController: UIViewController {
     
     var leagues: [League] = []
     
+    lazy var emptyMessageLabel = createLabel(text: "Create or join a league to get started!") { label in
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.textAlignment = .center
+    }
+    
     lazy var leaguesCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier, cellType: UICollectionViewListCell.self)
     
     var leaguesListener: ListenerRegistration?
@@ -72,7 +77,12 @@ class ChatHomeViewController: UIViewController {
 extension ChatHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        leagues.count
+        if leagues.isEmpty {
+            collectionView.setBackground(emptyMessageLabel)
+        } else {
+            collectionView.clearBackground()
+        }
+        return leagues.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -64,6 +64,18 @@ extension UIViewController: UITextFieldDelegate {
     
 }
 
+extension UICollectionView {
+    
+    func setBackground(_ view: UIView) {
+        backgroundView = view
+    }
+    
+    func clearBackground() {
+        backgroundView = nil
+    }
+    
+}
+
 extension Int {
     
     init?(_ description: String?) {

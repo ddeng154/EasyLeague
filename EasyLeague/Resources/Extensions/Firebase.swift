@@ -26,6 +26,10 @@ extension Firestore {
         userCollection.document(id)
     }
     
+    var chatCollection: CollectionReference {
+        collection("chats")
+    }
+    
     func chatsForLeague(_ id: String) -> CollectionReference {
         collection("chats/\(id)/thread")
     }
