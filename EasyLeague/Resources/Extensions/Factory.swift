@@ -74,6 +74,14 @@ extension UIViewController {
         return withAutoLayout(button)
     }
     
+    func createImageButton(action: Selector, height: CGFloat, width: CGFloat) -> UIButton {
+        let button = UIButton()
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.heightAnchor.constraint(equalToConstant: height).isActive = true
+        button.widthAnchor.constraint(equalToConstant: width).isActive = true
+        return withAutoLayout(button)
+    }
+    
     func createTable(for vc: UITableViewDelegate & UITableViewDataSource, allowsSelection: Bool = false, customize: ((UITableView) -> Void)? = nil) -> UITableView {
         let tableView = UITableView()
         tableView.backgroundColor = .appBackground

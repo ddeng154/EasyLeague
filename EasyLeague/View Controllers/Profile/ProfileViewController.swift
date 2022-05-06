@@ -6,18 +6,24 @@
 //
 
 import UIKit
+import PhotosUI
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import FirebaseStorage
+import FirebaseStorageSwift
+import CropViewController
 import Kingfisher
 
 class ProfileViewController: UIViewController {
     
-    static let reuseIdentifier = "ProfileCell"
+    static let reuseIdentifier = "ProfileOptionsCell"
     
     var user: User!
     
     var userInterfaceStyle: UserInterfaceStyleWrapper!
     
-    lazy var userLabel = createLabel(text: user.name) { label in
+    lazy var userLabel = createLabel() { label in
         label.font = .systemFont(ofSize: 25, weight: .semibold)
     }
     
@@ -27,51 +33,47 @@ class ProfileViewController: UIViewController {
     
     lazy var userLabelStack = createVerticalStack(for: [userLabel, emailLabel], spacing: 5, distribution: .fill, alignment: .leading)
     
-    lazy var userPhoto = createImageView { imageView in
-        imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        imageView.kf.setImage(with: URL(string: self.user.photoURL), placeholder: UIImage(systemName: "photo.circle"))
-    }
+    lazy var photoButton = createImageButton(action: #selector(photoButtonPressed), height: 70, width: 70)
     
     lazy var spacer = createSpacer()
     
-    lazy var userStackView = createHorizontalStack(for: [userPhoto, userLabelStack, spacer], spacing: 15, distribution: .fill, alignment: .center)
-    
-    lazy var updateEmailLabel = createLabel(text: "Update Email Address") { label in
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-    }
-    
-    lazy var updatePasswordLabel = createLabel(text: "Change Password") { label in
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-    }
-    
-    lazy var updateEmailView = createHorizontalStack(for: [updateEmailLabel])
-    
-    lazy var updatePasswordView = createHorizontalStack(for: [updatePasswordLabel])
-    
-    lazy var overrideSystemAppearanceLabel = createLabel(text: "Override System Appearance") { label in
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-    }
+    lazy var userStackView = createHorizontalStack(for: [photoButton, userLabelStack, spacer], spacing: 15, distribution: .fill, alignment: .center)
     
     lazy var overrideSystemAppearanceSwitch = createSwitch(action: #selector(overrideSystemAppearanceSwitchPressed))
     
-    lazy var overrideSystemAppearanceStackView = createHorizontalStack(for: [overrideSystemAppearanceLabel, overrideSystemAppearanceSwitch])
-    
-    lazy var darkModeLabel = createLabel(text: "Dark Mode") { label in
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-    }
-    
     lazy var darkModeSwitch = createSwitch(action: #selector(darkModeSwitchPressed))
     
-    lazy var darkModeStackView = createHorizontalStack(for: [darkModeLabel, darkModeSwitch])
-    
-    lazy var profileStacks = [updateEmailView, updatePasswordView, overrideSystemAppearanceStackView]
+    lazy var options: [(name: String, swtch: UISwitch?, enabled: (() -> Bool)?, controller: (() -> UIViewController)?)] = [
+        ("Change Name", nil, nil, {
+            let controller = ChangeNameViewController()
+            controller.user = self.user
+            return controller
+        }),
+        ("Change Email", nil, nil, {
+            let controller = ChangeEmailViewController()
+            controller.user = self.user
+            return controller
+        }),
+        ("Change Password", nil, nil, {
+            let controller = ChangePasswordViewController()
+            controller.user = self.user
+            return controller
+        }),
+        ("Override System Appearance", overrideSystemAppearanceSwitch, nil, nil),
+        ("Dark Mode", darkModeSwitch, { self.overrideSystemAppearanceSwitch.isOn },  nil),
+    ]
     
     lazy var profileCollection = createCollection(for: self, reuseIdentifier: Self.reuseIdentifier, cellType: UICollectionViewListCell.self)
     
     lazy var logOutButton = createButton(title: "Log Out", action: #selector(logOutButtonPressed))
     
     lazy var stackView = createVerticalStack()
+    
+    var userListener: ListenerRegistration?
+    
+    deinit {
+        userListener?.remove()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +92,12 @@ class ProfileViewController: UIViewController {
         view.addSubview(stackView)
         
         constrainToSafeArea(stackView)
+        
+        addListener()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,12 +105,27 @@ class ProfileViewController: UIViewController {
         configureLayout()
     }
     
+    func reloadData() {
+        userLabel.text = user.name
+        emailLabel.text = Auth.auth().currentUser?.email
+        photoButton.kf.setImage(with: URL(string: user.photoURL), for: .normal, placeholder: UIImage(systemName: "photo.circle"))
+    }
+    
     func configureLayout() {
         if let layout = profileCollection.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
-            layout.itemSize = CGSize(width: profileCollection.bounds.width - 15, height: 70)
-            layout.minimumLineSpacing = 20
+            layout.itemSize = CGSize(width: stackView.bounds.width - 15, height: 60)
+            layout.minimumLineSpacing = 15
             layout.sectionInset = UIEdgeInsets(top: 5, left: 7, bottom: 5, right: 7)
+        }
+    }
+    
+    func addListener() {
+        userListener = Firestore.firestore().userCollection.document(user.id).addSnapshotListener { documentSnapshot, _ in
+            guard let snapshot = documentSnapshot else { return }
+            guard let user = try? snapshot.data(as: User.self) else { return }
+            self.user = user
+            self.reloadData()
         }
     }
     
@@ -110,23 +133,29 @@ class ProfileViewController: UIViewController {
         let style = userInterfaceStyle.get()
         if style == .unspecified {
             overrideSystemAppearanceSwitch.setOn(false, animated: false)
-            if profileStacks.count == 4 {
-                profileStacks.removeLast()
-                darkModeStackView.removeFromSuperview()
-            }
+            darkModeSwitch.setOn(false, animated: false)
         } else {
             overrideSystemAppearanceSwitch.setOn(true, animated: false)
-            if profileStacks.count < 4 {
-                profileStacks.append(darkModeStackView)
-            }
             darkModeSwitch.setOn(style == .dark, animated: false)
         }
         profileCollection.reloadData()
+    }
+    
+    func presentChangePhotoError(_ message: String) {
+        presentSimpleAlert(title: "Change Photo Error", message: message)
     }
 
 }
 
 @objc extension ProfileViewController {
+    
+    func photoButtonPressed() {
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = .images
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
     
     func overrideSystemAppearanceSwitchPressed() {
         if overrideSystemAppearanceSwitch.isOn {
@@ -158,7 +187,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        profileStacks.count
+        options.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -176,29 +205,95 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         background.cornerRadius = 15
         cell.backgroundConfiguration = background
         
-        let stack = profileStacks[indexPath.row]
-        if stack === updateEmailView || stack === updatePasswordView {
-            cell.accessories = [.disclosureIndicator()]
-        } else {
+        var content = cell.defaultContentConfiguration()
+        let data = options[indexPath.row]
+        content.text = data.name
+        content.textProperties.font = .systemFont(ofSize: 17, weight: .semibold)
+        cell.contentConfiguration = content
+        
+        if let swtch = data.swtch {
             cell.accessories = []
+            cell.contentView.addSubview(swtch)
+            swtch.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor).isActive = true
+            swtch.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -20).isActive = true
+        } else {
+            cell.accessories = [.disclosureIndicator()]
         }
-        cell.contentView.addSubview(stack)
-        constrainToSafeArea(stack, superview: cell.contentView)
+        
+        if let enabled = data.enabled?() {
+            cell.isUserInteractionEnabled = enabled
+        } else {
+            cell.isUserInteractionEnabled = true
+        }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let stack = profileStacks[indexPath.row]
-        if stack === updateEmailView {
-            let updateEmailController = UpdateEmailViewController()
-            updateEmailController.user = user
-            show(updateEmailController, sender: self)
-        } else if stack === updatePasswordView {
-            let changePasswordController = ChangePasswordViewController()
-            changePasswordController.user = user
-            show(changePasswordController, sender: self)
+        if let controller = self.options[indexPath.row].controller?() {
+            show(controller, sender: self)
+        }
+    }
+    
+}
+
+extension ProfileViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        guard !results.isEmpty else { return }
+        let spinner = picker.addSpinner()
+        results[0].itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+            DispatchQueue.main.async {
+                spinner.remove()
+                if let image = image as? UIImage {
+                    self.dismiss(animated: true) {
+                        let cropController = CropViewController(croppingStyle: .circular, image: image)
+                        cropController.delegate = self
+                        cropController.cancelButtonHidden = false
+                        cropController.rotateButtonsHidden = true
+                        cropController.resetButtonHidden = true
+                        cropController.doneButtonColor = .appAccent
+                        cropController.modalPresentationStyle = .fullScreen
+                        self.present(cropController, animated: true)
+                    }
+                } else if let error = error {
+                    self.dismiss(animated: true)
+                    self.presentChangePhotoError(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+}
+
+extension ProfileViewController: CropViewControllerDelegate {
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToCircularImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        dismiss(animated: true)
+        guard let photoData = image.pngData() else {
+            return presentChangePhotoError("Profile picture cannot be converted to PNG")
+        }
+        let spinner = addSpinner()
+        Task {
+            do {
+                let ref = Storage.storage().photoReferenceForUser(user.id)
+                _ = try await ref.putDataAsync(photoData)
+                let newURL = try await ref.downloadURL()
+                let copy = try user.copy()
+                copy.photoURL = newURL.absoluteString
+                try Firestore.firestore().documentForUser(copy.id).setData(from: copy) { error in
+                    spinner.remove()
+                    if let error = error {
+                        self.presentChangePhotoError(error.localizedDescription)
+                    } else {
+                        self.popFromNavigation()
+                    }
+                }
+            } catch {
+                spinner.remove()
+                self.presentChangePhotoError(error.localizedDescription)
+            }
         }
     }
     
